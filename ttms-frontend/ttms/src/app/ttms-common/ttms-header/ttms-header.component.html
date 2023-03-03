@@ -1,0 +1,35 @@
+<ul class="nav-tabs">
+  <div class="d-flex">
+    <p class="mt-2 h4">TTMS</p>
+    <div class="mt-1 ms-5" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <!-- <p ngbDropdownToggle class="p-1 border border-light h4"><u>Tools</u></p> -->
+      <button type="button" ngbDropdownToggle class="btn btn-outline-dark"><span class="h4">Tools</span></button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem>Meal Prices</button>
+        <button ngbDropdownItem>Schedule</button>
+        <button ngbDropdownItem>Tool 3</button>
+      </div>
+    </div>
+
+    <div class="mt-1 ms-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <!-- <p ngbDropdownToggle class="p-1 border border-light h4"><u>Info</u></p> -->
+      <button type="button" ngbDropdownToggle class="btn btn-outline-dark"><span class="h4">Info</span></button>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem >Agents</button>
+        <button ngbDropdownItem>Clients</button>
+      </div>
+    </div>
+
+    <div class="ms-auto me-2 mt-1" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <div ngbDropdownToggle class="mt-2">
+        <img src="https://via.placeholder.com/40x40" alt="User Avatar" class="me-2 rounded-circle " />
+        <span class="h4">User Name</span>
+      </div>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem>Profile</button>
+        <button ngbDropdownItem>Settings</button>
+        <button ngbDropdownItem>Logout</button>
+      </div>
+    </div>
+  </div>
+</ul>

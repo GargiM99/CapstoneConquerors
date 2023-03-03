@@ -1,9 +1,2 @@
-// Import the Bootstrap variables and mixins
-@import '~bootstrap/scss/_variables.scss';
-@import '~bootstrap/scss/_mixins.scss';
-
-// Import only the Grid system and Reboot CSS
-@import '~bootstrap/scss/_reboot.scss';
-@import '~bootstrap/scss/_grid.scss';
-
-
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
