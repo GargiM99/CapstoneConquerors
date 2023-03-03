@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ttms-header',
@@ -7,7 +8,13 @@ import { Component, OnInit} from '@angular/core';
 })
 export class TtmsHeaderComponent implements OnInit {
 
+  constructor(private router: Router){}
+
   ngOnInit(): void {
+  }
+
+  goToMealsForm(){
+    this.router.navigate(['/meals']);
   }
 
 }

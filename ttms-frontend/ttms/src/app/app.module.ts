@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TtmsCommonModule } from './ttms-common/ttms-common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TtmsMealsModule } from './ttms-meals/ttms-meals.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BrowserModule,
     AppRoutingModule,
     TtmsCommonModule,
-    NgbModule
+    NgbModule,
+    TtmsMealsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
