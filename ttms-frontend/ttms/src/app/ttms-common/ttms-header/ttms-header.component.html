@@ -1,6 +1,6 @@
 
-  <div class="d-flex bg-dark container-fluid" style="--bs-bg-opacity: .1;">
-    <p class="mt-2 h4">TTMS</p>
+  <div class="d-flex bg-dark w-100" style="--bs-bg-opacity: .1;">
+    <p class="mt-2 ms-2 h4" (click)="goToDashboard()">TTMS</p>
     <div class="mt-1 ms-5" ngbDropdown role="group" aria-label="Button group with nested dropdown">
       <p ngbDropdownToggle class="p-1 h4"><u>Tools</u></p>
       <!-- <button type="button" ngbDropdownToggle class="btn btn-outline-dark"><span class="h4">Tools</span></button> -->
@@ -21,8 +21,8 @@
     </div>
 
     <div class="ms-auto me-2 mt-1" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-      <div ngbDropdownToggle class="mt-2">
-        <img src="https://via.placeholder.com/30x30" alt="User Avatar" class="me-2 rounded-circle mb-2" />
+      <div ngbDropdownToggle class="mt-1">
+        <img src="https://via.placeholder.com/30x30" alt="User Avatar" class="me-2 rounded-circle mb-1" />
         <span class="h4 d-none d-sm-inline-block">User Name</span>
       </div>
       <div class="dropdown-menu" ngbDropdownMenu>

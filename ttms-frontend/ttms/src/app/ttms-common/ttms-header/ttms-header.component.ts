@@ -17,4 +17,7 @@ export class TtmsHeaderComponent implements OnInit {
     this.router.navigate(['/meals']);
   }
 
+  goToDashboard(){
+    this.router.navigate(['/']);
+  }
 }
