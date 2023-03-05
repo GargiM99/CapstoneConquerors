@@ -1,0 +1,35 @@
+
+  <div class="d-flex nav-div align-self-center">
+    <p class="logo" (click)="goToDashboard()">TTMS</p>
+    <div class="nav-item" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <p ngbDropdownToggle class="nav-text"><u>Tools</u></p>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem (click)="goToMealsForm()">Meal Prices</button>
+        <button ngbDropdownItem>Schedule</button>
+        <button ngbDropdownItem>Tool 3</button>
+      </div>
+    </div>
+
+    <div class="ms-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <p ngbDropdownToggle class="nav-text"><u>Info</u></p>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem >Agents</button>
+        <button ngbDropdownItem>Clients</button>
+      </div>
+    </div>
+
+    <div class="ms-auto me-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+      <div ngbDropdownToggle>
+        <img src="https://via.placeholder.com/30x30" alt="User Avatar" class="me-2 rounded-circle mb-1" />
+        <span class="h4 d-none d-sm-inline-block">User Name</span>
+      </div>
+      <div class="dropdown-menu" ngbDropdownMenu>
+        <button ngbDropdownItem>Profile</button>
+        <button ngbDropdownItem>Settings</button>
+        <button ngbDropdownItem>Logout</button>
+      </div>
+    </div>
+  </div>
+
+  
+  

@@ -1,0 +1,11 @@
+{
+    "mealPrice": {
+        "qaPrice": 14.99,
+        "qcPrice": 14.99,
+        "faPrice": 29.99,
+        "fcPrice": 25.99,
+        "snackPrice": 8.99
+    },
+    "MAX_PRICE" : 350.00,
+    "MIN_PRICE" : 0.00
+}
