@@ -1,39 +1,83 @@
-<br>
-<form class="d-flex flex-column ms-3 me-4">
-    <div class="border-bottom" style="width: 25rem;">
-        <p class="h2">Meal Prices</p>
-        <small>Change the price for the meal calculator</small>
-    </div>
+<div>
     <br>
+    <form [formGroup]="mealPrice" #mealForm ="ngForm" class="d-flex flex-column ms-3 me-4">
+        <div class="border-bottom" style="width: 25rem;">
+            <p class="h2">Meal Prices</p>
+            <small>Change the price for the meal calculator</small>
+        </div>
+        <br>
 
-    <div class="form-group border border-3 p-2 ps-3">
-        <p class="h5">Quick Service</p>
-        <label for="quickAdultPrice" class="ms-2 mt-1">Adult Price:</label>
-        <input type="number" class="form-control ms-3" id="quickAdultPrice" style="width:15rem" min="0"
-        step = "0.10" aria-describedby="quickAdultPrice" placeholder="Enter Adult Price">
+        <fieldset class="form-group fieldset-form p-2 ps-3">
+            <legend class="fieldset-legend-text pe-2 ps-2">Quick Service</legend>
 
-        <label for="quickAdultPrice" class="ms-2 mt-2">Children Price:</label>
-        <input type="number" class="form-control ms-3" id="quickChildrenPrice" style="width:15rem" min="0"
-        step = "0.10" aria-describedby="quickChildrenPrice" placeholder="Enter Children Price">
-    </div>
+            <label for="quickAdultPrice" class="fieldset-label ms-4">Adult Price:</label>
+            <input type="number" class="form-control ms-5" id="quickAdultPrice" min="0" step="0.10"
+                aria-describedby="quickAdultPrice" placeholder="Enter Adult Price" formControlName="qaPrice">
 
-    <div class="form-group border border-3 p-2 ps-3 mt-4">
-        <p class="h5">Full Service</p>
-        <label for="fullAdultPrice" class="ms-2 mt-1">Adult Price:</label>
-        <input type="number" class="form-control ms-3" id="fullAdultPrice" style="width:15rem" min="0"
-        step = "0.10" aria-describedby="fullAdultPrice" placeholder="Enter Adult Price">
+            <div *ngIf="mealPrice.controls['qaPrice'].invalid && (mealPrice.controls['qaPrice'].dirty || mealPrice.controls['qaPrice'].touched)"
+                class="error ms-5">
+                <div *ngIf="mealPrice.controls['qaPrice'].errors?.['required']">Adult price required.</div>
+                <div *ngIf="mealPrice.controls['qaPrice'].errors?.['min']">Adult price can't be negative.</div>
+                <div *ngIf="mealPrice.controls['qaPrice'].errors?.['max']">Adult price too high.</div>
+            </div>
 
-        <label for="fullAdultPrice" class="ms-2 mt-2">Children Price:</label>
-        <input type="number" class="form-control ms-3" id="fullChildrenPrice" style="width:15rem" min="0"
-        step = "0.10" aria-describedby="fullChildrenPrice" placeholder="Enter Children Price">
-    </div>
+            <label for="quickAdultPrice" class="fieldset-label ms-4 mt-2">Children Price:</label>
+            <input type="number" class="form-control ms-5" id="quickChildrenPrice" min="0"
+                step="0.10" aria-describedby="quickChildrenPrice" placeholder="Enter Children Price"
+                formControlName="qcPrice">
 
-    <div class="form-group border border-3 p-2 ps-3 mt-4 mb-3">
-        <p class="h5">Snacks</p>
-        <label for="snackPrice" class="ms-2 mt-1">Price:</label>
-        <input type="number" class="form-control ms-3" id="snackPrice" style="width:15rem" min="0"
-        step = "0.10" aria-describedby="snackPrice" placeholder="Enter Snack Price">
-    </div>
+            <div *ngIf="mealPrice.controls['qcPrice'].invalid && (mealPrice.controls['qcPrice'].dirty || mealPrice.controls['qcPrice'].touched)"
+                class="error ms-5">
+                <div *ngIf="mealPrice.controls['qcPrice'].errors?.['required']">Child price required.</div>
+                <div *ngIf="mealPrice.controls['qcPrice'].errors?.['min']">Child price can't be negative.</div>
+                <div *ngIf="mealPrice.controls['qcPrice'].errors?.['max']">Child price too high.</div>
+            </div>
 
-    <button type="submit" class="btn btn-primary" style="width: 5rem;">Save</button>
-</form>
+        </fieldset>
+
+        <fieldset class="form-group fieldset-form p-2 ps-3 mt-4">
+            <legend class="fieldset-legend-text pe-2 ps-2">Full Service</legend>
+
+            <label for="fullAdultPrice" class="fieldset-label ms-4 mt-1">Adult Price:</label>
+            <input type="number" class="form-control ms-5" id="fullAdultPrice" min="0" step="0.10"
+                aria-describedby="fullAdultPrice" placeholder="Enter Adult Price" formControlName="faPrice">
+
+            <div *ngIf="mealPrice.controls['faPrice'].invalid && (mealPrice.controls['faPrice'].dirty || mealPrice.controls['faPrice'].touched)"
+                class="error ms-5">
+                <div *ngIf="mealPrice.controls['faPrice'].errors?.['required']">Adult price required.</div>
+                <div *ngIf="mealPrice.controls['faPrice'].errors?.['min']">Adult price can't be negative.</div>
+                <div *ngIf="mealPrice.controls['faPrice'].errors?.['max']">Adult price too high.</div>
+            </div>
+
+            <label for="fullChildrenPrice" class="fieldset-label ms-4 mt-2">Children Price:</label>
+            <input type="number" class="form-control ms-5" id="fullChildrenPrice" min="0" step="0.10"
+                aria-describedby="fullChildrenPrice" placeholder="Enter Children Price" formControlName="fcPrice">
+
+            <div *ngIf="mealPrice.controls['fcPrice'].invalid && (mealPrice.controls['fcPrice'].dirty || mealPrice.controls['fcPrice'].touched)"
+                class="error ms-5">
+                <div *ngIf="mealPrice.controls['fcPrice'].errors?.['required']">Children price required.</div>
+                <div *ngIf="mealPrice.controls['fcPrice'].errors?.['min']">Children price can't be negative.</div>
+                <div *ngIf="mealPrice.controls['fcPrice'].errors?.['max']">Children price too high.</div>
+            </div>
+
+        </fieldset>
+
+        <fieldset class="form-group fieldset-form p-2 ps-3 mt-4 mb-3">
+            <legend class="fieldset-legend-text pe-2 ps-2">Snacks</legend>
+
+            <label for="snackPrice" class="fieldset-label ms-4 mt-1">Price:</label>
+            <input type="number" class="form-control ms-5" id="snackPrice" style="width:15rem" min="0" step="0.10"
+                aria-describedby="snackPrice" placeholder="Enter Snack Price" formControlName="snackPrice">
+
+            <div *ngIf="mealPrice.controls['snackPrice'].invalid && (mealPrice.controls['snackPrice'].dirty || mealPrice.controls['snackPrice'].touched)"
+                class="error ms-5">
+                <div *ngIf="mealPrice.controls['snackPrice'].errors?.['required']">Snack price required.</div>
+                <div *ngIf="mealPrice.controls['snackPrice'].errors?.['min']">Snack price can't be negative.</div>
+                <div *ngIf="mealPrice.controls['snackPrice'].errors?.['max']">Sncak price too high.</div>
+            </div>
+
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!mealForm.valid" (click)="submitMealForm()">Save</button>
+    </form>
+</div>

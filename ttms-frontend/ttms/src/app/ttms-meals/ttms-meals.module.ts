@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TtmsMealFormComponent } from './ttms-meal-form/ttms-meal-form.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { TtmsMealFormComponent } from './ttms-meal-form/ttms-meal-form.component
     TtmsMealFormComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     TtmsMealFormComponent

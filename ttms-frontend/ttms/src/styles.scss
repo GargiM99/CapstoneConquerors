@@ -1,2 +1,34 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+$body-background: #00000006;
+$field-border: #0000004a;
+$field-background: #0000000d;
+
+.fieldset-legend-text {
+    font-size: 2rem;
+    float: none;
+    width: auto;
+
+    @media (max-width: 1250px){
+      font-size: 1.5rem;
+    }
+  }
+
+.fieldset-form{
+  border: 0.1rem solid $field-border;
+  border-radius: 0.5rem;
+  background-color: $field-background;
+}
+
+.fieldset-label{
+  font-size: 1.5rem;
+
+  @media (max-width: 1250px){
+    font-size: 1.2rem;
+  }
+}
+
+.body{
+  background-color: $body-background;
+}
