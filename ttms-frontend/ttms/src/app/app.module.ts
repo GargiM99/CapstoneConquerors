@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TtmsCommonModule } from './ttms-common/ttms-common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TtmsMealsModule } from './ttms-meals/ttms-meals.module';
+import { MealPriceService } from './services/meal-price.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { TtmsMealsModule } from './ttms-meals/ttms-meals.module';
     NgbModule,
     TtmsMealsModule
   ],
-  providers: [],
+  providers: [MealPriceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

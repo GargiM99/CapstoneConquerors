@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TtmsMealFormComponent } from './ttms-meal-form/ttms-meal-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MealPriceService } from '../services/meal-price.service';
 
 
 @NgModule({
@@ -14,6 +15,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     TtmsMealFormComponent
+  ],
+  providers: [
+    MealPriceService
   ]
 })
 export class TtmsMealsModule { }

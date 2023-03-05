@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MealPrices } from 'src/app/classes/meal-prices';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MealPriceService } from 'src/app/services/meal-price.service';
+import { Router } from '@angular/router';
 
 /*
 * author: Hamza Atcha
@@ -13,39 +15,54 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './ttms-meal-form.component.html',
   styleUrls: ['./ttms-meal-form.component.scss']
 })
+
 export class TtmsMealFormComponent {
-  
+
+  importMealPrices : MealPrices = this.mealPriceService.mealPrices;
+  numRegex = /^-?\d*[.,]?\d{0,2}$/;
+
+  constructor(private mealPriceService : MealPriceService, private router: Router){}
+
   //Valdiator for the meal prices
   mealPrice = new FormGroup({
-    qaPrice: new FormControl(0, [
+    qaPrice: new FormControl(this.importMealPrices.qaPrice, [
       Validators.required,
-      Validators.min(0),
-      Validators.max(250)
+      Validators.min(MealPriceService.MIN_PRICE),
+      Validators.max(MealPriceService.MAX_PRICE)
     ]),
-    qcPrice: new FormControl(0, [
+    qcPrice: new FormControl(this.importMealPrices.qcPrice, [
       Validators.required,
-      Validators.min(0),
-      Validators.max(250)
+      Validators.min(MealPriceService.MIN_PRICE),
+      Validators.max(MealPriceService.MAX_PRICE)
     ]),
-    faPrice: new FormControl(0, [
+    faPrice: new FormControl(this.importMealPrices.faPrice, [
       Validators.required,
-      Validators.min(0),
-      Validators.max(450)
+      Validators.min(MealPriceService.MIN_PRICE),
+      Validators.max(MealPriceService.MAX_PRICE + 100)
     ]),
-    fcPrice: new FormControl(0, [
+    fcPrice: new FormControl(this.importMealPrices.fcPrice, [
       Validators.required,
-      Validators.min(0),
-      Validators.max(450)
+      Validators.min(MealPriceService.MIN_PRICE),
+      Validators.max(MealPriceService.MAX_PRICE + 100)
     ]),
-    snackPrice: new FormControl(0, [
+    snackPrice: new FormControl(this.importMealPrices.snackPrice, [
       Validators.required,
-      Validators.min(0),
-      Validators.max(250)
+      Validators.min(MealPriceService.MIN_PRICE),
+      Validators.max(MealPriceService.MAX_PRICE - 50)
     ])
   })
 
+  //Updates the meal price on the server
   submitMealForm(){
-    alert('test')
+    let newMealPrices = <MealPrices>this.mealPrice.value
+    let validPrices = this.mealPriceService.saveMealPrices(newMealPrices)
+
+    if (validPrices){
+      this.router.navigate(['/']);
+    }
+    
+    else{
+      alert("Could not update price")
+    }
   }
-  constructor(){}
 }
