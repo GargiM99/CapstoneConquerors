@@ -1,0 +1,10 @@
+package ca.ttms.services;
+
+
+public class JWTService {
+	
+	//TODO: Have the secret key be auto generated
+	//Key of HS512 
+	private static final String SECRET_KEY = "782F413F4428472B4B6150645367566B5970337336763979244226452948404D6351655468576D5A7134743777217A25432A462D4A614E645267556A586E3272";
+	
+}

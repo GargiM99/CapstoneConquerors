@@ -1,4 +1,4 @@
-package ca.ttms.repository;
+package ca.ttms.repositories;
 
 import java.util.Optional;
 
