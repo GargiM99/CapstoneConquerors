@@ -21,7 +21,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Hamza & Akshat date: 2023/03/07 description: Class for users of ttms
+ * @author Hamza & Akshat 
+ * date: 2023/03/07 
+ * description: Class for users of ttms
  */
 
 //Uses this class as an object for JPA
@@ -30,7 +32,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "_user")
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
