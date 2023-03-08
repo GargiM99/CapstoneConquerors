@@ -19,7 +19,6 @@ import { Router } from '@angular/router';
 export class TtmsMealFormComponent {
 
   importMealPrices : MealPrices = this.mealPriceService.mealPrices;
-  numRegex = /^-?\d*[.,]?\d{0,2}$/;
 
   constructor(private mealPriceService : MealPriceService, private router: Router){}
 
