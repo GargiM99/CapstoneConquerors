@@ -7,6 +7,9 @@ import { TtmsCommonModule } from './ttms-common/ttms-common.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TtmsMealsModule } from './ttms-meals/ttms-meals.module';
 import { MealPriceService } from './services/meal-price.service';
+import { AuthenticationService } from './auth/authentication.service';
+import { HttpClient, HttpClientModule, HttpHandler, HttpHeaders } from '@angular/common/http';
+import { TtmsLoginModule } from './ttms-login/ttms-login.module';
 
 @NgModule({
   declarations: [
@@ -17,9 +20,14 @@ import { MealPriceService } from './services/meal-price.service';
     AppRoutingModule,
     TtmsCommonModule,
     NgbModule,
-    TtmsMealsModule
+    TtmsMealsModule,
+    TtmsLoginModule,
+    HttpClientModule
   ],
-  providers: [MealPriceService],
+  providers: [
+    MealPriceService,
+    HttpClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

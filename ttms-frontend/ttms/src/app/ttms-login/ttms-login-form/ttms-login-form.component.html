@@ -3,12 +3,14 @@
     <p>Please Login</p>
 
     <div>
-        <form class="form-group">
+        <form class="form-group" [formGroup]="loginDetails" #loginForm ="ngForm" (submit)="loginBtn()">
             <label for="username">Username:</label>
-            <input type="text" class="form-control" id="usernmae" aria-describedby="username" placeholder="Enter Username">
+            <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter Username"
+            formControlName="username">
             <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
-            <button type="submit" class="btn btn-primary" (click)="loginBtn()">Login</button>
+            <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="Enter password"
+            formControlName="password">
+            <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
 </div>

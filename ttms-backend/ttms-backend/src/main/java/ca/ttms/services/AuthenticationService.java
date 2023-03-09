@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ca.ttms.beans.ResponseToken;
 import ca.ttms.beans.Roles;
 import ca.ttms.beans.Token;
 import ca.ttms.beans.TokenTypes;
@@ -36,8 +37,7 @@ public class AuthenticationService {
 	//TODO: Create functions to generate username from name
 	//TODO: Check that the details are valid
 	//Register a user, adds it to the server, and returns a JWT
-	public String registerUser(UserRegisterDetails userDetails) {
-		System.out.println("test\n");
+	public ResponseToken registerUser(UserRegisterDetails userDetails) {
 		var newUser = User
 				.builder()
 				.firstname(userDetails.getFirstname())
@@ -48,17 +48,15 @@ public class AuthenticationService {
 				.role(Roles.ADMIN)
 				.build();
 		
-		System.out.println(newUser.toString());
-		
 		var savedUser = userRepo.save(newUser);
 		var jwtoken = jwtService.generateJwtoken(newUser);
 		
 		saveUserToken(savedUser, jwtoken);
-		return jwtoken;
+		return new ResponseToken(jwtoken);
 	}
 
 	//Creates user with specified role
-	public String registerUser(UserRegisterDetails userDetails, Roles role) {
+	public ResponseToken registerUser(UserRegisterDetails userDetails, Roles role) {
 		
 		var newUser = User
 				.builder()
@@ -74,11 +72,11 @@ public class AuthenticationService {
 		var jwtoken = jwtService.generateJwtoken(newUser);
 		
 		saveUserToken(savedUser, jwtoken);
-		return jwtoken;
+		return new ResponseToken(jwtoken);
 	}
 	
 	//Authenticates a user based on credentials
-	public String authenticateUser(UserAuthenticationDetails authDetails) {
+	public ResponseToken authenticateUser(UserAuthenticationDetails authDetails) {
 	    authenticationManager.authenticate(
 	    	new UsernamePasswordAuthenticationToken(
 	    		authDetails.getUsername(),
@@ -93,7 +91,7 @@ public class AuthenticationService {
 	    var jwtoken = jwtService.generateJwtoken(claimMap, user);
 	    saveUserToken(user, jwtoken);
 	    
-	    return jwtoken;
+	    return new ResponseToken(jwtoken);
 	}
 	
 	//Saves token along with the user, and status to the database

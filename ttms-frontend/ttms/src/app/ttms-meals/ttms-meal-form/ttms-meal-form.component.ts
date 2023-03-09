@@ -47,7 +47,7 @@ export class TtmsMealFormComponent {
     snackPrice: new FormControl(this.importMealPrices.snackPrice, [
       Validators.required,
       Validators.min(MealPriceService.MIN_PRICE),
-      Validators.max(MealPriceService.MAX_PRICE - 50)
+      Validators.max(MealPriceService.MAX_PRICE - 50) 
     ])
   })
 
