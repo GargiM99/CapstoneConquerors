@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { LoginDetails } from '../classes/login-details';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenService : TokenService) { }
 
   authenticateUser(loginDetails : LoginDetails) {
 
@@ -24,7 +25,7 @@ export class AuthenticationService {
     let jwtoken = this.http.post<string>('http://localhost:8080/api/auth/authenticate', JSON.stringify(data), { headers: headers })
     
     jwtoken.subscribe({
-      next : (value) => {localStorage.setItem("token",JSON.stringify(value))},
+      next : (value) => {this.tokenService.setToken(value); this.tokenService.setLSToken()},
       error : console.log
     })
   }
