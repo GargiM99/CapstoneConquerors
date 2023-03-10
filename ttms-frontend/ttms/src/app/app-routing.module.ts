@@ -5,7 +5,7 @@ import { TtmsLoginFormComponent } from './ttms-login/ttms-login-form/ttms-login-
 import { TtmsDashboardContentComponent } from './ttms-dashboard/ttms-dashboard-content/ttms-dashboard-content.component';
 import { TokenService } from './auth/token.service';
 
-
+//Functions for checking if user's token is expired or is not null
 const canActivateUser : CanActivateFn =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
         return inject(TokenService).canActivate();

@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+/*
+* author: Hamza
+* date: 2023/03/09
+* description: Service to decode token's details, and check expiration
+*/
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +33,14 @@ export class TokenService {
 
   getClaims(): any {
     return this.claims;
+  }
+
+  getSubject(): any{
+    return this.claims.sub;
+  }
+
+  getRole(): any{
+    return this.claims.Role;
   }
 
   getExpirationDate(): Date | null {

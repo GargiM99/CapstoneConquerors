@@ -11,23 +11,28 @@ import { LoginDetails } from 'src/app/classes/login-details';
 })
 export class TtmsLoginFormComponent {
 
+  isAuthenticated : boolean = true;
+
   constructor (private router : Router, private authService : AuthenticationService){}
 
   loginDetails = new FormGroup({
     username: new FormControl("", [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50)
+      Validators.minLength(3)
     ]),
     password: new FormControl("", [
       Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(50)
+      Validators.minLength(3)
     ])
   })
 
+  //Functions for login button which authenticates user
   loginBtn(){
-    this.authService.authenticateUser(<LoginDetails>this.loginDetails.value)
-    this.router.navigate(['/']);
+    this.authService.authenticateUser(<LoginDetails>this.loginDetails.value).then(
+      (isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated 
+        this.router.navigate(['/']);
+      }
+    )
   }
 }

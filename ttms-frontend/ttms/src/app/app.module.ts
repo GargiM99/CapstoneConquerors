@@ -14,11 +14,7 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 export function jwtOptionsFactory() {
   return {
-    tokenGetter: () => {
-      return localStorage.getItem('jwtoken');
-    },
-    allowedDomains: ['example.com'],
-    disallowedRoutes: ['example.com/auth/login'],
+    tokenGetter: () => {return localStorage.getItem('jwtoken')}
   };
 }
 
@@ -34,12 +30,7 @@ export function jwtOptionsFactory() {
     TtmsMealsModule,
     TtmsLoginModule,
     HttpClientModule,
-    JwtModule.forRoot({
-      jwtOptionsProvider: {
-        provide: JWT_OPTIONS,
-        useFactory: jwtOptionsFactory,
-      },
-    }),
+    JwtModule.forRoot({jwtOptionsProvider: {provide: JWT_OPTIONS, useFactory: jwtOptionsFactory,},}),
   ],
   providers: [
     MealPriceService,

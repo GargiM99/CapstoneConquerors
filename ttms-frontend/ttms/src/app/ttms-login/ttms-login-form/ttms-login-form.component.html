@@ -3,13 +3,26 @@
     <p>Please Login</p>
 
     <div>
-        <form class="form-group" [formGroup]="loginDetails" #loginForm ="ngForm" (submit)="loginBtn()">
+        <p *ngIf="!isAuthenticated">Password or username is incorrect</p>
+        <form class="form-group" [formGroup]="loginDetails" #loginForm="ngForm" (submit)="loginBtn()">
             <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" aria-describedby="username" placeholder="Enter Username"
-            formControlName="username">
+            <input type="text" class="form-control" id="username" aria-describedby="username"
+                placeholder="Enter Username" formControlName="username">
+
+            <div *ngIf="loginDetails.controls['username'].invalid && (loginDetails.controls['username'].dirty)"
+                class="error">
+                <div *ngIf="loginDetails.controls['username'].errors?.['required']">Please enter a username.</div>
+            </div>
+
             <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" aria-describedby="password" placeholder="Enter password"
-            formControlName="password">
+            <input type="password" class="form-control" id="password" aria-describedby="password"
+                placeholder="Enter password" formControlName="password">
+
+            <div *ngIf="loginDetails.controls['password'].invalid && (loginDetails.controls['password'].dirty)"
+                class="error">
+                <div *ngIf="loginDetails.controls['password'].errors?.['required']">Please enter a password.</div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
