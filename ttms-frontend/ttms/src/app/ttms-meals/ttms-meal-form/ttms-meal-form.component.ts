@@ -19,7 +19,6 @@ import { Router } from '@angular/router';
 export class TtmsMealFormComponent {
 
   importMealPrices : MealPrices = this.mealPriceService.mealPrices;
-  numRegex = /^-?\d*[.,]?\d{0,2}$/;
 
   constructor(private mealPriceService : MealPriceService, private router: Router){}
 
@@ -48,7 +47,7 @@ export class TtmsMealFormComponent {
     snackPrice: new FormControl(this.importMealPrices.snackPrice, [
       Validators.required,
       Validators.min(MealPriceService.MIN_PRICE),
-      Validators.max(MealPriceService.MAX_PRICE - 50)
+      Validators.max(MealPriceService.MAX_PRICE - 50) 
     ])
   })
 

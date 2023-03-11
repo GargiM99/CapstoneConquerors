@@ -1,4 +1,4 @@
 <div>
-  <app-ttms-header></app-ttms-header>
+  <app-ttms-header *ngIf="router.url != '/login'"></app-ttms-header>
   <router-outlet></router-outlet> 
 </div>
