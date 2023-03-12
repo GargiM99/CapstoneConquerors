@@ -93,7 +93,7 @@ public class MealService {
 	 */
 	private String getDefaultPath () {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
-		String extraPath = "\\ttms-frontend\\ttms\\src\\assets\\data\\mealPrice.json";
+		String extraPath = "\\ttms-frontend\\ttms\\src\\assets\\data\\mealPriceData.json";
 		return parentDir + extraPath;
 	}
 	

@@ -28,11 +28,11 @@ export class AuthenticationService {
       "password": `${loginDetails.password}`
     };
 
-    let jwtoken = this.http.post<string>('http://localhost:8080/api/auth/authenticate', JSON.stringify(data), { headers: headers })
+    let response = this.http.post<string>('http://localhost:8080/api/auth/authenticate', JSON.stringify(data), { headers: headers })
     
     //Async promise which sets the token if password is valid 
     return new Promise((resolve)=>{
-      jwtoken.subscribe({
+      response.subscribe({
         next: (token) => {
           this.tokenService.setToken(token)
           this.tokenService.setLSToken()

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResponseMealUpdate {
-	private boolean priceUpdated;
+	private boolean isPriceUpdated;
 }

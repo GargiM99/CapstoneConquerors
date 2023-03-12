@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 export class TtmsMealFormComponent {
 
   importMealPrices : MealPrices = this.mealPriceService.mealPrices;
+  isPriceUpdated : boolean = true;
 
   constructor(private mealPriceService : MealPriceService, private router: Router){}
 
@@ -54,14 +55,15 @@ export class TtmsMealFormComponent {
   //Updates the meal price on the server
   submitMealForm(){
     let newMealPrices = <MealPrices>this.mealPrice.value
-    let validPrices = this.mealPriceService.saveMealPrices(newMealPrices) 
+    let updatePromise = this.mealPriceService.saveMealPrices(newMealPrices) 
 
-    if (validPrices){
-      this.router.navigate(['/']);
-    }
-    
-    else{
-      alert("Could not update price")
-    }
+    updatePromise.then(
+      (isPriceUpdated) =>{
+        this.isPriceUpdated = isPriceUpdated
+        
+        if (isPriceUpdated)
+          this.router.navigate(['/']);
+      }
+    )
   }
 }

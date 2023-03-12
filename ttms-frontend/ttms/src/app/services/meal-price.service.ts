@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MealPrices } from '../classes/meal-prices';
 import mealPriceData from '../../assets/data/mealPriceData.json'
+import { TokenService } from '../auth/token.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+/*
+* author: Hamza
+* date: 2023/03/10
+* description: Manages the meal prices
+*/
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +16,12 @@ import mealPriceData from '../../assets/data/mealPriceData.json'
 
 export class MealPriceService {
 
-  static readonly MAX_PRICE = mealPriceData.MAX_PRICE
-  static readonly MIN_PRICE = mealPriceData.MIN_PRICE
+  constructor(private tokenService: TokenService, private http: HttpClient) { }
 
-  private _mealPrices: MealPrices = mealPriceData.mealPrice
+  static readonly MAX_PRICE = 350
+  static readonly MIN_PRICE = 0
+
+  private _mealPrices: MealPrices = mealPriceData
 
   get mealPrices() {
     return this._mealPrices
@@ -23,24 +33,25 @@ export class MealPriceService {
   }
 
   //Saves meals prices to the backend server
-  saveMealPrices(newMealPrices: MealPrices){
-    if (this.validateMealPrice(newMealPrices))
-      return true
+  async saveMealPrices(newMealPrices: MealPrices): Promise<boolean> {
+    if (this.validateMealPrice(newMealPrices)) {
 
-    else
-      return false
-    //TODO: Send a POST request to server to save data
-  }
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.tokenService.getToken()}`
+      });
 
-  //Formats prices with 2 decimal points
-  formatPriceJSON(newMealPrices : MealPrices){
-    return{
-      "qaPrice": (Math.round(newMealPrices.qaPrice * 100) / 100).toFixed(2),
-      "qcPrice": (Math.round(newMealPrices.qcPrice * 100) / 100).toFixed(2),
-      "faPrice": (Math.round(newMealPrices.faPrice * 100) / 100).toFixed(2),
-      "fcPrice": (Math.round(newMealPrices.fcPrice * 100) / 100).toFixed(2),
-      "snackPrice": (Math.round(newMealPrices.snackPrice * 100) / 100).toFixed(2)
+      let response = this.http.post<any>('http://localhost:8080/api/meals', JSON.stringify(newMealPrices), { headers: headers })
+
+      return new Promise((resolve) => {
+        response.subscribe({
+          next: (isPriceUpdated) => { resolve(isPriceUpdated.priceUpdated) },
+          error: () => { resolve(false) }
+        })
+      })
     }
+
+    return false
   }
 
   //Validates meal price just incase price is too high or low
@@ -65,6 +76,4 @@ export class MealPriceService {
 
     return true
   }
-
-  constructor() { }
 }

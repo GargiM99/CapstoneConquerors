@@ -28,7 +28,7 @@ export class TokenService {
   }
 
   getToken(): string {
-    return this.token;
+    return JSON.parse(JSON.parse(this.token)).token;
   }
 
   getClaims(): any {
@@ -41,7 +41,7 @@ export class TokenService {
 
   getRole(): any{
     return this.claims.Role;
-  }
+  } 
 
   getExpirationDate(): Date | null {
     return this.expirationDate;
