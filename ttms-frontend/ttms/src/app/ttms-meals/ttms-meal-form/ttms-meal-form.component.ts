@@ -54,7 +54,7 @@ export class TtmsMealFormComponent {
   //Updates the meal price on the server
   submitMealForm(){
     let newMealPrices = <MealPrices>this.mealPrice.value
-    let validPrices = this.mealPriceService.saveMealPrices(newMealPrices)
+    let validPrices = this.mealPriceService.saveMealPrices(newMealPrices) 
 
     if (validPrices){
       this.router.navigate(['/']);
