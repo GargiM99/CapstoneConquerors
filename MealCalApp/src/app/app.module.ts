@@ -8,8 +8,7 @@ import { MealCalComponent } from './meal-cal/meal-cal.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MealCalComponent,
-
+    MealCalComponent
   ],
   imports: [
     BrowserModule,
