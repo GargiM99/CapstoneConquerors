@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginDetails } from '../classes/login-details';
 import { TokenService } from './token.service';
+import endPoints from '../../assets/data/endpoints.json'
 
 /*
 * author: Hamza
@@ -13,7 +14,7 @@ import { TokenService } from './token.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-
+ 
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
   async authenticateUser(loginDetails: LoginDetails) : Promise<boolean> {
@@ -28,7 +29,7 @@ export class AuthenticationService {
       "password": `${loginDetails.password}`
     };
 
-    let response = this.http.post<string>('http://localhost:8080/api/auth/authenticate', JSON.stringify(data), { headers: headers })
+    let response = this.http.post<string>(endPoints.authenticate, JSON.stringify(data), { headers: headers })
     
     //Async promise which sets the token if password is valid 
     return new Promise((resolve)=>{

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MealPrices } from '../classes/meal-prices';
 import mealPriceData from '../../assets/data/mealPriceData.json'
+import endPoints from '../../assets/data/endpoints.json'
 import { TokenService } from '../auth/token.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -25,7 +26,7 @@ export class MealPriceService {
 
   get mealPrices() {
     return this._mealPrices
-  }
+  } 
 
   set mealPrices(newMealPrices: MealPrices) {
     if (this.validateMealPrice(newMealPrices))
@@ -41,7 +42,7 @@ export class MealPriceService {
         'Authorization': `Bearer ${this.tokenService.getToken()}`
       });
 
-      let response = this.http.post<any>('http://localhost:8080/api/meals', JSON.stringify(newMealPrices), { headers: headers })
+      let response = this.http.post<any>(endPoints.meal, JSON.stringify(newMealPrices), { headers: headers })
 
       return new Promise((resolve) => {
         response.subscribe({
