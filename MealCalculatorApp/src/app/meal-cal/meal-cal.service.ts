@@ -16,11 +16,11 @@ export class MealService {
 
     // Calculate the average meal price per person per day
     const mealsPerDay = adults + children;
-    const mealPricePerDay = 15; // Sample value
+    const mealPricePerDay = 10; // Sample value
     const mealPricePerPersonPerDay = mealPricePerDay / mealsPerDay;
 
     // Calculate the price of snacks
-    const snackPricePerDay = snacksPreference ? 10 : 0;
+    const snackPricePerDay = snacksPreference ? 5 : 0;
 
     // Calculate the total price
     const totalPricePerDay = mealPricePerPersonPerDay + snackPricePerDay;
