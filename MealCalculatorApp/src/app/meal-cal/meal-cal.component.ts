@@ -17,6 +17,7 @@ export class MealCalComponent {
   totalPrice: number=0;
   totalPricePerDay: number=0;
   errorMessage: string='';
+  adultsError: string = '';
 
 
   constructor(private mealService: MealService) {}
@@ -27,6 +28,8 @@ export class MealCalComponent {
       this.snackPrice = this.snacksPreference ? 5 : 0;
       this.totalPricePerDay = this.mealPrice + this.snackPrice;
       this.totalPrice = this.totalPricePerDay * this.days * (this.FulldaysPerService+this.QuickdaysPerService);
+       // Clear error message if calculation succeeds
+       this.errorMessage = '';
     } catch (e) {
       console.error(e);
       this.errorMessage = "An error occurred while calculating the meal prices. Please try again later.";

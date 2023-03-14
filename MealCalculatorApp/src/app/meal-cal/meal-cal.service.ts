@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MealService {
-
+ 
   calculateMealPrice(adults: number, children: number, days: number, _FulldaysPerService: number,_QuickdaysPerService:number, snacksPreference: boolean): number {
     // Validate user input
     if (adults <= 0 || children <= 0 || days <= 0 || _FulldaysPerService <= 0 || _QuickdaysPerService <= 0) {
