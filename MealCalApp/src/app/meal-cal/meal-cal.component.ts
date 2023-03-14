@@ -30,11 +30,11 @@ export class MealCalComponent {
       this.snackPrice = this.snacksPreference ? 5 : 0;
       this.totalPricePerDay = this.mealPrice + this.snackPrice;
       this.totalPrice = this.totalPricePerDay * this.days * (this.FulldaysPerService+this.QuickdaysPerService);
-    this.adultsError = this.validateNumberInput(this.adults, 'Number of adults');
-    this.childrenError = this.validateNumberInput(this.children, 'Number of children');
-    this.daysError = this.validateNumberInput(this.days, 'Number of days');
-    this.FulldaysPerServiceError = this.validateNumberInput(this.FulldaysPerService, 'Number of days for Full Service');
-    this.QuickdaysPerServiceError = this.validateNumberInput(this.QuickdaysPerService, 'Number of days for Quick Service');
+    this.adultsError = this.validateNumberInput(this.adults, '');
+    this.childrenError = this.validateNumberInput(this.children, '');
+    this.daysError = this.validateNumberInput(this.days, '');
+    this.FulldaysPerServiceError = this.validateNumberInput(this.FulldaysPerService, '');
+    this.QuickdaysPerServiceError = this.validateNumberInput(this.QuickdaysPerService, '');
 
     if (!this.adultsError && !this.childrenError && !this.daysError && !this.FulldaysPerServiceError && !this.QuickdaysPerServiceError) {
       // Calculate meal price using the meal service
