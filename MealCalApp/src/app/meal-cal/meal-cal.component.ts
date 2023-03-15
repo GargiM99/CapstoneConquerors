@@ -37,6 +37,7 @@ export class MealCalComponent {
     this.QuickdaysPerServiceError = this.validateNumberInput(this.QuickdaysPerService, '');
 
     if (!this.adultsError && !this.childrenError && !this.daysError && !this.FulldaysPerServiceError && !this.QuickdaysPerServiceError) {
+
       // Calculate meal price using the meal service
       this.mealPrice = this.mealService.calculateMealPrice(this.adults, this.children, this.days, this.FulldaysPerService, this.QuickdaysPerService, this.snacksPreference);
     }
@@ -46,6 +47,9 @@ export class MealCalComponent {
     if (inputValue <= 0 || isNaN(inputValue)) {
       return `${inputName}Enter a positive number above 0.`;
     }
+    
+
+
     return '';
   }
 }
