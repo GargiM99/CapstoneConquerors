@@ -53,7 +53,7 @@ public class JWTService {
 		return extractClaims(jwtoken, Claims::getExpiration);
 	}
 
-	/*
+	/**
 	 * description: Extract certain claims using various functions
 	 * param jwtoken: A string JWT whose claims need to be extracted
 	 * param claimsResolver: A function which will extract certain claims

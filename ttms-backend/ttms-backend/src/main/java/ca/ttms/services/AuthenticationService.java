@@ -35,9 +35,11 @@ public class AuthenticationService {
 	
 	
 	//TODO: Create functions to generate username from name
-	//TODO: Check that the details are valid
 	//Register a user, adds it to the server, and returns a JWT
 	public ResponseToken registerUser(UserRegisterDetails userDetails) {
+		if (userDetails == null || !userDetails.isValid())
+			return null;
+		
 		var newUser = User
 				.builder()
 				.firstname(userDetails.getFirstname())
@@ -57,6 +59,8 @@ public class AuthenticationService {
 
 	//Creates user with specified role
 	public ResponseToken registerUser(UserRegisterDetails userDetails, Roles role) {
+		if (userDetails == null || !userDetails.isValid())
+			return null;
 		
 		var newUser = User
 				.builder()

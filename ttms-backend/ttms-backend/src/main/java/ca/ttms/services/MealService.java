@@ -27,7 +27,7 @@ public class MealService {
 	 */
 	public boolean updateMealPrice(MealPriceDetails details, String filePath) {
 		try {
-			if (!this.validateMealPrice(details))
+			if (!details.validateMealPrice(MAX_PRICE, MIN_PRICE))
 				return false;
 			
 			JsonService.writeJsonObject(details, filePath);
@@ -45,7 +45,7 @@ public class MealService {
 	 */
 	public boolean updateMealPrice(MealPriceDetails details) {
 		try {
-			if (!this.validateMealPrice(details))
+			if (!details.validateMealPrice(MAX_PRICE, MIN_PRICE))
 				return false;
 			
 			JsonService.writeJsonObject(details, this.getDefaultPath());
@@ -94,25 +94,7 @@ public class MealService {
 	private String getDefaultPath () {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
 		String extraPath = "\\ttms-frontend\\ttms\\src\\assets\\data\\mealPriceData.json";
+		
 		return parentDir + extraPath;
-	}
-	
-	public boolean validateMealPrice (MealPriceDetails details) {
-		if (details.getFaPrice() <= MIN_PRICE || details.getFaPrice() >= MAX_PRICE)
-			return false;
-		
-		else if (details.getFcPrice() <= MIN_PRICE || details.getFcPrice() >= MAX_PRICE)
-			return false;
-		
-		else if (details.getQaPrice() <= MIN_PRICE || details.getQaPrice() >= MAX_PRICE)
-			return false;
-		
-		else if (details.getQcPrice() <= MIN_PRICE || details.getQcPrice() >= MAX_PRICE)
-			return false;
-		
-		else if (details.getSnackPrice() <= MIN_PRICE || details.getSnackPrice() >= MAX_PRICE)
-			return false;
-		
-		return true;
 	}
 }

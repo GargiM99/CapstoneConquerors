@@ -25,7 +25,7 @@ export class TokenService {
     this.token = token;
     this.claims = this.jwtHelper.decodeToken(<string>token);
     this.expirationDate = this.jwtHelper.getTokenExpirationDate(token);
-  }
+  } 
 
   getToken(): string {
     return JSON.parse(JSON.parse(this.token)).token;
