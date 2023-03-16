@@ -9,22 +9,27 @@ import org.junit.jupiter.api.Test;
 import ca.ttms.beans.MealPriceDetails;
 
 /**
- * description: Test meal service for reading and writing
+ * Test meal service for reading and writing
+ * 
  * @author hamza
- * @since: 2022/03/12
+ * @Date: 2022/03/12
  */
 class TestMealService {
 	
 	private final MealService service = new MealService();
 	
-	//Test updating price with proper input
+	/**
+	 * Test updating price with proper input
+	 */
 	@Test
 	void testPassUpdateMealPrice1() {
 		MealPriceDetails details = new MealPriceDetails(12.99,12.99,12.99,12.99,12.99);
 		assertTrue(service.updateMealPrice(details), "File should be updated");
 	}
 	
-	//Test if there is a incorrect input as with only one price
+	/**
+
+	 */
 	@Test
 	void testPassUpdateMealPrice2() {
 		MealPriceDetails details = new MealPriceDetails();
@@ -32,14 +37,18 @@ class TestMealService {
 		assertFalse(service.updateMealPrice(details), "Mealprice should be invalid");
 	}
 	
-	//Test update meal price with null as a filepath
+	/**
+	 * Test update meal price with null as a filepath
+	 */
 	@Test
 	void testFailUpdateMealPrice() {
 		MealPriceDetails details = new MealPriceDetails(12.99,12.99,12.99,12.99,12.99);
 		assertFalse(service.updateMealPrice(details,null), "File should return false");
 	}
 	
-	//Test getting meal prices for a specific location
+	/**
+	 * Test getting meal prices for a specific location
+	 */
 	@Test
 	void testPassGetMealPrice1() {
 		MealPriceDetails details = new MealPriceDetails(12.99,12.99,12.99,12.99,12.99);
@@ -48,7 +57,9 @@ class TestMealService {
 		assertTrue(details.equals(checkDetails), "File should be the same");
 	}
 	
-	//Test getting meal prices for a specific location
+	/**
+	 * Test getting meal prices for a specific location
+	 */
 	@Test
 	void testPassGetMealPrice2() {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
@@ -60,7 +71,9 @@ class TestMealService {
 		assertTrue(details.equals(checkDetails), "File should be the same");
 	}
 	
-	//Test if read location is different then write
+	/**
+	 * Test if read location is different then write
+	 */
 	@Test
 	void testFailGetMealPrice() {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();

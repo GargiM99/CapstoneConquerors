@@ -1,27 +1,26 @@
 package ca.ttms.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import ca.ttms.beans.MealPriceDetails;
 import ca.ttms.beans.UserAuthenticationDetails;
 
 public class TestJSONService {
 
 	private final JSONService jsonService = new JSONService();
 	
+	/**
+	 * Tests writing a file then reading it and seeing if they're the same
+	 * 
+	 * @throws IOException
+	 */
 	@Test
-	//Tests writing a file then reading it and seeing if they're the same
 	void testPassWriteJsonObject1() throws IOException {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
         String extraPath = "\\test\\test.json";
@@ -38,8 +37,12 @@ public class TestJSONService {
 		assertEquals(expectedObject, resultObject);
 	}
 	
+	/**
+	 * Tests writing a file then reading it and seeing if they're different
+	 * 
+	 * @throws IOException
+	 */
 	@Test
-	//Tests writing a file then reading it and seeing if they're different
 	void testPassWriteJsonObject2() throws IOException {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
         String extraPath = "\\test\\test.json";
@@ -57,8 +60,12 @@ public class TestJSONService {
 		assertNotEquals(expectedObject, resultObject);
 	}
 
+	/**
+	 * Tests if the location is null
+	 * 
+	 * @throws IOException
+	 */
 	@Test
-	//Tests if the location is null
 	void testFailWriteJsonObject() throws IOException {
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
         String extraPath = "\\test\\test.json";

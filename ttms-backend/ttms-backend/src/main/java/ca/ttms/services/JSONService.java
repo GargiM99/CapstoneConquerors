@@ -10,16 +10,18 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 /**
+ * Service to read a write from a JSON file
+ * 
  * @author Hamza 
  * date: 2023/03/11 
- * description: Service to read a write from a JSON file
  */
 
 @Service
 public class JSONService {
 	
 	/**
-	 * description: Write a JSON object into a JSON file
+	 * Write a JSON object into a JSON file
+	 * 
 	 * @param object: Object which is going to be written into JSON file
 	 * @param filePath: Path to the file of the JSON file
 	 * @throws IOException
@@ -34,7 +36,8 @@ public class JSONService {
 	}
 	
 	/**
-	 * description: Reads from a JSON file 
+	 * Reads from a JSON file 
+	 * 
 	 * @param filePath: Path to the file of the JSON file
 	 * @param objectType: The object type to convert from JSON
 	 * @return: Returns an object of the objectType

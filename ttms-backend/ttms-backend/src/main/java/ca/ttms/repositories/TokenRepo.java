@@ -9,9 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import ca.ttms.beans.Token;
 
 /**
+ * Repository class for Token class
+ * 
  * @author Hamza & Akshat
  * date: 2023/03/07
- * description: Repository class for Token class
  */
 
 public interface TokenRepo extends JpaRepository<Token, Integer>{

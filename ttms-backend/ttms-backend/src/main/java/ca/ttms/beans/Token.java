@@ -15,9 +15,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * class which models JWT tokens
+ * 
  * @author Hamza & Akshat
  * date: 2023/03/07
- * description: class which models JWT tokens
  */
 
 @Data

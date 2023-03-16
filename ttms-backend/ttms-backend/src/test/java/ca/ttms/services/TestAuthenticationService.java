@@ -9,7 +9,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ca.ttms.beans.ResponseToken;
 import ca.ttms.beans.User;
@@ -27,17 +26,23 @@ class TestAuthenticationService {
 	@Autowired
 	private TokenRepo tokenRepo;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	/**
+	 * @Autowired
+	 * private PasswordEncoder passwordEncoder;
+	 */
 	
-	@Autowired
-	private JWTService jwtService;
+	/**
+	 * @Autowired
+	 * private JWTService jwtService;
+	 */
 	
 	@Autowired
 	private AuthenticationService service;
 
+	/**
+	 * Register a user and checks that there is a token
+	 */
 	@Test
-	//Register a user and checks that there is a token
 	void testPassRegisterUser1() {
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
@@ -54,8 +59,10 @@ class TestAuthenticationService {
 		assertTrue(resultToken.getToken().length() > 150, "Token should be generated: " + resultToken );
 	}
 	
+	/**
+	 * Register a user and checks that there is a token and user
+	 */
 	@Test
-	//Register a user and checks that there is a token and user
 	void testPassRegisterUser2() {
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
@@ -77,8 +84,10 @@ class TestAuthenticationService {
 		assertEquals(resultToken.getToken(),expectedToken.getToken());
 	}
 	
+	/**
+	 * Register a null user and checks if it returns null
+	 */
 	@Test
-	//Register a null user and checks if it returns null
 	void testFailRegisterUser() {
 		
 		UserRegisterDetails inputUser = null;
@@ -89,8 +98,10 @@ class TestAuthenticationService {
 	}
 
 	
+	/**
+	 * Authenticate a user and checks that there is a token and it's valid
+	 */
 	@Test
-	//Authenticate a user and checks that there is a token and it's valid
 	void testPassAuthenticateUser1() {
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
@@ -118,8 +129,10 @@ class TestAuthenticationService {
 		assertEquals(resultToken.getToken(),expectedToken.getToken());
 	}
 	
+	/**
+	 * Authenticate a user and checks if token is valid
+	 */
 	@Test
-	//Authenticate a user and checks if token is valid
 	void testPassAuthenticateUser2() {
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
@@ -143,7 +156,9 @@ class TestAuthenticationService {
 		assertTrue(resultToken.getToken().length() > 150, "Token not recieved");
 	}
 	
-	//Tests no existant user
+	/**
+	 * Tests no existent user
+	 */
     @Test
     void testFailAuthenticateUser() {
       Optional<User> foundUser = userRepo.findByUsername("nonexistent");

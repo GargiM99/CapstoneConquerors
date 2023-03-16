@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ca.ttms.beans.User;
 
 /**
+ * Repository class for User class
+ * 
  * @author Hamza & Akshat
  * date: 2023/03/07
- * description: Repository class for User class
  */
 
 public interface UserRepo extends JpaRepository<User, Integer>{

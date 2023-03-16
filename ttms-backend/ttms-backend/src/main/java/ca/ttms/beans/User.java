@@ -21,9 +21,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Class for users of ttms
+ * 
  * @author Hamza & Akshat 
  * date: 2023/03/07 
- * description: Class for users of ttms
  */
 
 //Uses this class as an object for JPA

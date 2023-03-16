@@ -6,9 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Class for registering details of users
+ * 
  * @author Hamza  
  * date: 2023/03/08 
- * description: Class for registering details of users
  */
 
 @Data
