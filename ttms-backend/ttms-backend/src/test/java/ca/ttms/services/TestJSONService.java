@@ -15,66 +15,62 @@ public class TestJSONService {
 
 	private final JSONService jsonService = new JSONService();
 	
-	/**
-	 * Tests writing a file then reading it and seeing if they're the same
-	 * 
-	 * @throws IOException
-	 */
 	@Test
-	void testPassWriteJsonObject1() throws IOException {
+	//Tests writing a file then reading it and seeing if they're the same
+	void Write_SingleObject_CompareObjectsFromReadToInput() throws IOException {
+		
+		//Arrange
+		UserAuthenticationDetails resultObject;
+		UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+		UserAuthenticationDetails expectedObject = inputObject;
+		
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
         String extraPath = "\\test\\test.json";
         String filePath = parentDir + extraPath;
-        
-        UserAuthenticationDetails inputObject = new UserAuthenticationDetails();
-        inputObject.setUsername("testUser");
-        inputObject.setPassword("testPass");
 		
+        //Act
 		jsonService.writeJsonObject(inputObject , filePath);
-		var resultObject = jsonService.readJsonFile(filePath, inputObject.getClass());
-		UserAuthenticationDetails expectedObject = inputObject;
+		resultObject = (UserAuthenticationDetails)jsonService.readJsonFile(filePath, inputObject.getClass());
 		
+		//Assert
 		assertEquals(expectedObject, resultObject);
 	}
 	
-	/**
-	 * Tests writing a file then reading it and seeing if they're different
-	 * 
-	 * @throws IOException
-	 */
 	@Test
-	void testPassWriteJsonObject2() throws IOException {
+	//Tests writing a file then reading it and seeing if they're different
+	void WriteMultipleTimes_SingleObject_CompareObjectsFromReadToInput() throws IOException {
+		
+		//Arrange
+		UserAuthenticationDetails resultObject;
+		UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+		UserAuthenticationDetails expectedObject;
+		
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
         String extraPath = "\\test\\test.json";
         String filePath = parentDir + extraPath;
-        
-        UserAuthenticationDetails inputObject = new UserAuthenticationDetails();
-        inputObject.setUsername("testUser");
-        inputObject.setPassword("testPass");
+		
+        //Act
+		jsonService.writeJsonObject(inputObject , filePath);
+		inputObject.setUsername("newPassword");
 		
 		jsonService.writeJsonObject(inputObject , filePath);
-		var resultObject = jsonService.readJsonFile(filePath, inputObject.getClass());
-		UserAuthenticationDetails expectedObject = inputObject;
-		expectedObject.setUsername("incorrectUser");
+		expectedObject = inputObject;
 		
-		assertNotEquals(expectedObject, resultObject);
+		resultObject = (UserAuthenticationDetails)jsonService.readJsonFile(filePath, inputObject.getClass());
+		
+		//Assert
+		assertEquals(expectedObject, resultObject);
 	}
 
-	/**
-	 * Tests if the location is null
-	 * 
-	 * @throws IOException
-	 */
 	@Test
-	void testFailWriteJsonObject() throws IOException {
-		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
-        String extraPath = "\\test\\test.json";
-        String filePath = null;
-        
-        UserAuthenticationDetails inputObject = new UserAuthenticationDetails();
-        inputObject.setUsername("testUser");
-        inputObject.setPassword("testPass");
+	//Tests if the location is null
+	void Write_NullPath_CheckNullPointer() throws IOException {
 		
+		//Arrange
+        String filePath = null;
+        UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+		
+        //Act & Assert
 		assertThrows(NullPointerException.class , () -> jsonService.writeJsonObject(inputObject , filePath));
 	}
 }
