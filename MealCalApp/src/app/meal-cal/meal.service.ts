@@ -27,6 +27,7 @@ export class MealService {
     } else {
       this.daysError = '';
     }
+
     if (_FulldaysPerService <= 0) {
       this.FulldaysPerServiceError = 'Invalid input';
     } else {

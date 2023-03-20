@@ -21,6 +21,7 @@ export class MealCalComponent {
   daysError: string = '';
   FulldaysPerServiceError: string = '';
   QuickdaysPerServiceError: string = '';
+  daysPerServiceError : string = '';
 
   constructor(private mealService: MealService) {}
 
@@ -35,7 +36,7 @@ export class MealCalComponent {
     this.daysError = this.validateNumberInput(this.days, '');
     this.FulldaysPerServiceError = this.validateNumberInput(this.FulldaysPerService, '');
     this.QuickdaysPerServiceError = this.validateNumberInput(this.QuickdaysPerService, '');
-
+    //this.daysPerServiceError = this.validateDaysPerService(this.days, this.FulldaysPerService, this.QuickdaysPerService);
     if (!this.adultsError && !this.childrenError && !this.daysError && !this.FulldaysPerServiceError && !this.QuickdaysPerServiceError) {
 
       // Calculate meal price using the meal service
@@ -43,15 +44,18 @@ export class MealCalComponent {
     }
   }
 
-  validateNumberInput(inputValue: number, inputName: string): string {
+  validateNumberInput(inputValue: number, inputName: string ): string {
     if (inputValue <= 0 || isNaN(inputValue)) {
       return `${inputName}Enter a positive number above 0.`;
     }
-    
+
 
 
     return '';
   }
+  
+
+
 }
 
 
