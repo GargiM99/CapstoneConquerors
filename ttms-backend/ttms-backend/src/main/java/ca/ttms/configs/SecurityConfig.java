@@ -18,9 +18,10 @@ import ca.ttms.components.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Configures the security filter chain
+ * 
  * @author Hamza 
- * date: 2023/03/07 
- * description: Configures the security filter chain
+ * date: 2023/03/07
  */
 
 @Configuration

@@ -4,14 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ca.ttms.beans.ResponseToken;
+import ca.ttms.beans.Token;
 import ca.ttms.beans.User;
 import ca.ttms.beans.UserAuthenticationDetails;
 import ca.ttms.beans.UserRegisterDetails;
@@ -28,17 +29,15 @@ class TestAuthenticationService {
 	private TokenRepo tokenRepo;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private JWTService jwtService;
-	
-	@Autowired
 	private AuthenticationService service;
 
 	@Test
 	//Register a user and checks that there is a token
-	void testPassRegisterUser1() {
+	void Register_SingleUser_CheckToken() {
+		
+		//Arrange
+		int expectedTokenLength = 150;
+		int resultTokenLength;
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
 				.firstname("Akshat")
@@ -48,15 +47,21 @@ class TestAuthenticationService {
 				.password("1234")
 				.build();
 		
+		//Act
 		ResponseToken resultToken = service.registerUser(inputUser);
+		resultTokenLength = resultToken.getToken().length();
 		
-		
-		assertTrue(resultToken.getToken().length() > 150, "Token should be generated: " + resultToken );
+		assertTrue(resultTokenLength > expectedTokenLength, "Token should be generated: " + resultToken );
 	}
 	
-	@Test
 	//Register a user and checks that there is a token and user
-	void testPassRegisterUser2() {
+	@Test
+	void Register_MultipleUsers_CompareToken() {
+		
+		//Arrange
+		String resultUsername, expectedUsername;
+		Token resultToken;
+		ResponseToken expectedToken;
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
 				.firstname("Hamza")
@@ -66,32 +71,44 @@ class TestAuthenticationService {
 				.password("2345")
 				.build();
 		
-		ResponseToken expectedToken = service.registerUser(inputUser);
-		var respnoseUser = userRepo.findByUsername(inputUser.getUsername());
-		var resultUser = respnoseUser.orElse(null);
+		expectedUsername = inputUser.getUsername();
 		
-		var respnoseToken = tokenRepo.findAllValidTokenByUser(resultUser.getId());
-		var resultToken = respnoseToken.get(0);
+		//Act
+		expectedToken = service.registerUser(inputUser);
+		Optional<User> respnoseUser = userRepo.findByUsername(inputUser.getUsername());
+		User resultUser = respnoseUser.orElse(null);
+		resultUsername = resultUser.getUsername();
 		
-		assertEquals(resultUser.getUsername(),inputUser.getUsername());
+		List<Token> respnoseToken = tokenRepo.findAllValidTokenByUser(resultUser.getId());
+		resultToken = respnoseToken.get(0);
+		
+		//Assert
+		assertEquals(resultUsername, expectedUsername);
 		assertEquals(resultToken.getToken(),expectedToken.getToken());
 	}
 	
 	@Test
 	//Register a null user and checks if it returns null
-	void testFailRegisterUser() {
+	void Register_NullUser_CheckNullPointer() {
 		
+		//Arrange
 		UserRegisterDetails inputUser = null;
 		ResponseToken expectedToken = null;
 		
+		//Act
 		ResponseToken resultToken = service.registerUser(inputUser);
+		
+		//Assert
 		assertEquals(expectedToken, resultToken);
 	}
 
-	
 	@Test
 	//Authenticate a user and checks that there is a token and it's valid
-	void testPassAuthenticateUser1() {
+	void Authenticate_SingleUser_CompareTokenFromReturnToRepo() {
+		
+		//Arrange
+		ResponseToken resultToken, expectedToken;
+		expectedToken = new ResponseToken();
 		
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
 				.firstname("Gargi")
@@ -101,27 +118,30 @@ class TestAuthenticationService {
 				.password("3456")
 				.build();
 		
-		ResponseToken inputToken = service.registerUser(inputUser);
-		
 		UserAuthenticationDetails inputAuth = UserAuthenticationDetails.builder()
 				.username(inputUser.getUsername())
 				.password(inputUser.getPassword())
 				.build();
-	
-		ResponseToken resultToken = service.authenticateUser(inputAuth);
-		var respnoseUser = userRepo.findByUsername(inputUser.getUsername());
-		var resultUser = respnoseUser.orElse(null);
 		
-		var respnoseToken = tokenRepo.findAllValidTokenByUser(resultUser.getId());
-		var expectedToken = respnoseToken.get(1);
+		//Act
+		service.registerUser(inputUser);
+		resultToken = service.authenticateUser(inputAuth);
+		Optional<User> respnoseUser = userRepo.findByUsername(inputUser.getUsername());
+		User resultUser = respnoseUser.orElse(null);
 		
+		List<Token> respnoseToken = tokenRepo.findAllValidTokenByUser(resultUser.getId());
+		expectedToken.setToken(respnoseToken.get(1).getToken());
+		
+		//Assert
 		assertEquals(resultToken.getToken(),expectedToken.getToken());
 	}
 	
 	@Test
 	//Authenticate a user and checks if token is valid
-	void testPassAuthenticateUser2() {
-		
+	void Authenticate_SingleUser_CheckToken() {
+		//Arrange
+		int expectedTokenLength = 150;
+		int resultLength;
 		UserRegisterDetails inputUser = UserRegisterDetails.builder()
 				.firstname("Zunaira")
 				.lastname("Malik")
@@ -130,22 +150,23 @@ class TestAuthenticationService {
 				.password("4567")
 				.build();
 		
-		ResponseToken inputToken = service.registerUser(inputUser);
-		
+		//Act
+		service.registerUser(inputUser);
 		UserAuthenticationDetails inputAuth = UserAuthenticationDetails.builder()
 				.username(inputUser.getUsername())
 				.password(inputUser.getPassword())
 				.build();
-	
-		ResponseToken resultToken = service.authenticateUser(inputAuth);
-	
 		
-		assertTrue(resultToken.getToken().length() > 150, "Token not recieved");
+		ResponseToken resultToken = service.authenticateUser(inputAuth);
+		resultLength = resultToken.getToken().length();
+		
+		//Assert
+		assertTrue(resultLength > expectedTokenLength, "Token not recieved");
 	}
 	
-	//Tests no existant user
     @Test
-    void testFailAuthenticateUser() {
+    //Tests no existent user
+    void TokenRepo_User_NonexistentUser() {
       Optional<User> foundUser = userRepo.findByUsername("nonexistent");
 
       assertFalse(foundUser.isPresent());

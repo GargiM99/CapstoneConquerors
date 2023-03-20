@@ -6,9 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * Class for holding details for authentication
+ * 
  * @author Hamza  
  * date: 2023/03/08 
- * description: Class for holding details for authentication
  */
 
 @Data

@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import ca.ttms.beans.MealPriceDetails;
 
 /**
+ * Service for meal price including validating a writing
+ * 
  * @author Hamza 
- * date: 2023/03/11 
- * description: Service for meal price including validating a writing
+ * date: 2023/03/11
  */
 
 @Service
@@ -20,7 +21,8 @@ public class MealService {
 	private final double MIN_PRICE = 0.00; 
 	
 	/**
-	 * Description: Updates the meal price using MealPriceDetails
+	 * Updates the meal price using MealPriceDetails
+	 * 
 	 * @param details: The meal details which is going to be updated
 	 * @param filePath: The path which the json file is being written to
 	 * @return: Determines if object was updated
@@ -39,7 +41,8 @@ public class MealService {
 	}
 	
 	/**
-	 * Description: Updates the meal price using MealPriceDetails for default path
+	 * Updates the meal price using MealPriceDetails for default path
+	 * 
 	 * @param details: The meal details which is going to be updated
 	 * @return: Determines if object was updated
 	 */
@@ -57,8 +60,9 @@ public class MealService {
 	}
 	
 	/**
-	 * Description: Reads from json file and returns the MealPriceDetails
-	 * @return
+	 * Reads from json file and returns the MealPriceDetails
+	 * 
+	 * @return MealPriceDetails
 	 */
 	public MealPriceDetails getMealPrice() {
 		try {
@@ -72,7 +76,8 @@ public class MealService {
 	}
 	
 	/**
-	 * Description: Reads from json file and returns the MealPriceDetails
+	 * Reads from json file and returns the MealPriceDetails
+	 * 
 	 * @param: filePath: Path for reading MealPriceDetails
 	 * @return: An MealPriceDetails from the json file
 	 */
@@ -88,7 +93,8 @@ public class MealService {
 	}
 	
 	/**
-	 * Description: Returns the default path for mealPrice file
+	 * Returns the default path for mealPrice file
+	 * 
 	 * @return: The default path for mealPrice file
 	 */
 	private String getDefaultPath () {

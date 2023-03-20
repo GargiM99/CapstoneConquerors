@@ -15,9 +15,10 @@ import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Creates various beans for the application
+ * 
  * @author Hamza 
  * date: 2023/03/08 
- * description: Creates various beans for the application
  */
 
 @Configuration
@@ -27,7 +28,11 @@ public class ApplicationConfig {
 	private final UserRepo userRepo;
 
 	@Bean
-	// Returns the username using the username from the database
+	/**
+	 * Returns the username using the username from the database
+	 * 
+	 * @return UserDetailsService
+	 */
 	public UserDetailsService userDetailsService() {
 		return username -> userRepo.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -44,7 +49,11 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	//Sets the auth provider with the detail service and password encoder
+	/**
+	 * Sets the auth provider with the detail service and password encoder
+	 * 
+	 * @return AuthenticationProvider
+	 */
 	public AuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setUserDetailsService(userDetailsService());

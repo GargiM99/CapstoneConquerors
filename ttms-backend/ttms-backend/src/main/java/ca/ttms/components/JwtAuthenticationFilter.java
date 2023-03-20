@@ -20,9 +20,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Component for filtering though request for security
+ * 
  * @author Hamza 
  * date: 2023/03/08 
- * description: Component for filtering though request for security
  */
 
 @Component
@@ -34,7 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final TokenRepo tokenRepo;
 
 	@Override
-	// Filter that will check the header, and username for authentication
+	/**
+	 * Filter that will check the header, and username for authentication
+	 */
 	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
 			@NonNull FilterChain filterChain) throws ServletException, IOException {
 
@@ -42,21 +45,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		final String jwtoken;
 		final String subject;
 
-		// Checks if there is a JWToken
+		/**
+		 * Checks if there is a JWToken
+		 */
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
 			return;
 		}
 
-		// Gets all the values for the header excluding Bearer_ and the subject
+		/**
+		 * Gets all the values for the header excluding Bearer_ and the subject
+		 */
 		jwtoken = authHeader.substring(7);
 		subject = jwtService.extractSubject(jwtoken);
 
-		// Checks if there is a subject and it hasn't already been logged in
+		/**
+		 * Checks if there is a subject and it hasn't already been logged in
+		 */
 		if (subject != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername(subject);
 
-			// Checks if token is valid using the token and database
+			/**
+			 * Checks if token is valid using the token and database
+			 */
 			var dbToken = tokenRepo.findByToken(jwtoken);
 			if (!dbToken.get().expired && !dbToken.get().revoked 
 					&& jwtService.isJwtokenValid(jwtoken, userDetails)) {

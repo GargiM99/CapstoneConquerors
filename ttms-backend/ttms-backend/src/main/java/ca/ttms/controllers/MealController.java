@@ -15,9 +15,10 @@ import ca.ttms.beans.UserRegisterDetails;
 import ca.ttms.services.MealService;
 
 /**
+ * REST controller for meal prices for the calculator
+ * 
  * @author Hamza
  * date: 2023/03/07 
- * description: REST controller for meal prices for the calculator
  */
 
 @RestController
@@ -26,7 +27,10 @@ public class MealController {
 
 	private final MealService mealService = new MealService();
 	
-	// Sends a list of all the meal prices for the calculator
+	/**
+	 * Sends a list of all the meal prices for the calculator
+	 * @return MealPriceDetails
+	 */
 	@GetMapping()
 	public ResponseEntity<MealPriceDetails> getMeals() {
 		HttpHeaders headers = new HttpHeaders();
@@ -34,7 +38,12 @@ public class MealController {
 		return ResponseEntity.ok().headers(headers).body(mealService.getMealPrice());
 	}
 	
-	// Updates meal price from the frontend
+	/**
+	 * Updates meal price from the frontend
+	 * 
+	 * @param mealDetails
+	 * @return ResponseMealUpdate
+	 */
 	@PostMapping()
 	public ResponseEntity<ResponseMealUpdate> changeMeals(@RequestBody MealPriceDetails mealDetails) {
 		HttpHeaders headers = new HttpHeaders();

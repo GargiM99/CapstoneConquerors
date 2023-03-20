@@ -19,9 +19,10 @@ import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Service for authenticating, and registering users
+ * 
  * @author Hamza 
  * date: 2023/03/08 
- * description: Service for authenticating, and registering users
  */
 
 @Service
@@ -33,9 +34,13 @@ public class AuthenticationService {
 	private final JWTService jwtService;
 	private final AuthenticationManager authenticationManager;
 	
-	
-	//TODO: Create functions to generate username from name
-	//Register a user, adds it to the server, and returns a JWT
+
+	/**
+	 * Register a user, adds it to the server, and returns a JWT
+	 * 
+	 * @param userDetails
+	 * @return ResponseToken
+	 */
 	public ResponseToken registerUser(UserRegisterDetails userDetails) {
 		if (userDetails == null || !userDetails.isValid())
 			return null;
@@ -57,7 +62,13 @@ public class AuthenticationService {
 		return new ResponseToken(jwtoken);
 	}
 
-	//Creates user with specified role
+	/**
+	 * Creates user with specified role
+	 * 
+	 * @param userDetails
+	 * @param role
+	 * @return ResponseToken
+	 */
 	public ResponseToken registerUser(UserRegisterDetails userDetails, Roles role) {
 		if (userDetails == null || !userDetails.isValid())
 			return null;
@@ -79,7 +90,12 @@ public class AuthenticationService {
 		return new ResponseToken(jwtoken);
 	}
 	
-	//Authenticates a user based on credentials
+	/**
+	 * Authenticates a user based on credentials
+	 * 
+	 * @param authDetails
+	 * @return ResponseToken
+	 */
 	public ResponseToken authenticateUser(UserAuthenticationDetails authDetails) {
 	    authenticationManager.authenticate(
 	    	new UsernamePasswordAuthenticationToken(
@@ -98,7 +114,12 @@ public class AuthenticationService {
 	    return new ResponseToken(jwtoken);
 	}
 	
-	//Saves token along with the user, and status to the database
+	/**
+	 * Saves token along with the user, and status to the database
+	 * 
+	 * @param user
+	 * @param jwtoken
+	 */
 	private void saveUserToken(User user, String jwtoken) {
 	    var token = Token.builder()
 	            .user(user)
@@ -111,7 +132,11 @@ public class AuthenticationService {
 	     tokenRepo.save(token);
 	}
 	
-	//Revokes all tokens for a user and sets them to expire
+	/**
+	 * Revokes all tokens for a user and sets them to expire
+	 * 
+	 * @param user
+	 */
 	private void revokeUserToken (User user) {
 		var validUserJwtokens = tokenRepo.findAllValidTokenByUser(user.getId());
 		
