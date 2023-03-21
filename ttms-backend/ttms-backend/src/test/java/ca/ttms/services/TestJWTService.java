@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import ca.ttms.beans.Roles;
 import ca.ttms.beans.User;
+import ca.ttms.beans.enums.Roles;
 import io.jsonwebtoken.ExpiredJwtException;
 
 /**

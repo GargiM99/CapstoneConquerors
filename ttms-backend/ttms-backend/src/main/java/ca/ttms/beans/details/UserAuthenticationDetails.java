@@ -1,4 +1,4 @@
-package ca.ttms.beans;
+package ca.ttms.beans.details;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,5 +1,6 @@
 package ca.ttms.beans;
 
+import ca.ttms.beans.enums.TokenTypes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

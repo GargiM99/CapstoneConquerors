@@ -7,13 +7,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ca.ttms.beans.ResponseToken;
-import ca.ttms.beans.Roles;
 import ca.ttms.beans.Token;
-import ca.ttms.beans.TokenTypes;
 import ca.ttms.beans.User;
-import ca.ttms.beans.UserAuthenticationDetails;
-import ca.ttms.beans.UserRegisterDetails;
+import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.enums.Roles;
+import ca.ttms.beans.enums.TokenTypes;
+import ca.ttms.beans.response.ResponseToken;
 import ca.ttms.repositories.TokenRepo;
 import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;

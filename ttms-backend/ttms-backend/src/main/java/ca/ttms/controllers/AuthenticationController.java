@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.ttms.beans.ResponseToken;
-import ca.ttms.beans.UserAuthenticationDetails;
-import ca.ttms.beans.UserRegisterDetails;
+import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.response.ResponseToken;
 import ca.ttms.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 

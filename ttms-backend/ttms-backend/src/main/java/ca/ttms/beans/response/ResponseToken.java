@@ -1,5 +1,6 @@
-package ca.ttms.beans;
+package ca.ttms.beans.response;
 
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseMealUpdate {
-	private boolean isPriceUpdated;
+public class ResponseToken {
+	private String token;
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import ca.ttms.beans.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserAuthenticationDetails;
 
 public class TestJSONService {
 

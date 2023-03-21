@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
-import ca.ttms.beans.MealPriceDetails;
+import ca.ttms.beans.details.MealPriceDetails;
 
 /**
  * Test meal service for reading and writing

@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.springframework.stereotype.Service;
 
-import ca.ttms.beans.MealPriceDetails;
+import ca.ttms.beans.details.MealPriceDetails;
 
 /**
  * Service for meal price including validating a writing

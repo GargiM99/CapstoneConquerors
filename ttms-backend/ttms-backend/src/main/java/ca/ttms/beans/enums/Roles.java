@@ -1,4 +1,4 @@
-package ca.ttms.beans;
+package ca.ttms.beans.enums;
 
 /**
  * Enum of all the role names
