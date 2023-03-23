@@ -1,0 +1,16 @@
+[
+    {
+        "firstname": "Richard",
+        "lastname": "Rolls",
+        "username": "rollsr",
+        "email": "johns@sheridancollege.ca",
+        "password": "1234"
+    },
+    {
+        "firstname": "Hamza",
+        "lastname": "Atcha",
+        "username": "atchah",
+        "email": "atchah@sheridancollege.ca",
+        "password": "2345"
+    } 
+]
