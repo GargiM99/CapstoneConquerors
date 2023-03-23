@@ -16,12 +16,12 @@ import ca.ttms.beans.Token;
  */
 
 public interface TokenRepo extends JpaRepository<Token, Integer>{
-	  @Query(value = """
+	  @Query(value = 
+			  """
 		      SELECT t FROM Token t INNER JOIN user u\s
 		      ON t.user.id = u.id\s
 		      WHERE u.id = :id AND (t.expired = false OR t.revoked = false)\s
 		      """)
-	  
 		List<Token> findAllValidTokenByUser(Integer id);
 
 		Optional<Token> findByToken(String token);

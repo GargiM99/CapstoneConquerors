@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.response.ResponseMealUpdate;
 import ca.ttms.beans.response.ResponseToken;
 import ca.ttms.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +22,26 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationController {
 	private final AuthenticationService service;
 
+//	@PostMapping("/register")
+//	public ResponseEntity<ResponseToken> register(@RequestBody UserRegisterDetails registerDetails) {
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.setContentType(MediaType.APPLICATION_JSON);
+//		return ResponseEntity.ok().headers(headers).body(service.registerUser(registerDetails));
+//	}
+	
 	@PostMapping("/register")
-	public ResponseEntity<ResponseToken> register(@RequestBody UserRegisterDetails registerDetails) {
+	public ResponseEntity<UserAuthenticationDetails> regstier(@RequestBody UserRegisterDetails registerDetails){
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		return ResponseEntity.ok().headers(headers).body(service.registerUser(registerDetails));
+		Person person = registerDetails.getPerson();
+		
+		UserAuthenticationDetails details = service.registerUser(registerDetails);
+		
+		if (details == null)
+			return ResponseEntity.status(400).headers(headers).body(null);
+
+		return ResponseEntity.ok().headers(headers).body(details);
 	}
 
 	@PostMapping("/authenticate")

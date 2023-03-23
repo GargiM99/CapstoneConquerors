@@ -8,6 +8,7 @@ package ca.ttms.beans.enums;
  */
 
 public enum Roles {
-	USER,
-	ADMIN
+	AGENT,
+	ADMIN,
+	CUSTOMER
 }
