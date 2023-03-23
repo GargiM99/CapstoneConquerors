@@ -2,6 +2,7 @@ package ca.ttms.services;
 
 import java.io.File;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ca.ttms.beans.details.MealPriceDetails;
@@ -16,7 +17,9 @@ import ca.ttms.beans.details.MealPriceDetails;
 @Service
 public class MealService {
 	
-	private final JSONService JsonService = new JSONService();
+	@Autowired
+	private JSONService JsonService;
+	
 	private final double MAX_PRICE = 300.00; 
 	private final double MIN_PRICE = 0.00; 
 	

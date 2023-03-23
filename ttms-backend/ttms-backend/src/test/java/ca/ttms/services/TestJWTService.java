@@ -31,22 +31,16 @@ class TestJWTService {
 	void Arrange_Users(){
 		user1 = User
 				.builder()
-		        .firstname("Hamza")
-		        .lastname("Atcha")
 		        .username("atchah")
-		        .email("atchah@sheridancollege.ca")
 		        .password(passwordEncoder.encode("1234"))
-		        .role(Roles.USER)
+		        .role(Roles.AGENT)
 		        .build();	
 		
 		user2 = User
 				.builder()
-		        .firstname("John")
-		        .lastname("Smith")
 		        .username("johns")
-		        .email("johns@sheridancollege.ca")
 		        .password(passwordEncoder.encode("4567"))
-		        .role(Roles.USER)
+		        .role(Roles.AGENT)
 		        .build();
 	}
 	
@@ -56,8 +50,8 @@ class TestJWTService {
 		extraClaims1.put("Role", user1.getRole());
 		
 		extraClaims2 = new HashMap<String, Object>();
-		extraClaims2.put("Firstname", user2.getFirstname());
-		extraClaims2.put("Lastname", user2.getFirstname());
+		extraClaims2.put("Firstname", user2.getRole());
+		extraClaims2.put("Lastname", user2.getRole());
 	}
 
 	@Test 
