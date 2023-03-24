@@ -1,0 +1,161 @@
+<form #agentForm="ngForm" [formGroup]="agentDetails" class="d-flex flex-column" >
+    <p *ngIf="isDuplicate">User already exists</p>
+    <h2>Personal Information</h2>
+    <div>
+        <div formGroupName="person">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname"
+                formControlName="firstname" required>
+            <div *ngIf="agentDetails.get('person')?.get('firstname')?.invalid &&
+                agentDetails.get('person')?.get('firstname')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.person.get('firstname')?.errors?.['maxlength']">
+                    Firstname is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.person.get('firstname')?.errors?.['required']">
+                    Firstname is required</div>
+            </div>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname"
+                formControlName="lastname" required>
+            <div *ngIf="agentDetails.get('person')?.get('lastname')?.invalid &&
+                agentDetails.get('person')?.get('lastname')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.person.get('lastname')?.errors?.['maxlength']">
+                    Last name is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.person.get('lastname')?.errors?.['required']">
+                    Last name is required</div>
+            </div>
+
+            <label for="birthDate">Birthdate:</label>
+            <input type="date" id="birthDate" name="birthDate"
+                formControlName="birthDate" required>
+            <div *ngIf="agentDetails.get('person')?.get('birthDate')?.invalid &&
+                agentDetails.get('person')?.get('birthDate')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.person.get('lastname')?.errors?.['required']">Birthdate
+                    is required</div>
+            </div>
+        </div>
+
+        <div formGroupName="contact">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" formControlName="email"
+                required>
+            <div *ngIf="agentDetails.get('contact')?.get('email')?.invalid &&
+                agentDetails.get('contact')?.get('email')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.contact.get('email')?.errors?.['maxlength']">Email
+                    is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.contact.get('email')?.errors?.['required']">Email
+                    is required</div>
+            </div>
+
+            <label for="primaryPhoneNumber">Primary Phonenumber:</label>
+            <input type="text" id="primaryPhoneNumber" name="primaryPhoneNumber"
+                formControlName="primaryPhoneNumber" required>
+            <div
+                *ngIf="agentDetails.get('contact')?.get('primaryPhoneNumber')?.invalid
+                &&
+                agentDetails.get('contact')?.get('primaryPhoneNumber')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.contact.get('primaryPhoneNumber')?.errors?.['maxlength']">Phone
+                    Number is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.contact.get('primaryPhoneNumber')?.errors?.['required']">Phone
+                    Number is required</div>
+            </div>
+
+            <label for="secondaryPhoneNumber">Secondary Phonenumber:</label>
+            <input type="text" id="secondaryPhoneNumber"
+                name="secondaryPhoneNumber"
+                formControlName="secondaryPhoneNumber">
+            <div
+                *ngIf="agentDetails.get('contact')?.get('secondaryPhoneNumber')?.invalid
+                &&
+                agentDetails.get('contact')?.get('secondaryPhoneNumber')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.contact.get('secondaryPhoneNumber')?.errors?.['maxlength']">Phone
+                    Number is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.contact.get('secondaryPhoneNumber')?.errors?.['required']">Phone
+                    Number is required</div>
+            </div>
+        </div>
+
+        <div formGroupName="address">
+            <label for="addressLine">Address:</label>
+            <input type="text" id="addressLine" name="addressLine"
+                formControlName="addressLine" required>
+            <div *ngIf="agentDetails.get('address')?.get('addressLine')?.invalid
+                && agentDetails.get('address')?.get('addressLine')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.address.get('addressLine')?.errors?.['maxlength']">Address
+                    is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.address.get('addressLine')?.errors?.['required']">Address
+                    is required</div>
+            </div>
+
+            <label for="postalCode">Postal Code:</label>
+            <input type="text" id="postalCode" name="postalCode"
+                formControlName="postalCode" required>
+            <div *ngIf="agentDetails.get('address')?.get('postalCode')?.invalid
+                && agentDetails.get('address')?.get('postalCode')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.address.get('postalCode')?.errors?.['maxlength']">Postal
+                    code is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.address.get('postalCode')?.errors?.['required']">Postal
+                    code is required</div>
+            </div>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" formControlName="city"
+                required>
+            <div *ngIf="agentDetails.get('address')?.get('city')?.invalid &&
+                agentDetails.get('address')?.get('city')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.address.get('city')?.errors?.['maxlength']">City
+                    is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.address.get('city')?.errors?.['required']">City
+                    is required</div>
+            </div>
+
+            <label for="province">Province/State:</label>
+            <input type="text" id="province" name="province"
+                formControlName="province" required>
+            <div *ngIf="agentDetails.get('address')?.get('province')?.invalid &&
+                agentDetails.get('address')?.get('province')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.address.get('province')?.errors?.['maxlength']">Province
+                    is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.address.get('province')?.errors?.['required']">Province
+                    is required</div>
+            </div>
+
+            <label for="country">Country:</label>
+            <select id="country" name="country" formControlName="country"
+                required>
+                <option *ngFor="let country of countryList" value="country">{{country}}</option>
+                <option value="Åland Islands">Åland Islands</option>
+            </select>
+
+            <div *ngIf="agentDetails.get('address')?.get('country')?.invalid &&
+                agentDetails.get('address')?.get('country')?.dirty">
+                <div
+                    *ngIf="agentDetails.controls.address.get('country')?.errors?.['maxlength']">Country
+                    is too long characters long</div>
+                <div
+                    *ngIf="agentDetails.controls.address.get('country')?.errors?.['required']">Country
+                    is required</div>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!agentDetails.valid" (click)="submitAgentForm()">Add</button>
+    </div>
+</form>

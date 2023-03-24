@@ -63,7 +63,7 @@ export class TtmsMealFormComponent {
         
         if (isPriceUpdated)
           this.router.navigate(['/']);
-      }
+      } 
     )
   }
 }
