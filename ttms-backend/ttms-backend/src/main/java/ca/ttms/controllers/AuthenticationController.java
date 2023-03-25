@@ -21,13 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationController {
 	private final AuthenticationService service;
-
-//	@PostMapping("/register")
-//	public ResponseEntity<ResponseToken> register(@RequestBody UserRegisterDetails registerDetails) {
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//		return ResponseEntity.ok().headers(headers).body(service.registerUser(registerDetails));
-//	}
 	
 	@PostMapping("/register")
 	public ResponseEntity<UserAuthenticationDetails> regstier(@RequestBody UserRegisterDetails registerDetails){

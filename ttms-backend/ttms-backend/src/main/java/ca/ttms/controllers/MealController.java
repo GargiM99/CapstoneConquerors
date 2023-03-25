@@ -1,5 +1,6 @@
 package ca.ttms.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,8 @@ import ca.ttms.services.MealService;
 @RequestMapping("/api/meals")
 public class MealController {
 
-	private final MealService mealService = new MealService();
+	@Autowired
+	private MealService mealService;
 	
 	/**
 	 * Sends a list of all the meal prices for the calculator
