@@ -74,22 +74,23 @@ export class TtmsAgentFormComponent {
 
   submitAgentForm(){
     let newAgent = <AgentDetails>this.agentDetails.value
-    let responsePromise = this.agentService.saveMealPrices(newAgent)
+    let responsePromise = this.agentService.addAgent(newAgent)
 
     responsePromise.then(
-      (reponse) => {
-        if (reponse instanceof HttpErrorResponse){
-			let responseStatus = <HttpErrorResponse><unknown>reponse.status
-        	if(JSON.stringify(responseStatus) == "400")
-        		this.isDuplicate = true
+      (response) => {
+        if (response instanceof HttpErrorResponse){
+			    let responseStatus = <HttpErrorResponse><unknown>response.status
 
-			else if(JSON.stringify(responseStatus) == "401")
-				this.router.navigate(['/']);
+        if(JSON.stringify(responseStatus) == "400")
+        	this.isDuplicate = true
+
+			  else if(JSON.stringify(responseStatus) == "401")
+				  this.router.navigate(['/']);
         }
           
-		else if (reponse instanceof LoginDetails){
-			alert(`Username: ${reponse.username} \n Password: ${reponse.password}`)
-		}
+		    else{
+          alert(`Username: ${response.username} \n Password: ${response.password}`)
+        } 
       }
     )
   }

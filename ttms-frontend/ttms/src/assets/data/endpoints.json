@@ -2,5 +2,6 @@
     "server" : "http://localhost:8080/api/",
     "authenticate" : "http://localhost:8080/api/auth/authenticate",
     "register" : "http://localhost:8080/api/auth/register",
+    "agent" : "http://localhost:8080/api/agent",
     "meal" : "http://localhost:8080/api/meals"
 }

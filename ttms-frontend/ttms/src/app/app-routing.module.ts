@@ -5,6 +5,7 @@ import { TtmsLoginFormComponent } from './ttms-login/ttms-login-form/ttms-login-
 import { TtmsDashboardContentComponent } from './ttms-dashboard/ttms-dashboard-content/ttms-dashboard-content.component';
 import { TokenService } from './auth/token.service';
 import { TtmsAgentFormComponent } from './ttms-agents/ttms-agent-form/ttms-agent-form.component';
+import { TtmsAgentListComponent } from './ttms-agents/ttms-agent-list/ttms-agent-list.component';
 
 //Functions for checking if user's token is expired or is not null
 const canActivateUser : CanActivateFn =
@@ -15,7 +16,8 @@ const canActivateUser : CanActivateFn =
 const routes: Routes = [
   { path: '', component: TtmsDashboardContentComponent, canActivate: [canActivateUser] },
   { path: 'meals', component: TtmsMealFormComponent, canActivate: [canActivateUser] },
-  { path: 'agent/add', component: TtmsAgentFormComponent},
+  { path: 'agent/add', component: TtmsAgentFormComponent, canActivate: [canActivateUser]},
+  { path: 'agent', component: TtmsAgentListComponent, canActivate: [canActivateUser]},
   { path: 'login', component: TtmsLoginFormComponent }
 ];
 

@@ -5,6 +5,13 @@ import { TokenService } from './token.service';
 
 import endPoints from '../../assets/data/endpoints.json'
 import { LoginDetails } from '../classes/login-details';
+import { BasicAgentDetails } from '../classes/basic-agent-details';
+
+/*
+* author: Hamza
+* date: 2023/03/25
+* description: Service to manage agents and there details
+*/
 
 @Injectable({
   providedIn: 'root',
@@ -22,29 +29,44 @@ export class AgentService {
     this._agentDetails = newAgentDetails;
   }
 
-  async saveMealPrices(newAgentDetails: AgentDetails): Promise<LoginDetails | HttpErrorResponse> {
+  async addAgent(newAgentDetails: AgentDetails) : Promise<LoginDetails | HttpErrorResponse> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      //Authorization: `Bearer ${this.tokenService.getToken()}`,
-    });
-
-    console.log(newAgentDetails)
+      Authorization: `Bearer ${this.tokenService.getToken()}`,
+    })
 
     let response = this.http.post<LoginDetails>(
-      endPoints.register,
-      JSON.stringify(newAgentDetails),
-      { headers: headers }
-    );
+      endPoints.register, JSON.stringify(newAgentDetails), { headers: headers }
+    )
+
+    console.log(newAgentDetails)
 
     return new Promise((resolve) => {
       response.subscribe({
         next: (loginDetails : LoginDetails) => {
           resolve(new LoginDetails(loginDetails.password, loginDetails.username))
         },
-        error: (err : HttpErrorResponse) => {
-          resolve(err)
-        },
-      });
-    });
+        error: (err : HttpErrorResponse) => { resolve(err) }
+      })
+    })
   }
+
+  async getAgents() : Promise<BasicAgentDetails[] | HttpErrorResponse>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.tokenService.getToken()}`,
+    })
+
+    let response = this.http.get<BasicAgentDetails[]>( endPoints.agent, { headers: headers } )
+
+    return new Promise((resolve) => {
+      response.subscribe({
+        next: (agents : BasicAgentDetails[]) => {
+          console.log(agents)
+          resolve(agents)
+        },
+        error: (err : HttpErrorResponse) => { resolve(err) },
+      })
+    })
+  } 
 }
