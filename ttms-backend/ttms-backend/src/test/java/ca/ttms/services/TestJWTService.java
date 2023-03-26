@@ -22,7 +22,7 @@ import io.jsonwebtoken.ExpiredJwtException;
  */
 
 class TestJWTService {
-	private final JWTService jwtService = new JWTService();;
+	private final JWTService jwtService = new JWTService();
 	private User user1, user2;
 	private Map<String, Object> extraClaims1, extraClaims2;
 	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();;

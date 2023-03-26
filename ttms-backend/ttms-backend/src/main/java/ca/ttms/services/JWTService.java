@@ -150,7 +150,7 @@ public class JWTService {
 				.parseClaimsJws(jwtoken)
 				.getBody();
 	}
-
+	
 	/**
 	 * Gets the secret key in HS format
 	 * 

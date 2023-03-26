@@ -45,9 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		final String jwtoken;
 		final String subject;
 
-		/**
-		 * Checks if there is a JWToken
-		 */
+		// Checks if there is a JWToken
 		if (authHeader == null || !authHeader.startsWith("Bearer ")) {
 			filterChain.doFilter(request, response);
 			return;
