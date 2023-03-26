@@ -201,7 +201,7 @@ public class AuthenticationService {
 		username = lastnameExtract + firstnameExtract;
 		
 		//Finds similar usernames in the repo
-		List<String> similarUsernames = userRepo.findUserWithSimilarNames(username);
+		List<String> similarUsernames = userRepo.findUserWithSimilarUsernames(username);
 		
 		//Creates a username with numeric at the end if username already exists
 		if (similarUsernames != null && similarUsernames.size() != 0) 
@@ -240,6 +240,7 @@ public class AuthenticationService {
 	 * @return ResponseToken
 	 */
 	public ResponseToken authenticateUser(UserAuthenticationDetails authDetails) {
+		
 	    authenticationManager.authenticate(
 	    	new UsernamePasswordAuthenticationToken(
 	    		authDetails.getUsername(),

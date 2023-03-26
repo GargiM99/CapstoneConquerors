@@ -37,7 +37,7 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			FROM User u\s 
 			WHERE u.username LIKE :un%\s
 			""")
-	List<String> findUserWithSimilarNames(@Param("un") String usernameExtract);
+	List<String> findUserWithSimilarUsernames(@Param("un") String usernameExtract);
 
 	@Query(value =
 			"""

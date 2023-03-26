@@ -36,37 +36,37 @@ public class UserRegisterDetails {
 	
 	//TODO: remove else
 	public boolean verifyDetails() {
-		if (this.person.getFirstname().isBlank() || this.person.getFirstname().replaceAll("[^a-zA-Z]", "").length() <= MIN_NAME_LENGTH)
+		if (this.person.getFirstname() == null || this.person.getFirstname().replaceAll("[^a-zA-Z]", "").length() <= MIN_NAME_LENGTH)
 			return false;
 		
-		if (this.person.getLastname().isBlank() || this.person.getFirstname().replaceAll("[^a-zA-Z]", "").length() <= MIN_NAME_LENGTH)
+		if (this.person.getLastname() == null || this.person.getFirstname().replaceAll("[^a-zA-Z]", "").length() <= MIN_NAME_LENGTH)
 			return false;
 		
 		if (this.person.getBirthDate() == null || this.person.getBirthDate().compareTo(MIN_DATE) < 0 )
 			return false;
 		
-		if (this.address.getAddressLine().isBlank() || this.address.getAddressLine().length() <= MIN_ADDRESS_LENGTH)
+		if (this.address.getAddressLine() == null || this.address.getAddressLine().length() <= MIN_ADDRESS_LENGTH)
 			return false;
 		
-		if (this.address.getPostalCode().isBlank() || this.address.getPostalCode().length() <= MIN_ADDRESS_LENGTH)
+		if (this.address.getPostalCode() == null || this.address.getPostalCode().length() <= MIN_ADDRESS_LENGTH)
 			return false;
 		
-		if (this.address.getCity().isBlank() || this.address.getCity().length() <= MIN_ADDRESS_LENGTH)
+		if (this.address.getCity() == null || this.address.getCity().length() <= MIN_ADDRESS_LENGTH)
 			return false;
 		
-		if (this.address.getCountry().isBlank() || this.address.getCountry().length() <= MIN_ADDRESS_LENGTH)
+		if (this.address.getCountry() == null || this.address.getCountry().length() <= MIN_ADDRESS_LENGTH)
 			return false;
 		
-		if (this.address.getProvince().isBlank() || this.address.getProvince().length() <= MIN_ADDRESS_LENGTH)
+		if (this.address.getProvince() == null || this.address.getProvince().length() <= MIN_ADDRESS_LENGTH)
 			return false;
 		
-		if (this.contact.getEmail().isBlank() || this.contact.getEmail().length() <= MIN_EMAIL_LENGTH)
+		if (this.contact.getEmail() == null || this.contact.getEmail().length() <= MIN_EMAIL_LENGTH)
 			return false;
 			
-		if (this.contact.getPrimaryPhoneNumber().isBlank() || this.contact.getPrimaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
+		if (this.contact.getPrimaryPhoneNumber() == null || this.contact.getPrimaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
 			return false;
 		
-		if (!this.contact.getSecondaryPhoneNumber().isBlank() && this.contact.getSecondaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
+		if (this.contact.getSecondaryPhoneNumber() != null && this.contact.getSecondaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
 			return false;
 			
 		return true;

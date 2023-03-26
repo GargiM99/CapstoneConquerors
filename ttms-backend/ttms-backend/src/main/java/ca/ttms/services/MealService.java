@@ -17,8 +17,7 @@ import ca.ttms.beans.details.MealPriceDetails;
 @Service
 public class MealService {
 	
-	@Autowired
-	private JSONService JsonService;
+	private JSONService JsonService = new JSONService();
 	
 	private final double MAX_PRICE = 300.00; 
 	private final double MIN_PRICE = 0.00; 

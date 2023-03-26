@@ -1,12 +1,21 @@
 package ca.ttms.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 
 import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import ca.ttms.beans.details.MealPriceDetails;
 
@@ -18,8 +27,15 @@ import ca.ttms.beans.details.MealPriceDetails;
  */
 class TestMealService {
 	
-	private final MealService service = new MealService();
-	private final MealPriceDetails intialMealPrice = service.getMealPrice();
+//	private final MealService service = new MealService();
+//	private final MealPriceDetails intialMealPrice = service.getMealPrice();
+	
+	private MealService mealService = new MealService();
+	
+	@BeforeEach
+	public void init() {
+		MockitoAnnotations.openMocks(this);
+	}
 	
 	@Test
 	//Test updating price with proper input
@@ -28,7 +44,7 @@ class TestMealService {
 		MealPriceDetails inputDetails = new MealPriceDetails(12.99,12.99,12.99,12.99,12.99);
 		
 		//Act & Assert
-		assertTrue(service.updateMealPrice(inputDetails), "File should be updated");
+		assertTrue(mealService.updateMealPrice(inputDetails), "File should be updated");
 	}
 	
 	@Test
@@ -39,7 +55,7 @@ class TestMealService {
 		inputDetails.setFaPrice(12.99);
 		
 		//Act & Assert
-		assertFalse(service.updateMealPrice(inputDetails), "Mealprice should be invalid");
+		assertFalse(mealService.updateMealPrice(inputDetails), "Mealprice should be invalid");
 	}
 
 	@Test
@@ -50,7 +66,7 @@ class TestMealService {
 		String inputFilePath = null;
 		
 		//Act & Assert
-		assertFalse(service.updateMealPrice(inputDetails,inputFilePath), "File should return false");
+		assertFalse(mealService.updateMealPrice(inputDetails,inputFilePath), "File should return false");
 	}
 
 	@Test
@@ -62,8 +78,8 @@ class TestMealService {
 		MealPriceDetails expectedDetails = inputDetails;
 		
 		//Act
-		service.updateMealPrice(inputDetails);
-		resultDetails = service.getMealPrice();
+		mealService.updateMealPrice(inputDetails);
+		resultDetails = mealService.getMealPrice();
 		
 		//Assert
 		assertTrue(resultDetails.equals(expectedDetails), "File should be the same");
@@ -81,11 +97,11 @@ class TestMealService {
 		MealPriceDetails expectedDetails = inputDetails;
 		
 		//Act
-		service.updateMealPrice(inputDetails, inputFilePath);
-		MealPriceDetails resultDetails = service.getMealPrice(inputFilePath);
+		boolean test = mealService.updateMealPrice(inputDetails, inputFilePath);
+		MealPriceDetails resultDetails = mealService.getMealPrice(inputFilePath);
 		
 		//Assert
-		assertTrue(inputDetails.equals(resultDetails), "File should be the same");
+		assertTrue(inputDetails.equals(resultDetails), "" + inputFilePath);
 	}
 
 	@Test
@@ -103,8 +119,8 @@ class TestMealService {
 		
 		//Act
 		MealPriceDetails inputDetails = new MealPriceDetails(10.99, 8.99, 20.99, 14.99, 4.99);
-		service.updateMealPrice(inputDetails, inputFilePath);
-		MealPriceDetails resultDetails = service.getMealPrice(wrongFilePath);
+		mealService.updateMealPrice(inputDetails, inputFilePath);
+		MealPriceDetails resultDetails = mealService.getMealPrice(wrongFilePath);
 		
 		//Assert
 		assertEquals(resultDetails, expectedDetails, "File should be differnet and return null");
@@ -112,6 +128,6 @@ class TestMealService {
 	
 	@After(value = "") 
 	void RevertFile() {
-		service.updateMealPrice(intialMealPrice);
+		//service.updateMealPrice(intialMealPrice);
 	}
 }
