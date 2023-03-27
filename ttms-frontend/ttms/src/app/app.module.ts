@@ -1,4 +1,4 @@
-import { inject, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { TtmsLoginModule } from './ttms-login/ttms-login.module';
 import { TokenService } from './auth/token.service';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TtmsAgentsModule } from './ttms-agents/ttms-agents.module';
+import { TtmsDashboardModule } from './ttms-dashboard/ttms-dashboard.module';
 
 export function jwtOptionsFactory() {
   return {
@@ -32,6 +33,7 @@ export function jwtOptionsFactory() {
     TtmsLoginModule,
     HttpClientModule,
     TtmsAgentsModule,
+    TtmsDashboardModule,
     JwtModule.forRoot({jwtOptionsProvider: {provide: JWT_OPTIONS, useFactory: jwtOptionsFactory,},}),
   ],
   providers: [

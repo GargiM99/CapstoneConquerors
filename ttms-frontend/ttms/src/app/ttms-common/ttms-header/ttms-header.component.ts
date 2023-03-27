@@ -20,4 +20,8 @@ export class TtmsHeaderComponent implements OnInit {
   goToDashboard(){
     this.router.navigate(['/']);
   }
+
+  goToAgentsList(){
+    this.router.navigate(['/agent']);
+  }
 }

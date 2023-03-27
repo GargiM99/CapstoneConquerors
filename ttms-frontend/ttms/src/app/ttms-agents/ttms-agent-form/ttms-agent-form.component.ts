@@ -18,6 +18,8 @@ export class TtmsAgentFormComponent {
 
   public countryList : string[] = countriesData.countries
   public isDuplicate : boolean = false
+  public modalDisplay : string = "none"
+  public loginDetails : LoginDetails = new LoginDetails("", "");
 
   //Valdiator for agentDetails
   agentDetails = new FormGroup({
@@ -89,9 +91,15 @@ export class TtmsAgentFormComponent {
         }
           
 		    else{
-          alert(`Username: ${response.username} \n Password: ${response.password}`)
+          this.modalDisplay = "block"
+          this.loginDetails = response
+          //alert(`Username: ${response.username} \n Password: ${response.password}`)
         } 
       }
     )
   }
+
+
+
+  closePopup(){ this.modalDisplay = "none" }
 }

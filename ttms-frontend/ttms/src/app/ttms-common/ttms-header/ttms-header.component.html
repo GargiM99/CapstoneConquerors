@@ -13,7 +13,7 @@
     <div class="ms-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
       <p ngbDropdownToggle class="nav-text"><u>Info</u></p>
       <div class="dropdown-menu" ngbDropdownMenu>
-        <button ngbDropdownItem >Agents</button>
+        <button ngbDropdownItem (click)="goToAgentsList()">Agents</button>
         <button ngbDropdownItem>Clients</button>
       </div>
     </div>

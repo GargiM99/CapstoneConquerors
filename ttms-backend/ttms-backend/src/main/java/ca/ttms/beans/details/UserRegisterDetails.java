@@ -34,7 +34,6 @@ public class UserRegisterDetails {
 	private final int MIN_EMAIL_LENGTH = 3;
 	private final int MIN_PHONE_LENGTH = 3;
 	
-	//TODO: remove else
 	public boolean verifyDetails() {
 		if (this.person.getFirstname() == null || this.person.getFirstname().replaceAll("[^a-zA-Z]", "").length() <= MIN_NAME_LENGTH)
 			return false;
@@ -66,7 +65,8 @@ public class UserRegisterDetails {
 		if (this.contact.getPrimaryPhoneNumber() == null || this.contact.getPrimaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
 			return false;
 		
-		if (this.contact.getSecondaryPhoneNumber() != null && this.contact.getSecondaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
+		if (this.contact.getSecondaryPhoneNumber() != null && !this.contact.getSecondaryPhoneNumber().isBlank()
+				&& this.contact.getSecondaryPhoneNumber().length() <= MIN_PHONE_LENGTH)
 			return false;
 			
 		return true;

@@ -36,7 +36,7 @@ export class AgentService {
     })
 
     let response = this.http.post<LoginDetails>(
-      endPoints.register, JSON.stringify(newAgentDetails), { headers: headers }
+      endPoints.agent, JSON.stringify(newAgentDetails), { headers: headers }
     )
 
     console.log(newAgentDetails)
@@ -44,7 +44,7 @@ export class AgentService {
     return new Promise((resolve) => {
       response.subscribe({
         next: (loginDetails : LoginDetails) => {
-          resolve(new LoginDetails(loginDetails.password, loginDetails.username))
+          resolve(new LoginDetails(loginDetails.username, loginDetails.password))
         },
         error: (err : HttpErrorResponse) => { resolve(err) }
       })
