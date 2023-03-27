@@ -26,10 +26,6 @@ import lombok.RequiredArgsConstructor;
 public class AgentService {
 
 	private final UserRepo userRepo;
-	private final TokenRepo tokenRepo;
-	private final AddressRepo addressRepo;
-	private final ContactRepo contactRepo;
-	private final PersonRepo personRepo;
 	
 	/**
 	 * Gets all the agents and there firstname, lastname, username, id
