@@ -13,6 +13,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Contact entity for people
+ * 
+ * @author Hamza
+ * date: 2023-03-22
+ */
+
 @Data
 @Builder
 @NoArgsConstructor

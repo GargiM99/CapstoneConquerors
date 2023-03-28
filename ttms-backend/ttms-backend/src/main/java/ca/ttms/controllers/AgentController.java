@@ -1,6 +1,5 @@
 package ca.ttms.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.Person;
-import ca.ttms.beans.details.BasicUsersDetails;
-import ca.ttms.beans.details.MealPriceDetails;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.services.AgentService;
@@ -27,6 +24,14 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/agent")
 @RequiredArgsConstructor
+
+/**
+ * REST controller for the agent 
+ * 
+ * @author Hamza
+ * date: 2023/03/07 
+ */
+
 public class AgentController {
 
 	@Autowired

@@ -1,7 +1,6 @@
 package ca.ttms.beans.details;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;

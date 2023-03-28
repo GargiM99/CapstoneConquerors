@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import ca.ttms.beans.User;
-import ca.ttms.beans.details.BasicUsersDetails;
 
 /**
  * Repository class for User class
