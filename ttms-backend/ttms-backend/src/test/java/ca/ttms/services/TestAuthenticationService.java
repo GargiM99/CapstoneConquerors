@@ -10,19 +10,13 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
-import ca.ttms.beans.Token;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
@@ -41,6 +34,13 @@ import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TokenRepo;
 import ca.ttms.repositories.UserRepo;
+
+/**
+ * Tests the services for Authentication
+ * 
+ * @author Hamza
+ * date: 2023/03/08
+ */
 
 class TestAuthenticationService {
 

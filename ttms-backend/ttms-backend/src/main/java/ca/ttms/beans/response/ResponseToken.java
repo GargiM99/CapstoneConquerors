@@ -1,6 +1,5 @@
 package ca.ttms.beans.response;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
+/**
+ * Class for getting response token
+ * 
+ * @author Hamza 
+ * date: 2023/03/08 
+ */
+
 public class ResponseToken {
 	private String token;
 }

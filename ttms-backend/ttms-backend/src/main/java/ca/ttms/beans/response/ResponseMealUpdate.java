@@ -9,6 +9,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
+/**
+ * Class for checking response Meal Update
+ * 
+ * @author Hamza 
+ * date: 2023/03/08 
+ */
+
 public class ResponseMealUpdate {
 	private boolean isPriceUpdated;
 }

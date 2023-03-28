@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.details.MealPriceDetails;
-import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.response.ResponseMealUpdate;
 import ca.ttms.services.MealService;
 

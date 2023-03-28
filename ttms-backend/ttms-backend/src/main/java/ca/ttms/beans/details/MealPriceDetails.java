@@ -5,10 +5,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Class for validating meal Price
+ * 
+ * @author Hamza  
+ * date: 2023/03/08 
+ */
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class MealPriceDetails {
     private double qaPrice;
     private double qcPrice;

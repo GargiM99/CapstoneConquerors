@@ -1,7 +1,6 @@
 package ca.ttms.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
@@ -10,6 +9,13 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import ca.ttms.beans.details.UserAuthenticationDetails;
+
+/**
+ * Tests the services for JSON
+ * 
+ * @author Hamza
+ * date: 2023/03/08
+ */
 
 public class TestJSONService {
 
