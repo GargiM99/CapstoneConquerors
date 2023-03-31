@@ -28,6 +28,7 @@ public class ApplicationStart implements ApplicationListener<ApplicationReadyEve
 	public void onApplicationEvent(ApplicationReadyEvent event) {
 		
 		User adminUser = new User();
+		adminUser.setId(1);
 		adminUser.setUsername("Admin");
 		adminUser.setPassword(passwordEncoder.encode("ttmssmtt-2023"));
 		adminUser.setRole(Roles.ADMIN);
