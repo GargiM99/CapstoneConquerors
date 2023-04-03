@@ -1,22 +1,67 @@
 <style>
 
-</style>
-<div class="container" >
-  <br> <br>
-  <h1>Disney Meal Calculator</h1><br> <br>
-  <div class="row">
-<div class="col-12">
+.container {
+  border-radius: 5px;
+  background-color: #DED1CD;
+  padding: 80px;
+  width: 700%;
+  text-align: center;
+  margin-top: 0%
 
-  <form class="form-horizontal">
+
+}
+img{
+  width: 50px;
+  height:50px;
+  background-color: #DED1CD;
+  padding:0%;
+  margin: 0%;
+  margin-top: 0%;
+
+}
+h1 {
+  background-color:#DDDCDB;
+  border: 2px solid red;
+  border-radius: 12px;
+  padding: 5px;}
+  .logo {
+  width: auto;
+  height: auto;
+  text-align:center;
+}
+
+
+
+
+
+</style>
+
+<div class="container"  >
+  <h5><img src="./assets/disney-logo-.png"></h5>
+
+
+
+
+  <h3 font-family="Times New Roman">Timeless Tales Travel</h3><br>
+
+  <h1>Disney Meal Calculator</h1><br>
+
+  <div class="row">
+
+<div class="col-12" >
+
+  <br>
+  <br>
+  <form class="form-horizontal " >
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Number of adults</strong> </label>
         <input type="number" class="form-control">
       </div>
     </div><br>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Number of Children</strong> </label>
         <input type="number" class="form-control">
       </div>
@@ -24,49 +69,49 @@
     <br>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Number of days:</strong></label>
         <input type="number" class="form-control">
       </div>
     </div>
     <br>
 
-    <div class="col-md-3">
+    <div class="col-md-3 mx-auto text-center">
       <label><strong> Number of days for each service:</strong></label>
     </div>
     <br>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Full Service:</strong></label>
         <div class="input-group">
           <input type="number" class="form-control">
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="This field represents the cost of full service"></i></span>
+          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Full Service is a fast service that provides..."></i></span>
         </div>
       </div>
     </div>
     <br>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Quick Service:</strong></label>
         <div class="input-group">
           <input type="number" class="form-control">
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="This field represents the cost of quick service"></i></span>
+          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Quick Service is a fast service that provides"></i></span>
         </div>
       </div>
     </div>
     <br>
 
     <div class="form-group">
-      <div class="col-md-3">
+      <div class="col-md-3 mx-auto text-center">
         <label><strong>Preference of snacks:</strong></label>
         <div class="input-group">
           <select name="snacksPreference" class="form-control">
-            <option value="">Light Snacks</option>
+            <option value=""></option>
             <option value="">Snacks</option>
           </select>
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="This field represents the cost of snacks preference"></i></span>
+          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Choose a snake preference to add to the selected service"></i></span>
         </div>
       </div>
     </div>
@@ -82,7 +127,7 @@
   </form>
 </div>
 </div>
-</div>
+
 
 
 
