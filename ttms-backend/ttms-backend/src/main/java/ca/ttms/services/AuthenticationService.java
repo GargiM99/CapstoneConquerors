@@ -275,22 +275,5 @@ public class AuthenticationService {
 	    
 	     tokenRepo.save(token);
 	}
-	
-	/**
-	 * Revokes all tokens for a user and sets them to expire
-	 * @param user
-	 */
-	private void revokeUserToken (User user) {
-		var validUserJwtokens = tokenRepo.findAllValidTokenByUser(user.getId());
-		
-		if (validUserJwtokens.isEmpty())
-			return;
-		
-		validUserJwtokens.forEach(jwtoken -> {
-			jwtoken.setExpired(true);
-			jwtoken.setRevoked(true);
-		});
-		
-		tokenRepo.saveAll(validUserJwtokens);
-	}
+
 }

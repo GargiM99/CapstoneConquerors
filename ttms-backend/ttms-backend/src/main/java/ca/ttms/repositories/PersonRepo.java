@@ -27,8 +27,8 @@ public interface PersonRepo extends JpaRepository<Person, Integer>{
 			AND (c.email = :email\s
 			OR c.primaryPhoneNumber = :ppn)
 			""")
-			Integer countSimilarPeople(
-					@Param("fn") String firstname, @Param("ln") String lastname,
-					@Param("email") String email, @Param("ppn") String primaryPhoneNumber);
+	Integer countSimilarPeople(
+			@Param("fn") String firstname, @Param("ln") String lastname,
+			@Param("email") String email, @Param("ppn") String primaryPhoneNumber);
 	
 }
