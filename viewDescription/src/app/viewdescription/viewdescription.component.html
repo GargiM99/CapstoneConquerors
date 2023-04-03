@@ -29,7 +29,14 @@ h1 {
   height: auto;
   text-align:center;
 }
-
+label{
+  text-align: left;
+}
+.info-icon {
+    font-size: 15px;
+    color: red;
+    margin-left: 5px;
+  }
 
 
 
@@ -53,7 +60,7 @@ h1 {
   <br>
   <br>
   <form class="form-horizontal " >
-    <div class="form-group">
+    <!--<div class="form-group">
       <div class="col-md-3 mx-auto text-center">
         <label><strong>Number of adults</strong> </label>
         <input type="number" class="form-control">
@@ -77,7 +84,7 @@ h1 {
     <br>
 
     <div class="col-md-3 mx-auto text-center">
-      <label><strong> Number of days for each service:</strong></label>
+      <label><strong> Days Per Service:</strong></label>
     </div>
     <br>
 
@@ -126,22 +133,59 @@ h1 {
 
   </form>
 </div>
+</div>-->
+<label>
+   <strong>Number of Adults: </strong>
+    <input type="number" [(ngModel)]="adults" name="adults" required>
+    <span class="error-message">{{ adultsError }}</span>
+  </label><br><br>
+  <label>
+   <strong>Number of Children: </strong>
+    <input type="number" [(ngModel)]="children" name="children" required>
+    <span *ngIf="childrenError" class="error-message">{{ childrenError }}</span>
+  </label><br><br>
+  <label>
+    <strong>Number of Days: </strong>
+    <input type="number" [(ngModel)]="days" name="days" required>
+    <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
+  </label><br><br>
+  <label>
+
+  <label>
+   <strong>Days Per Service:</strong>
+  </label><br><br>
+
+  <label>
+   <strong>Quick Service: </strong>
+    <input type="number" [(ngModel)]="QuickdaysPerService" name="QuickdaysPerService"><i class="fa fa-info-circle" style="font-size:15px;color:red; margin-left: 5px" title="Quik Service is a fast service that provides"></i>
+  </label><br><br>
+
+  <label>
+    <strong>Full Service: </strong>
+    <input type="number" [(ngModel)]="FulldaysPerService" name="FulldaysPerService"><i class="fa fa-info-circle" style="font-size:15px;color:red; margin-left: 5px" title="Full Service is a fast service that provides"></i>
+  </label><br><br>
+
+
+  <strong>Snack Preference: </strong><br>
+  <div style="display: inline-block;">
+<input type="checkbox" [(ngModel)]="snacksPreference">
+<label for="abcd">Snack 1</label>
+<i class="fa fa-info-circle info-icon" title="Information about Snack 1"></i><br>
+<input type="checkbox" [(ngModel)]="snacksPreference">
+<label for="abcd">Snack 2</label>
+</div>
+<br>
+
+<strong>Snack Preference: </strong><br>
+
+<div style="display: inline-block;">
+  <input type="checkbox" [(ngModel)]="snacksPreference">
+  <label for="abcd">Snack 1</label>
 </div>
 
+<div style="display: inline-block; margin-left: 20px;">
+  <input type="checkbox" [(ngModel)]="snacksPreference">
+  <label for="abcd">Snack 2</label>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<i class="fa fa-info-circle info-icon" title="Information about Snacks"></i>
