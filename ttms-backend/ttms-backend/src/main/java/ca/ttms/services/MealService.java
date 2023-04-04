@@ -3,9 +3,17 @@ package ca.ttms.services;
 import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ca.ttms.beans.details.MealPriceDetails;
+import ca.ttms.repositories.AddressRepo;
+import ca.ttms.repositories.ContactRepo;
+import ca.ttms.repositories.PersonRepo;
+import ca.ttms.repositories.TokenRepo;
+import ca.ttms.repositories.UserRepo;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service for meal price including validating a writing
@@ -15,9 +23,10 @@ import ca.ttms.beans.details.MealPriceDetails;
  */
 
 @Service
+@RequiredArgsConstructor
 public class MealService {
 	
-	private JSONService JsonService = new JSONService();
+	private final JSONService JsonService;
 	
 	private final double MAX_PRICE = 300.00; 
 	private final double MIN_PRICE = 0.00; 

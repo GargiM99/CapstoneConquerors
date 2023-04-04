@@ -30,7 +30,7 @@ class TestMealService {
 //	private final MealService service = new MealService();
 //	private final MealPriceDetails intialMealPrice = service.getMealPrice();
 	
-	private MealService mealService = new MealService();
+	private MealService mealService;
 	
 	@BeforeEach
 	public void init() {

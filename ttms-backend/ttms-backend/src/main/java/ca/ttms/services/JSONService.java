@@ -5,9 +5,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+
+import ca.ttms.repositories.AddressRepo;
+import ca.ttms.repositories.ContactRepo;
+import ca.ttms.repositories.PersonRepo;
+import ca.ttms.repositories.TokenRepo;
+import ca.ttms.repositories.UserRepo;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service to read a write from a JSON file
@@ -17,6 +26,7 @@ import com.google.gson.Gson;
  */
 
 @Service
+@RequiredArgsConstructor
 public class JSONService {
 	
 	/**

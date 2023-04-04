@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.response.ResponseToken;
 import ca.ttms.repositories.TokenRepo;
+import ca.ttms.repositories.UserRepo;
 import ca.ttms.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationController {
 	private final AuthenticationService service;
 	private final TokenRepo tokenRepo;
+	private final UserRepo userRepo;
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<ResponseToken> authenticate(@RequestBody UserAuthenticationDetails authDetails) {

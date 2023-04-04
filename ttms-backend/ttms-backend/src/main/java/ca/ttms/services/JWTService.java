@@ -6,14 +6,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ca.ttms.repositories.AddressRepo;
+import ca.ttms.repositories.ContactRepo;
+import ca.ttms.repositories.PersonRepo;
+import ca.ttms.repositories.TokenRepo;
+import ca.ttms.repositories.UserRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Service for JWTokens such as extracting claims, signing, generating
@@ -23,6 +31,7 @@ import io.jsonwebtoken.security.Keys;
  */
 
 @Service
+@RequiredArgsConstructor
 public class JWTService {
 
 	/**

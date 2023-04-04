@@ -24,14 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/agent")
 @RequiredArgsConstructor
-
 /**
  * REST controller for the agent 
  * 
  * @author Hamza
  * date: 2023/03/07 
  */
-
 public class AgentController {
 
 	@Autowired
