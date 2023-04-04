@@ -1,7 +1,7 @@
 <style>
   /* Form styles*/
- form,h1 ,div{
-  background-color:rgb(205, 232, 241);
+ form,div{
+  background-color:#DED1CD;
 
   display: flex;
   flex-direction: column;
@@ -13,6 +13,9 @@
   padding: 50px;
 
 
+}
+h1{
+  background-color: #DDDCDB
 }
 /*.meal-form {
   display: flex;
@@ -55,16 +58,18 @@ button {
   font-size: 18px;
   border: none;
   border-radius: 5px;
-  background-color: #1e8a50;
+  background-color:rgb(199, 12, 43);
   color: #fff;
   cursor: pointer;
 }
 .error-message {
   color: red;
-  text-align: center;
+
+ text-align: left;
   font-size: small;
   margin-top: 20px;
-  position: absolute;
+  position: left;
+
 
 }
 img{float:right;
@@ -79,44 +84,49 @@ p{text-align: left;}
 </style>
 
 <form (ngSubmit)="onSubmit()"class="meal-form">
-  <img src="assets/mickey.jpeg">
-
-  <h1 >Meal Calculator</h1>
-
+ <!-- <img src="assets/mickey.jpeg">-->
+<h3>TimeLess Tales Travel</h3>
+  <h1 >Disney Meal Calculator</h1>
+<div>
   <label>
-    Number of adults:
-    <input type="number" [(ngModel)]="adults" name="adults" required>
+   <strong> Number of Adults:   </strong>
+    <input type="number" [(ngModel)]="adults" name="adults" required minlength="4">
+
+
     <span *ngIf="adultsError" class="error-message">{{ adultsError }}</span>
   </label><br><br>
+
   <label>
-    Number of children:
+
+    <strong>Number of Children:  </strong>
     <input type="number" [(ngModel)]="children" name="children" required>
     <span *ngIf="childrenError" class="error-message">{{ childrenError }}</span>
   </label><br><br>
   <label>
-    Number of days:
+    <strong>Number of Days: </strong>
     <input type="number" [(ngModel)]="days" name="days" required>
     <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
   </label><br><br>
   <label>
-    Number of days for each service:
+     <strong>Days For Each Service:  </strong>
   </label><br><br>
   <label>
-    Full Service:
+    <strong>Full Service: </strong>
     <input type="number" [(ngModel)]="FulldaysPerService" name="FulldaysPerService" required>
 
+
   </label><br><br>
   <label>
-    Quick Service:
+    <strong>Quick Service: </strong>
     <input type="number" [(ngModel)]="QuickdaysPerService" name="QuickdaysPerService" required>
-
+    <p *ngIf="FulldaysPerService + QuickdaysPerService !== days" class="error-message">Number of days must be equal for Full Service and Quick Service.</p>
   </label><br>
-  <label>
+ <!--
     <div *ngIf="FulldaysPerService && QuickdaysPerService">
       <span *ngIf="FulldaysPerService + QuickdaysPerService !== days" class="error-message">Number of days must be equal for Full Service and Quick Service.</span>
-    </div>
-
-    Preference of snacks:
+    </div>-->
+    <label>
+    <strong>Preference of snacks:</strong>
     <select [(ngModel)]="snacksPreference" name="snacksPreference">
       <option value="">Light Snacks</option>
       <option value=""> Snacks</option>
@@ -125,6 +135,7 @@ p{text-align: left;}
 
   <br>
   <button type="submit">Calculate</button><br>
+  </div>
 
 </form>
 
@@ -136,5 +147,7 @@ p{text-align: left;}
     Total Meal Price:{{ totalPrice | currency }}.
   </p>
 </div>
+
+
 
 
