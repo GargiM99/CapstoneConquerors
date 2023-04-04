@@ -70,6 +70,9 @@ button {
 }
 .error-message {
   color: red;
+  /*display: block;
+  margin-top: 5px;
+  font-size: 0.8em;*/
 
  text-align: left;
   font-size: small;
@@ -96,7 +99,8 @@ img{float:right;
 <div>
   <label>
    <strong> Number of Adults:   </strong>
-    <input type="number" [(ngModel)]="adults" name="adults" required minlength="4">
+    <input type="number" [(ngModel)]="adults" name="adults" required >
+
 
 
     <span *ngIf="adultsError" class="error-message">{{ adultsError }}</span>
@@ -110,7 +114,7 @@ img{float:right;
   </label><br><br>
   <label>
     <strong>Number of Days: </strong>
-    <input type="number" [(ngModel)]="days" name="days" required>
+    <input type="number" [(ngModel)]="days" name="days" required >
     <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
   </label><br><br>
   <label>

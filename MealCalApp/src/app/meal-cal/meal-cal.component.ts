@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./meal-cal.component.css']
 })
 export class MealCalComponent {
-  
+
   adults: number = 0;
   children: number = 0;
   days: number = 0;
@@ -49,7 +49,7 @@ export class MealCalComponent {
     }
   }
 
-  validateNumberInput(inputValue: number, inputName: string ): string {
+  validateNumberInput(inputValue: number, inputName: string,): string {
     if (inputValue <= 0 || isNaN(inputValue)) {
       return `${inputName}Enter a positive number above 0.`;
     }
