@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import{MealService} from'./meal.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-meal-cal',
   templateUrl: './meal-cal.component.html',
   styleUrls: ['./meal-cal.component.css']
 })
 export class MealCalComponent {
+  
   adults: number = 0;
   children: number = 0;
   days: number = 0;
@@ -23,7 +25,10 @@ export class MealCalComponent {
   QuickdaysPerServiceError: string = '';
   daysPerServiceError : string = '';
 
-  constructor(private mealService: MealService) {}
+  constructor(private mealService: MealService,)
+   {
+
+   }
 
   onSubmit() {
     // Validate user input
@@ -53,7 +58,7 @@ export class MealCalComponent {
 
     return '';
   }
-  
+
 
 
 }
