@@ -4,5 +4,5 @@
     "agent" : "http://localhost:8080/api/agent",
     "meal" : "http://localhost:8080/api/meals",
     "profile" : "http://localhost:8080/api/profile",
-    "password" : "http://localhost:8080/api/profile/password"
+    "password" : "http://localhost:8080/api/profile/password" 
 }

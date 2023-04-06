@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ProfileService } from 'src/app/services/profile.service';
   styleUrls: ['./ttms-password-form.component.scss']
 })
 export class TtmsPasswordFormComponent {
-  constructor(private profileService : ProfileService){}
+  constructor(private profileService : ProfileService, private router : Router){}
 
   changePasswordForm = new FormGroup({  
     password: new FormControl("", [
@@ -26,6 +27,16 @@ export class TtmsPasswordFormComponent {
   get confirmPassword(): AbstractControl {return this.changePasswordForm.controls?.['confirmPassword']}
 
   onSubmit(){
-    this.profileService.changePassword(this.password?.['value'])
+    let responsePromise = this.profileService.changePassword(this.password?.['value'])
+
+    responsePromise.then(
+      (response) => {
+        if (response == 200)
+          this.router.navigate(['/'])
+        
+        else
+          alert("There was an error")
+      }
+    )
   }
 }

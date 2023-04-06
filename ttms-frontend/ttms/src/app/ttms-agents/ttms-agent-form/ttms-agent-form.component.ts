@@ -87,7 +87,7 @@ export class TtmsAgentFormComponent {
         	this.isDuplicate = true
 
 			  else if(JSON.stringify(responseStatus) == "401")
-				  this.router.navigate(['/']);
+				  this.router.navigate(['/'])
         }
           
 		    else{
@@ -98,8 +98,6 @@ export class TtmsAgentFormComponent {
       }
     )
   }
-
-
 
   closePopup(){ this.modalDisplay = "none" }
 }
