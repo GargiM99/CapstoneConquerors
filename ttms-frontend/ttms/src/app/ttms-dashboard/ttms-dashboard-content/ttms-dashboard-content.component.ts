@@ -1,25 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-ttms-dashboard-content',
   templateUrl: './ttms-dashboard-content.component.html',
   styleUrls: ['./ttms-dashboard-content.component.scss']
 })
-export class TtmsDashboardContentComponent {
+export class TtmsDashboardContentComponent implements OnInit{
 
-  displayStyle : String = "none"
+  constructor (private router : Router, private profileService : ProfileService){}
 
-  constructor (private router : Router){}
+  ngOnInit(): void {
+    this.profileService.getFullDetails()
+  }
 
   goToAddAgent(){
     this.router.navigate(['/agent/add']);
   }
   
-  openPopup() {
-    this.displayStyle = "block";
-  }
-  closePopup() {
-    this.displayStyle = "none";
-  }
 }

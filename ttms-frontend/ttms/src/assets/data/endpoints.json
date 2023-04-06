@@ -2,5 +2,7 @@
     "server" : "http://localhost:8080/api/",
     "authenticate" : "http://localhost:8080/api/auth/authenticate",
     "agent" : "http://localhost:8080/api/agent",
-    "meal" : "http://localhost:8080/api/meals"
+    "meal" : "http://localhost:8080/api/meals",
+    "profile" : "http://localhost:8080/api/profile",
+    "password" : "http://localhost:8080/api/profile/password"
 }

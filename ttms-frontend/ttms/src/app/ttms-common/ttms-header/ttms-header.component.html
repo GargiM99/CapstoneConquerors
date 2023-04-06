@@ -21,10 +21,10 @@
     <div class="ms-auto me-2" ngbDropdown role="group" aria-label="Button group with nested dropdown">
       <div ngbDropdownToggle>
         <img src="https://via.placeholder.com/30x30" alt="User Avatar" class="me-2 rounded-circle mb-1" />
-        <span class="h4 d-none d-sm-inline-block">User Name</span>
+        <span class="h4 d-none d-sm-inline-block">{{userDetails$.user.username || "username" }}</span>
       </div>
       <div class="dropdown-menu" ngbDropdownMenu>
-        <button ngbDropdownItem>Profile</button>
+        <button ngbDropdownItem (click)="goToProfile()">Profile</button>
         <button ngbDropdownItem>Settings</button>
         <button ngbDropdownItem>Logout</button>
       </div>

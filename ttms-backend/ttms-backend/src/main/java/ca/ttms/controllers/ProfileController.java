@@ -17,7 +17,7 @@ import ca.ttms.services.ProfileService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/personal")
+@RequestMapping("/api/profile")
 @RequiredArgsConstructor
 /**
  * REST controller for handling request for user's profile

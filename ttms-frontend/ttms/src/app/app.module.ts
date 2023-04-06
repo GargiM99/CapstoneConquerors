@@ -13,6 +13,7 @@ import { TokenService } from './auth/token.service';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TtmsAgentsModule } from './ttms-agents/ttms-agents.module';
 import { TtmsDashboardModule } from './ttms-dashboard/ttms-dashboard.module';
+import { TtmsProfileModule } from './ttms-profile/ttms-profile.module';
 
 export function jwtOptionsFactory() {
   return {
@@ -34,6 +35,7 @@ export function jwtOptionsFactory() {
     HttpClientModule,
     TtmsAgentsModule,
     TtmsDashboardModule,
+    TtmsProfileModule,
     JwtModule.forRoot({jwtOptionsProvider: {provide: JWT_OPTIONS, useFactory: jwtOptionsFactory,},}),
   ],
   providers: [

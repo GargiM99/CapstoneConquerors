@@ -21,7 +21,7 @@ export class AuthenticationService {
     let isAuthenticated : boolean = false
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     });
 
     const data = {

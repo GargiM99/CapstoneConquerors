@@ -28,7 +28,14 @@ export class TokenService {
   } 
 
   getToken(): string {
-    return JSON.parse(JSON.parse(this.token)).token;
+
+    if (this.token == undefined || this.token.length < 150)
+      this.setTokenFromLS()
+
+    if (this.token != undefined && this.token.length > 150)
+      return JSON.parse(JSON.parse(this.token)).token;
+    
+    return("");
   }
 
   getClaims(): any {
