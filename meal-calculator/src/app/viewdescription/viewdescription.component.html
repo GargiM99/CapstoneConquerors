@@ -1,0 +1,145 @@
+<body>
+  <header>
+    <!--Disney Meal Calculator Top Left Text Heading-->
+    <div class="header-left">
+      <h1 class="topLeftLogo">Disney Meal Calculator</h1>
+    </div>
+    
+    <!--Timeless Tales Travel Logo-->
+    <img class="logo" src="./assets/images/timeless tales logo.png"/>
+  
+  </header>
+  <main>
+    <div class="container">
+      <hr/>
+      <!--Timeless Tales Travel Text Heading*-->
+      <h3 class="timelessLogo">Timeless Tales Travel</h3>
+     
+      <br/>
+
+      <!--Disney Meal Calculator Main Title Text-->
+      <h1 class="calculatorTitle">Disney Meal Calculator</h1>
+      
+      <br/>
+
+      <!--Text Fields & Borders-->
+      <div>
+        <div class="col-13">
+          <form class="form-horizontal">
+            <div class="borders">
+
+              <!--Number of Adults-->
+              <label class="textFieldSpacing">
+                <strong>Number of Adults: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="adults"
+                name="adults"
+                required/>
+              <span class="error-message">{{ adultsError }}</span>
+              <br/>
+              <br/>
+
+              <!--Number of Children-->
+              <label class="textFieldSpacing">
+                <strong>Number of Children: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="children"
+                name="children"
+                required/>
+              <span *ngIf="childrenError" class="error-message">{{
+                childrenError
+              }}</span>
+              <br/>
+              <br/>
+
+              <!--Number of Days-->
+              <label class="textFieldSpacing">
+                <strong>Number of Days: </strong>
+              </label>
+              <input type="number" [(ngModel)]="days" name="days" required />
+              <span *ngIf="daysError" class="error-message">{{
+                daysError
+              }}</span>
+              <br/>
+              <br/>
+
+               <!--Days per service-->
+            </div>
+            <div class="borders">
+              <label> 
+                <strong>Days Per Service:</strong> 
+              </label>
+              <br/>
+              <br/>
+              
+              <!--Quick Service-->
+              <label class="textFieldSpacing">
+                <strong>Quick Service: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="QuickdaysPerService"
+                name="QuickdaysPerService"/>
+                <i
+                class="fa fa-info-circle"
+                style="font-size: 15px; color: red; margin-left: 5px"
+                title="Quick Service is a fast service that provides...">
+              </i>
+              <br/>
+              <br/>
+
+              <!--Full Service-->
+              <label class="textFieldSpacing">
+                <strong>Full Service: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="FulldaysPerService"
+                name="FulldaysPerService"
+              /><i
+                class="fa fa-info-circle"
+                style="font-size: 15px; color: red; margin-left: 5px"
+                title="Full Service is a fast service that provides..."
+              ></i>
+              <br/>
+              <br/>
+            </div>
+
+            <!--Snack Prefernece-->
+            <div class="borders">
+              <label class="textFieldSpacing">
+                <strong>Snack Preference: </strong></label>
+              <br/>
+              <div style="display: inline-block">
+                <div class="snack">
+                  <input type="checkbox" [(ngModel)]="snacksPreference" />
+                  <label for="abcd">Option 1</label>
+                  <i
+                    class="fa fa-info-circle info-icon"
+                    title="Choose a snack preference to add to the selected service"
+                  ></i
+                  ><br />
+                </div>
+                <div class="snack">
+                  <input type="checkbox" [(ngModel)]="snacksPreference" />
+                  <label for="abcd">Option 2</label>
+                </div>
+              </div>
+              <br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Mickey Mouse Corner Ears-->
+    <div class="container">
+      <img src="./assets/images/mickeymouseears.png" class="mickeymouseears" />
+    </div>
+  </main>
+
+</body>

@@ -1,0 +1,102 @@
+/*Disney Meal Calculator Top Left Text Heading*/
+.topLeftLogo{
+  font-family: 'Helvetica Neue', serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/*Timeless Tales Travel Text Heading*/
+.timelessLogo {
+  padding-top: 20px;
+  font-family: 'Blippo', serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/*Disney Meal Calculator Main Title Text*/
+.calculatorTitle {
+  font-family: 'Chalkduster', serif;
+  background-color: #F5E6D6;
+  border: 2px solid #ED983C;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+/*Timeless Tales Travel Logo*/
+header .logo{
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  top: 5%;
+  left: 42.5%;
+  transform: translateY(-50%);
+  height: 75px;
+  width: 260px;
+}
+
+/*Mickey Mouse Corner Ears*/
+.mickeymouseears {
+  position: fixed;
+  bottom: 0;
+  left: 5px;
+  height: 80px;
+  width: 5.5%;
+}
+
+/*Border Line After Logo*/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+/*Border Line After Logo*/
+.header-left {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+
+/*Border Line Length*/
+hr {
+  width:134%;
+  margin-left: -220px;
+  margin-right: -8px;
+}
+
+/*Background Image*/
+body {
+  background-image: URL("./assets/images/disney meal calculator background.jpg");
+  text-align: center;
+  height: 100%;
+  background-repeat: repeat;
+  background-size: contain;
+}
+
+/*Information Icons*/
+.info-icon {
+  font-size: 15px;
+  font-weight: bold;
+  color: red;
+  margin-left: 5px;
+}
+
+/*Snack Preference Checkboxes*/
+input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/*3 Borders*/
+.borders {
+  border: 1px solid #ED983C;
+  padding: 20px;
+  margin: 10px;
+}
+
+/*Spacing Between Text Fields*/
+.textFieldSpacing {
+  padding: 12px;
+}
