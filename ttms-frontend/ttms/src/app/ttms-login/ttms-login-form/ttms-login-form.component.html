@@ -1,29 +1,85 @@
-<div class="d-flex align-items-center flex-column">
-    <p>TTMS</p>
-    <p>Please Login</p>
-
-    <div>
-        <p *ngIf="!isAuthenticated">Password or username is incorrect</p>
-        <form class="form-group" [formGroup]="loginDetails" #loginForm="ngForm" (submit)="loginBtn()">
-            <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" aria-describedby="username"
-                placeholder="Enter Username" formControlName="username">
-
-            <div *ngIf="loginDetails.controls['username'].invalid && (loginDetails.controls['username'].dirty)"
-                class="error">
-                <div *ngIf="loginDetails.controls['username'].errors?.['required']">Please enter a username.</div>
-            </div>
-
-            <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" aria-describedby="password"
-                placeholder="Enter password" formControlName="password">
-
-            <div *ngIf="loginDetails.controls['password'].invalid && (loginDetails.controls['password'].dirty)"
-                class="error">
-                <div *ngIf="loginDetails.controls['password'].errors?.['required']">Please enter a password.</div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+<body style="background-color: #f0e5e2">
+    <div class="header">
+      <p class="headerText">Triple T Management System</p>
+      <img
+        src="../../../assets/header.png"
+        alt="logo"
+        width="200px"
+        height="60px"
+      />
     </div>
-</div>
+    <div class="d-flex align-items-center flex-column">
+      <h1>Triple T Management System</h1>
+      <h5>-Login Page-</h5>
+  
+      <div>
+        <p *ngIf="!isAuthenticated">Password or username is incorrect</p>
+        <form
+          class="form-group"
+          [formGroup]="loginDetails"
+          #loginForm="ngForm"
+          (submit)="loginBtn()"
+        >
+          <div class="labelType">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              aria-describedby="username"
+              placeholder="Enter Username"
+              formControlName="username"
+            />
+          </div>
+  
+          <div
+            *ngIf="
+              loginDetails.controls['username'].invalid &&
+              loginDetails.controls['username'].dirty
+            "
+            class="error"
+          >
+            <div *ngIf="loginDetails.controls['username'].errors?.['required']">
+              Please enter a username.
+            </div>
+          </div>
+          <div class="labelType">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              aria-describedby="password"
+              placeholder="Enter password"
+              formControlName="password"
+            />
+          </div>
+  
+          <div
+            *ngIf="
+              loginDetails.controls['password'].invalid &&
+              loginDetails.controls['password'].dirty
+            "
+            class="error"
+          >
+            <div *ngIf="loginDetails.controls['password'].errors?.['required']">
+              Please enter a password.
+            </div>
+          </div>
+          <div class="submitButton">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <footer style="bottom: 0px">
+      <img
+        src="../../../assets/mickey.png"
+        width="125px"
+        title="Mickey"
+        alt="logo"
+        class="footer-logo"
+      />
+    </footer>
+  </body>
+  
