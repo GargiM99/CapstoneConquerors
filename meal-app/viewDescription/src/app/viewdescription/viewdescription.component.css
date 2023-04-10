@@ -98,9 +98,6 @@ input[type="checkbox"] {
 
 /*Spacing Between Text Fields*/
 .textFieldSpacing {
-  padding: 12px;
+  padding: 13px;
 }
-/*p{
-  font-family: Times New Roman;
-  border: 1px solid #ED983C;
-}*/
+
