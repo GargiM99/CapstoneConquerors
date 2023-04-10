@@ -8,6 +8,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\zunai\Documents\Capston Conquerors\TripleTMangementSystem\Development\TripleTManagementSystem\ttms-backend"/>
 			<item value="C:\Users\owner\Documents\Capstone\TripleTManagementSystem\Development\TripleTManagementSystem\ttms-backend\ttms-backend"/>
 		</list>
 	</section>

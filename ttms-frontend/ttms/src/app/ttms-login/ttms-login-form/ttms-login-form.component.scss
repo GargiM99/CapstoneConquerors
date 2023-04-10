@@ -1,0 +1,94 @@
+
+body{
+  background-color: #F5E6D6;
+}
+
+
+
+/*Disney Meal Calculator Top Left Text Heading*/
+.topLeftLogo{
+  font-family: 'Helvetica Neue', serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/*Timeless Tales Travel Text Heading*/
+.timelessLogo {
+  padding-top: 20px;
+  font-family: 'Blippo', serif;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/*Disney Meal Calculator Main Title Text*/
+.calculatorTitle {
+  font-family: 'Chalkduster', serif;
+  background-color: #F5E6D6;
+  border: 2px solid #ED983C;
+  border-radius: 20px;
+  padding: 5px;
+}
+
+/*Timeless Tales Travel Logo*/
+header .logo{
+  position: absolute;
+  display: block;
+  margin: 0 auto;
+  top: 5%;
+  left: 42.5%;
+  transform: translateY(-50%);
+  height: 75px;
+  width: 260px;
+}
+/*Border Line After Logo*/
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+/*Border Line After Logo*/
+.header-left {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+}
+h1{
+  text-align: center;
+}
+
+
+/*Mickey Mouse Corner Ears*/
+.mickeymouseears {
+  position: fixed;
+
+  left: 5px;
+  height: 80px;
+  width: 5.5%;
+  background-color: #F5E6D6;
+}
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  margin-right: 10px;
+  
+}
+
+input {
+  flex: 1;
+}

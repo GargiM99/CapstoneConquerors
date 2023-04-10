@@ -1,197 +1,145 @@
-<style>
-
-.container {
-  border-radius: 5px;
-  background-color: #DED1CD;
-  padding: 80px;
-  width: 700%;
-  text-align: center;
-  margin-top: 0%
-
-
-}
-img{
-  width: 50px;
-  height:50px;
-  background-color: #DED1CD;
-  padding:0%;
-  margin: 0%;
-  margin-top: 0%;
-
-}
-h1 {
-  background-color:#DDDCDB;
-  border: 2px solid red;
-  border-radius: 12px;
-  padding: 5px;}
-  .logo {
-  width: auto;
-  height: auto;
-  text-align:center;
-}
-label{
-  text-align: left;
-}
-.info-icon {
-    font-size: 15px;
-    color: red;
-    margin-left: 5px;
-  }
-
-  label {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  input[type=checkbox] {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
-  }
-
-
-
-
-</style>
-
-<div class="container"  >
-  <h5><img src="./assets/disney-logo-.png"></h5>
-
-
-
-
-  <h3 font-family="Times New Roman">Timeless Tales Travel</h3><br>
-
-  <h1>Disney Meal Calculator</h1><br>
-
-  <div class="row">
-
-<div class="col-12" >
-
-  <br>
-  <br>
-  <form class="form-horizontal " >
-    <!--<div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Number of adults</strong> </label>
-        <input type="number" class="form-control">
-      </div>
-    </div><br>
-
-    <div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Number of Children</strong> </label>
-        <input type="number" class="form-control">
-      </div>
+<body>
+  <header>
+    <!--Disney Meal Calculator Top Left Text Heading-->
+    <div class="header-left">
+      <h1 class="topLeftLogo">Disney Meal Calculator</h1>
     </div>
-    <br>
+    
+    <!--Timeless Tales Travel Logo-->
+    <img class="logo" src="./assets/images/timeless tales logo.png"/>
+  
+  </header>
+  <main>
+    <div class="container">
+      <hr/>
+      <!--Timeless Tales Travel Text Heading*-->
+      <h3 class="timelessLogo">Timeless Tales Travel</h3>
+     
+      <br/>
 
-    <div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Number of days:</strong></label>
-        <input type="number" class="form-control">
-      </div>
-    </div>
-    <br>
+      <!--Disney Meal Calculator Main Title Text-->
+      <h1 class="calculatorTitle">Disney Meal Calculator</h1>
+      
+      <br/>
 
-    <div class="col-md-3 mx-auto text-center">
-      <label><strong> Days Per Service:</strong></label>
-    </div>
-    <br>
+      <!--Text Fields & Borders-->
+      <div>
+        <div class="col-13">
+          <form class="form-horizontal">
+            <div class="borders">
 
-    <div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Full Service:</strong></label>
-        <div class="input-group">
-          <input type="number" class="form-control">
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Full Service is a fast service that provides..."></i></span>
+              <!--Number of Adults-->
+              <label class="textFieldSpacing">
+                <strong>Number of Adults: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="adults"
+                name="adults"
+                required/>
+              <span class="error-message">{{ adultsError }}</span>
+              <br/>
+              <br/>
+
+              <!--Number of Children-->
+              <label class="textFieldSpacing">
+                <strong>Number of Children: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="children"
+                name="children"
+                required/>
+              <span *ngIf="childrenError" class="error-message">{{
+                childrenError
+              }}</span>
+              <br/>
+              <br/>
+
+              <!--Number of Days-->
+              <label class="textFieldSpacing">
+                <strong>Number of Days: </strong>
+              </label>
+              <input type="number" [(ngModel)]="days" name="days" required />
+              <span *ngIf="daysError" class="error-message">{{
+                daysError
+              }}</span>
+              <br/>
+              <br/>
+
+               <!--Days per service-->
+            </div>
+            <div class="borders">
+              <label> 
+                <strong>Days Per Service:</strong> 
+              </label>
+              <br/>
+              <br/>
+              
+              <!--Quick Service-->
+              <label class="textFieldSpacing">
+                <strong>Quick Service: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="QuickdaysPerService"
+                name="QuickdaysPerService"/>
+                <i
+                class="fa fa-info-circle"
+                style="font-size: 15px; color: red; margin-left: 5px"
+                title="Quick Service is a fast service that provides...">
+              </i>
+              <br/>
+              <br/>
+
+              <!--Full Service-->
+              <label class="textFieldSpacing">
+                <strong>Full Service: </strong>
+              </label>
+              <input
+                type="number"
+                [(ngModel)]="FulldaysPerService"
+                name="FulldaysPerService"
+              /><i
+                class="fa fa-info-circle"
+                style="font-size: 15px; color: red; margin-left: 5px"
+                title="Full Service is a fast service that provides..."
+              ></i>
+              <br/>
+              <br/>
+            </div>
+
+            <!--Snack Prefernece-->
+            <div class="borders">
+              <label class="textFieldSpacing">
+                <strong>Snack Preference: </strong></label>
+              <br/>
+              <div style="display: inline-block">
+                <div class="snack">
+                  <input type="checkbox" [(ngModel)]="snacksPreference" />
+                  <label for="abcd">Option 1</label>
+                  <i
+                    class="fa fa-info-circle info-icon"
+                    title="Choose a snack preference to add to the selected service"
+                  ></i
+                  ><br />
+                </div>
+                <div class="snack">
+                  <input type="checkbox" [(ngModel)]="snacksPreference" />
+                  <label for="abcd">Option 2</label>
+                </div>
+              </div>
+              <br />
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <br>
 
-    <div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Quick Service:</strong></label>
-        <div class="input-group">
-          <input type="number" class="form-control">
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Quick Service is a fast service that provides"></i></span>
-        </div>
-      </div>
+    <!--Mickey Mouse Corner Ears-->
+    <div class="container">
+      <img src="./assets/images/mickeymouseears.png" class="mickeymouseears" />
     </div>
-    <br>
+  </main>
 
-    <div class="form-group">
-      <div class="col-md-3 mx-auto text-center">
-        <label><strong>Preference of snacks:</strong></label>
-        <div class="input-group">
-          <select name="snacksPreference" class="form-control">
-            <option value=""></option>
-            <option value="">Snacks</option>
-          </select>
-          <span class="input-group-text"><i class="fa fa-info-circle" style="font-size:15px;color:red" title="Choose a snake preference to add to the selected service"></i></span>
-        </div>
-      </div>
-    </div>
-    <br>
-
-    <div class="form-group">
-      <div class="col-md-12 text-right">
-        <button style="font-size:20px">Calculate</button>
-      </div>
-    </div>
-
-
-  </form>
-</div>
-</div>-->
-<label>
-   <strong>Number of Adults: </strong>
-    <input type="number" [(ngModel)]="adults" name="adults" required>
-    <span class="error-message">{{ adultsError }}</span>
-  </label><br><br>
-  <label>
-   <strong>Number of Children: </strong>
-    <input type="number" [(ngModel)]="children" name="children" required>
-    <span *ngIf="childrenError" class="error-message">{{ childrenError }}</span>
-  </label><br><br>
-  <label>
-    <strong>Number of Days: </strong>
-    <input type="number" [(ngModel)]="days" name="days" required>
-    <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
-  </label><br><br>
-  <label>
-
-  <label>
-   <strong>Days Per Service:</strong>
-  </label><br><br>
-
-  <label>
-   <strong>Quick Service: </strong>
-    <input type="number" [(ngModel)]="QuickdaysPerService" name="QuickdaysPerService"><i class="fa fa-info-circle" style="font-size:15px;color:red; margin-left: 5px" title="Quik Service is a fast service that provides"></i>
-  </label><br><br>
-
-  <label>
-    <strong>Full Service: </strong>
-    <input type="number" [(ngModel)]="FulldaysPerService" name="FulldaysPerService"><i class="fa fa-info-circle" style="font-size:15px;color:red; margin-left: 5px" title="Full Service is a fast service that provides"></i>
-  </label><br><br>
-
-
-  <strong>Snack Preference: </strong><br>
-  <div style="display: inline-block;">
-<input type="checkbox" [(ngModel)]="snacksPreference">
-<label for="abcd">Snack 1</label>
-<i class="fa fa-info-circle info-icon" title="Information about Snack 1"></i><br>
-<input type="checkbox" [(ngModel)]="snacksPreference">
-<label for="abcd">Snack 2</label>
-</div>
-<br>
-
-
-
-
-
-
-
-
-
-
+</body>
