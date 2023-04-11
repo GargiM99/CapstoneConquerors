@@ -29,6 +29,11 @@ export class MealCalComponent {
    {
 
    }
+   showMessage = false; // Initialize showMessage to false
+
+  showMessageBox() {
+    this.showMessage = !this.showMessage; // Toggle showMessage value
+  }
 
   onSubmit() {
     // Validate user input

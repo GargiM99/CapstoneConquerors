@@ -27,6 +27,11 @@ export class TokenService {
     this.expirationDate = this.jwtHelper.getTokenExpirationDate(token);
   } 
 
+  clearToken(){
+    localStorage.clear()
+    this.token = ""
+  }
+
   getToken(): string {
 
     if (this.token == undefined || this.token.length < 150)

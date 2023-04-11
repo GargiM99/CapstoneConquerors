@@ -1,162 +1,92 @@
-<style>
-  /* Form styles*/
- form,div{
-  background-color:#DED1CD;
+<body style="background-color: #f0e5e2">
+  <div class="header">
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
-  padding-top: 20px;
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 50px;
+    <img
+      src="../../assets/images/timeless tales logo.png"
+      alt="logo"
+      width="200px"
+      height="60px"
+    />
+   <!--<p class="headerText">Triple T Management System</p>-->
+  </div>
+  <hr/>
+  <!--Disney Meal Calculator Main Title Text-->
+  <h1 class="calculatorTitle">Disney Meal Calculator</h1>
 
-
-}
-h1{
-
-  text-align: center;
-  background-color: #DDDCDB;
-  border: 2px solid red;
-  border-radius: 12px;
-  padding: 5px;
-  width: 100%;
-}
-/*.meal-form {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 50px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}*/
-
-
-
-label {
-  align-items: center;
-  font-size: 18px;
-}
-input[type="number"] {
-
-  background-color: #dfe8e0;
-
-  font-size: 18px;
-  text-align: center;
-}
-select {
-  background-color: #dfe8e0;
-  width: 150px;
-  margin: 15px;
-  font-size: 18px;
-  text-align: center;
-}
-p{
-  align-items: center;
-  font-size: 18px;
-}
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  border-radius: 5px;
-  background-color:rgb(199, 12, 43);
-  color: #fff;
-  cursor: pointer;
-}
-.error-message {
-  color: red;
-  /*display: block;
-  margin-top: 5px;
-  font-size: 0.8em;*/
-
- text-align: left;
-  font-size: small;
-  margin-top: 20px;
-  position: left;
-
-
-}
-img{float:right;
-  border-radius: 70%;
-
-
-}
+  <br/>
 
 
 
 
-</style>
+   <form (ngSubmit)="onSubmit()"class="meal-form">
+   <div>
+      <label>
+      <strong> Number of Adults:   </strong>
+      <input type="number" [(ngModel)]="adults" name="adults" required >
+      <span *ngIf="adultsError" class="error-message">{{ adultsError }}</span>
+      </label><br><br>
 
-<form (ngSubmit)="onSubmit()"class="meal-form">
- <!-- <img src="assets/mickey.jpeg">-->
-<h3>TimeLess Tales Travel</h3>
-  <h1 >Disney Meal Calculator</h1>
-<div>
-  <label>
-   <strong> Number of Adults:   </strong>
-    <input type="number" [(ngModel)]="adults" name="adults" required >
+      <label>
+      <strong>Number of Children:  </strong>
+      <input type="number" [(ngModel)]="children" name="children" required>
+      <span *ngIf="childrenError" class="error-message">{{ childrenError }}</span>
+      </label><br><br>
 
+      <label>
+      <strong>Number of Days: </strong>
+      <input type="number" [(ngModel)]="days" name="days" required >
+      <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
+      </label><br><br>
 
+      <label>
+      <strong>Days For Each Service:  </strong>
+      </label><br><br>
 
-    <span *ngIf="adultsError" class="error-message">{{ adultsError }}</span>
-  </label><br><br>
+      <label>
+      <strong>Full Service: </strong>
+      <input type="number" [(ngModel)]="FulldaysPerService" name="FulldaysPerService" required>
+      </label><br><br>
 
-  <label>
-
-    <strong>Number of Children:  </strong>
-    <input type="number" [(ngModel)]="children" name="children" required>
-    <span *ngIf="childrenError" class="error-message">{{ childrenError }}</span>
-  </label><br><br>
-  <label>
-    <strong>Number of Days: </strong>
-    <input type="number" [(ngModel)]="days" name="days" required >
-    <span *ngIf="daysError" class="error-message">{{ daysError }}</span>
-  </label><br><br>
-  <label>
-     <strong>Days For Each Service:  </strong>
-  </label><br><br>
-  <label>
-    <strong>Full Service: </strong>
-    <input type="number" [(ngModel)]="FulldaysPerService" name="FulldaysPerService" required>
-
-
-  </label><br><br>
-  <label>
+     <label>
     <strong>Quick Service: </strong>
     <input type="number" [(ngModel)]="QuickdaysPerService" name="QuickdaysPerService" required>
     <p *ngIf="FulldaysPerService + QuickdaysPerService !== days" class="error-message">Number of days must be equal for Full Service and Quick Service.</p>
-  </label><br>
- <!--
-    <div *ngIf="FulldaysPerService && QuickdaysPerService">
+    </label><br>
+    <!--<div *ngIf="FulldaysPerService && QuickdaysPerService">
       <span *ngIf="FulldaysPerService + QuickdaysPerService !== days" class="error-message">Number of days must be equal for Full Service and Quick Service.</span>
     </div>-->
     <label>
-    <strong>Preference of snacks:</strong>
+    <strong>Snack Preference:</strong>
     <select [(ngModel)]="snacksPreference" name="snacksPreference">
       <option value="">Regular</option>
       <option value="">Premium</option>
     </select>
-  </label>
-
-  <br>
-  <button type="submit">Calculate</button><br>
-  </div>
+    </label>
+    <br>
+    <button type="submit" (click)="showMessageBox()">Calculate</button><br>
+ </div>
 
 </form>
-
-
-<div *ngIf="totalPrice">
+<div *ngIf="showMessage">
+<div style="border: 1px solid #000; background-color: #f8f8f8; padding: 10px;">
+ <div *ngIf="totalPrice">
   <p>
-
     Price Per Day: {{ totalPricePerDay | currency }}.<br>
     Total Meal Price:{{ totalPrice | currency }}.
   </p>
 </div>
+</div>
+</div>
+
+<!--Mickey Mouse Corner Ears-->
+  <div class="container">
+    <img src="./assets/images/mickeymouseears.png" class="mickeymouseears" />
+  </div>
+
+</body>
+
+
+
 
 
 

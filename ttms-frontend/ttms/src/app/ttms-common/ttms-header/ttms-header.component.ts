@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Observer, Subscription, isEmpty } from 'rxjs';
+import { TokenService } from 'src/app/auth/token.service';
 import { AgentFullDetails } from 'src/app/classes/agent-full-details';
 import { ProfileService } from 'src/app/services/profile.service';
 
@@ -13,7 +14,8 @@ export class TtmsHeaderComponent implements OnInit {
 
   userDetails$ : AgentFullDetails = new AgentFullDetails()
 
-  constructor(private router: Router, private profileService : ProfileService){}
+  constructor(private router: Router, private profileService : ProfileService, 
+              private tokenService : TokenService){}
 
   ngOnInit(): void {
     this.profileService.fullDetailsObs$.subscribe({
@@ -26,18 +28,23 @@ export class TtmsHeaderComponent implements OnInit {
   }
 
   goToMealsForm(){
-    this.router.navigate(['/meals']);
+    this.router.navigate(['/meals'])
   }
 
   goToDashboard(){
-    this.router.navigate(['/']);
+    this.router.navigate(['/'])
   }
 
   goToAgentsList(){
-    this.router.navigate(['/agent']);
+    this.router.navigate(['/agent'])
   }
 
   goToProfile(){
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/profile'])
+  }
+
+  logoutUser(){
+    this.tokenService.clearToken()
+    this.router.navigate(['/login'])
   }
 }

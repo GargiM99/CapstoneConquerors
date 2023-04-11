@@ -1,7 +1,20 @@
-<button (click)="goToPasswordForm()">Change Password</button>
-<ul>
+<body>
+<h3 class="title">Triple T Management System</h3>
+<div class="container">
+  <p>To change password, click this button:</p>
+
+<button class="passwordButton" (click)="goToPasswordForm()">Change Password</button>
+<ul class-="userList">
     <li>{{userDetails$.user.username}}</li>
     <li>{{userDetails$.user.id}}</li>
     <li>{{userDetails$.user.role}}</li>
     <li>{{userDetails$.person.firstname}}</li>
 </ul>
+</div>
+<footer></footer>
+  
+
+
+</body>
+
+

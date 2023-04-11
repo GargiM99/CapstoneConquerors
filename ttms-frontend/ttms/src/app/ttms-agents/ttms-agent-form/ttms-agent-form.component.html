@@ -1,6 +1,10 @@
+
+<h3 class="title">Triple T Management System</h3>
+<body>
+  <br>
 <form #agentForm="ngForm" [formGroup]="agentDetails" class="d-flex flex-column" >
     <p *ngIf="isDuplicate">User already exists</p>
-    <h2>Personal Information</h2>
+    <h4>--Personal Information--</h4><br><br>
     <div>
         <div formGroupName="person">
             <label for="firstname">First Name:</label>
@@ -15,6 +19,7 @@
                     *ngIf="agentDetails.controls.person.get('firstname')?.errors?.['required']">
                     Firstname is required</div>
             </div>
+            <br>
 
             <label for="lastname">Last Name:</label>
             <input type="text" id="lastname" name="lastname"
@@ -28,6 +33,7 @@
                     *ngIf="agentDetails.controls.person.get('lastname')?.errors?.['required']">
                     Last name is required</div>
             </div>
+            <br>
 
             <label for="birthDate">Birthdate:</label>
             <input type="date" id="birthDate" name="birthDate"
@@ -39,6 +45,7 @@
                     is required</div>
             </div>
         </div>
+        <br>
 
         <div formGroupName="contact">
             <label for="email">Email:</label>
@@ -53,6 +60,7 @@
                     *ngIf="agentDetails.controls.contact.get('email')?.errors?.['required']">Email
                     is required</div>
             </div>
+            <br>
 
             <label for="primaryPhoneNumber">Primary Phonenumber:</label>
             <input type="text" id="primaryPhoneNumber" name="primaryPhoneNumber"
@@ -68,7 +76,7 @@
                     *ngIf="agentDetails.controls.contact.get('primaryPhoneNumber')?.errors?.['required']">Phone
                     Number is required</div>
             </div>
-
+            <br>
             <label for="secondaryPhoneNumber">Secondary Phonenumber:</label>
             <input type="text" id="secondaryPhoneNumber"
                 name="secondaryPhoneNumber"
@@ -85,6 +93,7 @@
                     Number is required</div>
             </div>
         </div>
+        <br>
 
         <div formGroupName="address">
             <label for="addressLine">Address:</label>
@@ -99,6 +108,8 @@
                     *ngIf="agentDetails.controls.address.get('addressLine')?.errors?.['required']">Address
                     is required</div>
             </div>
+            <br>
+
 
             <label for="postalCode">Postal Code:</label>
             <input type="text" id="postalCode" name="postalCode"
@@ -112,6 +123,7 @@
                     *ngIf="agentDetails.controls.address.get('postalCode')?.errors?.['required']">Postal
                     code is required</div>
             </div>
+            <br>
 
             <label for="city">City:</label>
             <input type="text" id="city" name="city" formControlName="city"
@@ -125,6 +137,7 @@
                     *ngIf="agentDetails.controls.address.get('city')?.errors?.['required']">City
                     is required</div>
             </div>
+            <br>
 
             <label for="province">Province/State:</label>
             <input type="text" id="province" name="province"
@@ -138,6 +151,7 @@
                     *ngIf="agentDetails.controls.address.get('province')?.errors?.['required']">Province
                     is required</div>
             </div>
+            <br>
 
             <label for="country">Country:</label>
             <select id="country" name="country" formControlName="country"
@@ -156,6 +170,7 @@
                     is required</div>
             </div>
         </div>
+        <br>
         <button type="submit" [disabled]="!agentDetails.valid" (click)="submitAgentForm()">Add</button>
     </div>
 </form>
@@ -178,3 +193,4 @@
       </div>
     </div>
   </div>
+</body>

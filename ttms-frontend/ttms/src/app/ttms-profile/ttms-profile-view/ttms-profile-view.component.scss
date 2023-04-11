@@ -1,0 +1,56 @@
+body{
+  background-color: #f0e5e2;
+  margin: 5px;
+  padding: 20px;
+
+ bottom: 100%;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0e5e2;
+  padding:70px; /* Set your desired padding */
+
+
+}
+.userList {
+  /* additional styles for the user details list */
+  list-style: none; /* remove default list styles */
+  padding: 0; /* remove default padding */
+  text-align: center; /* center the list items */
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40vh; /* Set height to 100vh to fill the entire viewport height */
+}
+
+.passwordButton {
+  /* additional styles for the button */
+  /* additional styles for the button */
+  background-color: #007bff; /* set background color */
+  color: #fff; /* set text color */
+  padding: 10px 20px; /* set padding */
+  font-size: 16px; /* set font size */
+  border: none; /* remove border */
+  cursor: pointer; /* add cursor pointer */
+  margin-top: 20px; /* add top margin */
+  /* Add any other additional styles as needed */
+}
+h3{
+  text-align: center;
+    border: solid 4px #B76E6E;
+    border-radius: 2em;
+    padding: 10px;
+    margin: 0px 0px 30px 0px;
+    background-color: #DDDCDB;
+
+
+}
+p{
+  font-family: Times New Roman;
+}

@@ -1,0 +1,130 @@
+form,div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 90px;
+  padding-top: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 50px;
+
+
+}
+.logo{
+  font-size: 2rem;
+  margin: -0.4rem 0.7rem 0 0.3rem ;
+}
+.header{
+  display: flex;
+  padding: 10px;
+}
+
+.headerText{
+
+  font-weight: bolder;
+}
+
+
+label {
+  align-items: center;
+  font-size: 18px;
+}
+
+input[type="number"] {
+
+  background-color: #dfe8e0;
+
+  font-size: 18px;
+  text-align: center;
+}
+select {
+  background-color: #dfe8e0;
+  width: 150px;
+  margin: 15px;
+  font-size: 18px;
+  text-align: center;
+   border: 1px solid #000;
+}
+p{
+  align-items: center;
+  font-size: 18px;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color:rgb(199, 12, 43);
+  color: #fff;
+  cursor: pointer;
+}
+.error-message {
+  color: red;
+  /*display: block;
+  margin-top: 5px;
+  font-size: 0.8em;*/
+
+ text-align: left;
+  font-size: small;
+  margin-top: 20px;
+  position: left;
+
+
+}
+
+
+
+
+
+/*Mickey Mouse Corner Ears*/
+.mickeymouseears {
+  position: fixed;
+  bottom: 0;
+  left: 5px;
+  height: 80px;
+  width: 5.5%;
+}
+
+
+
+/*Background Image*/
+body {
+  background-image: URL("./assets/images/disney meal calculator background.jpg");
+  text-align: center;
+  height: 100%;
+  background-repeat: repeat;
+  background-size: contain;
+}
+
+
+
+/*Snack Preference Checkboxes*/
+input[type="checkbox"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/*3 Borders*/
+.borders {
+  border: 1px solid #ED983C;
+  padding: 20px;
+  margin: 10px;
+}
+
+/*Spacing Between Text Fields*/
+.textFieldSpacing {
+  padding: 12px;
+}
+/*Border Line Length*/
+
+/*Disney Meal Calculator Main Title Text*/
+.calculatorTitle {
+  font-family: 'Chalkduster', serif;
+  background-color: #F5E6D6;
+  border: 2px solid #ED983C;
+  border-radius: 20px;
+  padding: 5px;
+}
+
