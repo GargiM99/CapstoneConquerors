@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserAuthenticationDetails {
-
+	
+	private Integer id; 
 	private String username;
 	private String password;
 }

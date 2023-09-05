@@ -1,4 +1,6 @@
 import { Component, ElementRef, HostListener, Input, Renderer2, TemplateRef, ViewContainerRef} from '@angular/core';
+import { ServiceDataService } from './service-data.service';
+import { CalculatePrice } from './calculatePrice';
 
 @Component({
   selector: 'app-viewdescription',
@@ -22,15 +24,21 @@ export class ViewdescriptionComponent {
   FulldaysPerServiceError: string = '';
   QuickdaysPerServiceError: string = '';
   daysPerServiceError : string = '';
-  
+  caulcationResult : CalculatePrice = new CalculatePrice()
+  isCalculated : boolean = false
+
+  constructor(private dataService : ServiceDataService){
+
+  }
+
+  calculatePrice(){
+    this.caulcationResult = this.dataService.calculateMealPrice
+      (this.QuickdaysPerService, this.FulldaysPerService, this.children, this.adults)
+    this.isCalculated = true
+  }
+
   @HostListener('mouseover')
-  mouseover(){
-
-
-
-  }
+  mouseover(){}
   @HostListener('mouseout')
-  mouseout(){
-
-  }
+  mouseout(){}
 }

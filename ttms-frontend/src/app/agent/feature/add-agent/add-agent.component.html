@@ -1,0 +1,102 @@
+<div class="agent-add-container">
+    <h1 class="add-title-card">Add Agent</h1>
+    <form [formGroup]="agentForm" (ngSubmit)="onAdd()" class="flex-column">
+        <h3 class="group-header">Personal Info</h3>
+        <div formGroupName="person" class="form-group-card">
+            <div class="input-section">
+                <label>Full Name</label>
+                <div class="flex-row">
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="firstname" 
+                        [class.invalid]="isInvalid('person','firstname')" placeholder="First name"/>
+                    </div>
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="lastname" 
+                        [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"/>
+                    </div>
+                </div>
+                <span *ngIf="isInvalid('person','lastname') || isInvalid('person','firstname')">Invalid Name</span>
+            </div>
+
+            <div class="input-section">
+                <label>Birthdate</label>
+                <input type="date" formControlName="birthdate" 
+                [class.invalid]="isInvalid('person','birthdate')" placeholder="Birth Date"/>
+                <span *ngIf="isInvalid('person','birthdate')">Invalid Date</span>
+            </div>
+        </div>
+        <br>
+        <h3 class="group-header">Address Info</h3>
+        <div formGroupName="address" class="form-group-card">
+            <div class="input-section">
+                <label>Address</label>
+                <input type="text" formControlName="addressLine" 
+                [class.invalid]="isInvalid('address','addressLine')" placeholder="Address"/>
+                <span *ngIf="isInvalid('address','addressLine')">Invalid Address</span>
+            </div>
+
+            <div class="input-section">
+                <label>Country & Province</label>
+                <div class="flex-row">
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="country" 
+                        [class.invalid]="isInvalid('address','country')" placeholder="Country"/>
+                        <span *ngIf="isInvalid('address','country')">Invalid Country</span>
+                    </div>
+
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="province" 
+                        [class.invalid]="isInvalid('address','province')" placeholder="Province"/>
+                        <span *ngIf="isInvalid('address','province')">Invalid Province</span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-section">
+                <label>City & Postal Code</label>
+                <div class="flex-row"> 
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="city" 
+                        [class.invalid]="isInvalid('address','city')" placeholder="City"/>
+                        <span *ngIf="isInvalid('address','city')">Invalid City</span>
+                    </div>
+
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="postalCode" 
+                        [class.invalid]="isInvalid('address','postalCode')" placeholder="Postal Code"/>
+                        <span *ngIf="isInvalid('address','postalCode')">Invalid Postal Code</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <h3 class="group-header">Contact Info</h3>
+        <div formGroupName="contact" class="form-group-card">
+            <div class="input-section">
+                <label>Email</label>
+                <input type="email" formControlName="email" 
+                [class.invalid]="isInvalid('contact','email')" placeholder="Email"/>
+                <span *ngIf="isInvalid('contact','email')">Invalid Email</span>
+            </div>
+
+            <div class="input-section">
+                <label>Primary & Secondary Phone</label>
+                <div class="flex-row"> 
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="primaryPhoneNumber" 
+                        [class.invalid]="isInvalid('contact','primaryPhoneNumber')" placeholder="Primary"/>
+                        <span *ngIf="isInvalid('contact','primaryPhoneNumber')">Invalid Phone</span>
+                    </div>
+
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="secondaryPhoneNumber" 
+                        [class.invalid]="isInvalid('contact','secondaryPhoneNumber')" placeholder="Secondary"/>
+                        <span *ngIf="isInvalid('contact','secondaryPhoneNumber')">Invalid Phone</span>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        <button type="submit">Add</button>
+    </form>
+</div>

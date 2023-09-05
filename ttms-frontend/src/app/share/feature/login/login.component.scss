@@ -1,0 +1,75 @@
+@import '../../../../variables';
+$max-login-width: clamp(25rem, 10vw, 30rem);
+
+.login-page{
+    max-width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+
+    .error-card{
+       display: flex;
+       flex-direction: row; 
+       align-items: center;
+       gap: 1rem;
+
+       background-color: $clr-alert-200;
+       border-radius: $brd-200;
+       border: 0.05rem solid $clr-alert-500;
+       box-shadow: 0 0 10px $clr-black-100;
+
+       font-size: $fs-350;
+       font-weight: $fw-light;
+
+       padding: 1rem;  
+       margin-bottom: 0.5rem;   
+    }
+
+    .login-container{
+        width: $max-login-width;
+        height: fit-content;
+        border: 0.05rem solid $clr-primary;
+        border-radius: $brd-200;
+        overflow: hidden;
+    
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: 0 0 10px $clr-black-100;
+
+        h1{
+            width: inherit;
+            text-align: center;
+            padding: 1rem 0;
+    
+            background-color: $clr-primary;
+            color: $clr-white;
+    
+            font-size: $fs-400;
+            font-weight: $fw-medium;
+        }
+    
+        h3{
+            margin-top: 0.5rem;
+            font-weight: $fw-bold;
+            font-size: $fs-300;
+            color: $clr-primary;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            
+            button{
+                margin: auto;
+                margin-bottom: 0.8rem;
+                background-color: $clr-secondary;
+            }
+        }
+    }
+}

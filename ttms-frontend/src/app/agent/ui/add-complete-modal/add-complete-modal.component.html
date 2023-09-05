@@ -1,0 +1,19 @@
+<div class="modal-card">
+    <div class="modal-header-section">
+        <h1>Agent Added</h1>
+    </div>
+    <div class="modal-body-section">
+        <h3>Please record the username and password</h3>
+        <div class="modal-user-detail" *ngIf="inputValue.newProfile | async as profile">
+            <div *ngIf="profile.user != null">
+                <h3>Username: {{profile.user.username}}</h3>
+                <h3>Password: {{profile.user.password}}</h3>
+            </div>
+        </div>
+        <div *ngIf="inputValue.error | async as error;">
+            <h3>An error occured when adding user!</h3>
+        </div>
+        <button (click)="close()">OK</button>
+    </div>
+</div>
+

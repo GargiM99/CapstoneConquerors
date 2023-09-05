@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 /**
  * REST controller for the agent 
- * 
+ * doesam, 5lmjNhGXBw5v
  * @author Hamza
  * date: 2023/03/07 
  */
@@ -41,18 +41,18 @@ public class AgentController {
 	public Map<String, Object>[] getMeals() {
 		return service.getAgents();
 	}
-
+	
 	@PostMapping()
 	public ResponseEntity<UserAuthenticationDetails> regstier(
 			@RequestHeader("Authorization") String authHeader,
 			@RequestBody UserRegisterDetails registerDetails) {
-
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		Person person = registerDetails.getPerson();
 
 		String jwtoken = authHeader.substring(7);
-		String role = jwtService.extractAllClaims(jwtoken).get("Role", String.class);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
 		
 		if (role == null || !role.equals("ADMIN"))
 			return ResponseEntity.status(401).headers(headers).body(null);

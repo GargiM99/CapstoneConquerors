@@ -1,0 +1,231 @@
+@import "./variables";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, input, option, select, button{
+    font-family: $ff-base;
+    color: $clr-black;
+    font-size: $fs-300;
+    font-weight: $fw-regular;
+    line-height: 1.5;
+}
+
+select{
+    font-size: $fs-350;
+    color: $clr-white;
+    background-color: $clr-primary-200;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+
+    option{
+        font-size: $fs-350;
+        color: $clr-white;
+    }
+}
+
+form{
+    button{
+        color: $clr-white;
+        background-color: $clr-primary;
+        padding: $btn-padding;
+        border-radius: $brd-100;
+    }
+    h3{
+        font-weight: $fw-bold;
+        font-size: $fs-350;
+    }
+    input{
+        max-width: $input-width;
+        font-size: $fs-300;
+        padding: 0.2rem;
+        border: 0.05rem solid $clr-primary;
+    }
+    .input-error, span{
+        color: $clr-alert-500;
+        font-size: $fs-200;
+    }
+    .invalid{
+        background-color: $clr-alert-100;
+        border: 0.05rem solid  $clr-alert-500;
+    }
+    .form-group{
+        display: flex;
+        flex-direction: column;
+        margin: $form-group-spacing;
+    }
+    .short-text-input{
+        max-width: $input-width-sm;
+    }
+    .form-group-card{
+        border: 0.05rem solid $clr-primary;
+        background-color: $clr-primary-100;
+        border-radius: 0 $brd-200 $brd-200 $brd-200;
+        box-shadow: 0 0 12px $clr-black-100;
+    
+        width: fit-content;
+        padding: 0.7rem 8rem 1.5rem 2rem;
+    
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+    .group-header{
+        font-size: $fs-400;
+        font-weight: $fw-medium;
+        background-color: $clr-primary-300;
+        color: $clr-white;
+    
+        width: fit-content;
+        padding: 0.3rem 0.5rem;
+        border-radius: $brd-200 $brd-200 0 0;
+    }
+    .input-section{
+        display: flex; 
+        flex-direction: column;
+        margin: 0;
+
+        > input ,div, span{
+            margin-left: $form-input-margin;
+        }
+    }
+}
+
+//For cards i.e(Agents, Clients, etc)
+.view-card{
+    border: 0.05rem solid $clr-primary;
+    background-color: $clr-primary-300;
+    border-radius: $brd-200;
+    box-shadow: 0 0 5px $clr-black-100;
+
+    width: $card-width;
+    overflow: hidden;
+    padding: 0.4rem;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.75rem;
+
+    p{
+        font-size: $fs-400;
+        background-color: transparent;
+        color: $clr-white;
+    }
+
+    hr{
+        background-color: $clr-secondary;
+        height: 2rem;
+        width: 0.1rem;
+        border: 0 solid transparent;
+    }
+
+    img{
+        aspect-ratio: 1;
+        width: 3rem;
+        border-radius: 50%;
+    }
+}
+
+//For list of cards i.e(Agents, Clients, etc)
+.list-cards{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 1rem;
+
+    width: fit-content;
+    padding: 1.5rem;
+
+    border: 0.5rem solid $clr-primary;
+    border-radius: $brd-200;
+    border-top-left-radius: 0;
+    box-shadow: 0 0 15px $clr-black-100;
+    background-color: $clr-primary-100;
+}
+
+.list-header{
+    font-size: $fs-500;
+    font-weight: $fw-medium;
+    background-color: $clr-primary;
+    color: $clr-white;
+
+    width: fit-content;
+    padding: 0.5rem 1rem 0.5rem 0.8rem;
+    border-radius: $brd-200 $brd-200 0 0;
+}
+
+
+.remove-style{
+    background-color: transparent;
+    border: 0 none transparent;
+    padding: 0;
+}
+
+.box-shadow{
+    box-shadow: 0 0 5px $clr-black-100;
+}
+
+.flex-row{
+    display: flex; 
+    flex-direction: row;
+    margin: 0;
+}
+
+.flex-column{
+    display: flex; 
+    flex-direction: column;
+    margin: 0;
+}
+
+//Search bars such as the one in agents page
+.search-bar{
+    font-size: $fs-350;
+    padding: 0.3rem;
+    border: 0.02rem solid $clr-primary;
+    border-radius: 0.3rem;
+}
+.search-bar:focus{
+    outline: 0.1rem solid $clr-primary;
+}
+
+//Arrow such as the one in home page
+.arrow {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: $clr-secondary;
+    clip-path: polygon(0% 50%, 100% 50%, 50% 100%);
+}
+
+.addSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px; 
+    height: 35px; 
+
+    background-color: $clr-secondary;
+    color: $clr-white; 
+    border: 0.07rem solid $clr-primary;
+    border-radius: $brd-200;
+    box-shadow: 0 0 7px $clr-black-100;
+
+    font-size: $fs-600; 
+    font-weight: $fw-bold;
+    cursor: pointer;
+}
+
+.modal-backdrop {
+    width: 100vw;
+    height: 100vh;
+    background-color: $clr-modal-backdrop;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+  }

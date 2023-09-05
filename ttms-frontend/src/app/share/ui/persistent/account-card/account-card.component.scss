@@ -1,0 +1,28 @@
+@import '../../../../../variables';
+
+.account-card{
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-items: end;
+
+    background-color: $clr-primary-50;
+    border-radius: $brd-300;
+    border: 0.2rem solid $clr-primary-300;
+    box-shadow: 0 0 3px $clr-black-100;
+    
+    padding: 0.4rem;
+    width: fit-content;
+    float: right;
+
+    img{
+        border-radius: 50%;
+        aspect-ratio: 1;
+        width: 50px;
+    }
+
+    h3{
+        font-size: $fs-400;
+        color: $clr-white;
+    }
+}

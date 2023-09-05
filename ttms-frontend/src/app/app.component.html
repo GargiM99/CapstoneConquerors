@@ -1,0 +1,9 @@
+<div class="root-view">
+    <ng-container *ngIf="location.path() !== '/login'">
+        <app-header [profile]="(profileDetails$ | async)"></app-header>
+    </ng-container>
+    <div style="flex: 1">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer *ngIf="location.path() != '/login'"></app-footer>
+</div>

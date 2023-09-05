@@ -1,0 +1,9 @@
+<div class="list-container">
+    <h2 class="list-header">Agents</h2>
+    <div class="list-cards">
+        <div *ngFor="let agent of (agents$ | async | slice:0:numberCards); let i = index">
+            <agent-card [agent]="agent" id="agent-card"></agent-card>
+        </div>
+        <arrow-button (click)="viewAll()"></arrow-button>
+    </div>
+</div>

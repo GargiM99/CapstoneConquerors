@@ -1,0 +1,37 @@
+@import '../../../../variables';
+
+.agent-view-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0 clamp(1rem, 10vw, $max-body-margin);
+}
+
+.agent-list-section{
+    width: 100%;
+    max-width: 20rem;
+}
+
+.agent-view-header{
+    display: flex;
+    align-items: flex-end;
+    padding-right: 0.5rem;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.agent-list-card{
+    width: 100%;
+    height: 25rem;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+}
+
+.agent-list-card::-webkit-scrollbar-thumb{
+    background-color: #3498db; /* Color of the thumb */
+    border-radius: 5px;
+}
+
+.agent-list-card::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar track */
+}

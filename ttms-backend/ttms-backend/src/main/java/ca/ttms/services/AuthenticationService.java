@@ -250,7 +250,7 @@ public class AuthenticationService {
 	    
 	    var user = userRepo.findByUsername(authDetails.getUsername()).orElseThrow();
 	    var claimMap = new HashMap<String, Object>();
-	    claimMap.put("Role", user.getRole());
+	    claimMap.put("role", user.getRole());
 	    
 	    var jwtoken = jwtService.generateJwtoken(claimMap, user);
 	    saveUserToken(user, jwtoken);

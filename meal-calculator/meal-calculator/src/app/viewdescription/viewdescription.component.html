@@ -21,7 +21,6 @@
       <h1 class="calculatorTitle">Disney Meal Calculator</h1>
       
       <br/>
-
       <!--Text Fields & Borders-->
       <div>
         <div class="col-13">
@@ -116,8 +115,8 @@
               <br/>
               <div style="display: inline-block">
                 <div class="snack">
-                  <input type="checkbox" [(ngModel)]="snacksPreference" />
-                  <label for="abcd">Option 1</label>
+                  <input type="radio" name="snackPreference"/>
+                  <label for="abcd">No Snacks</label>
                   <i
                     class="fa fa-info-circle info-icon"
                     title="Choose a snack preference to add to the selected service"
@@ -125,13 +124,29 @@
                   ><br />
                 </div>
                 <div class="snack">
-                  <input type="checkbox" [(ngModel)]="snacksPreference" />
-                  <label for="abcd">Option 2</label>
+                  <input type="radio" name="snackPreference"/>
+                  <label for="abcd">Simple Snacks</label>
+                </div>
+                <div class="snack">
+                  <input type="radio" name="snackPreference"/>
+                  <label for="abcd">Deluxe Snacks</label>
                 </div>
               </div>
               <br />
             </div>
+
+            <!--Submit button-->
+            <div>
+              <button type="button" class="btn btn-primary" (click)="calculatePrice()">Calculate</button>
+            </div>
           </form>
+
+          <!--Calculation Portion-->
+          <br><div *ngIf="isCalculated">
+            <h3>Snack Price: {{caulcationResult.totalSnackPrice | currency}}</h3>
+            <h3>Total Price: {{caulcationResult.totalPrice | currency}}</h3>
+            <h3>Price Per Day: {{caulcationResult.pricePerDay | currency}}</h3>
+          </div>
         </div>
       </div>
     </div>

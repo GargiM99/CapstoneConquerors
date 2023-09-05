@@ -1,0 +1,1 @@
+export type TAgentSearch = "username" | "firstname" | "lastname"

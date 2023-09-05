@@ -69,7 +69,7 @@ hr {
 body {
   background-image: URL("./assets/images/disney meal calculator background.jpg");
   text-align: center;
-  height: 100%;
+  height: fit-content;
   background-repeat: repeat;
   background-size: contain;
 }

@@ -1,0 +1,32 @@
+@import '../../../../variables';
+
+.agent-add-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-title-card{
+    border: 0.05rem solid $clr-primary;
+    background-color: $clr-primary-400;
+    border-radius: $brd-200;
+    box-shadow: 0 0 12px $clr-black-100;
+    color: $clr-white;
+    font-size: $fs-450;
+    padding: 0.3rem 0.5rem;
+    margin: 1rem;
+}
+
+button{
+    color: $clr-white;
+    background-color: $clr-secondary;
+    padding: $btn-padding;
+    border-radius: $brd-100;
+    font-size: $fs-400;
+    box-shadow: 0 0 12px $clr-black-100;
+    width: fit-content;
+    margin: auto;
+    margin: 2rem auto;
+    cursor: pointer;
+}

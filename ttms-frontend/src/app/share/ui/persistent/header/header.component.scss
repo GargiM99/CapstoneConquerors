@@ -1,0 +1,44 @@
+@import '../../../../../variables';
+
+.header-container{
+    background-color: $clr-primary-300;
+    border: 0.5rem solid $clr-primary;
+    border-left: 0;
+    border-right: 0;
+    padding: 0.5rem 1rem;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: clamp(1rem, 20vw, 20rem) 1fr 1fr 5fr;
+
+    .nav-item{
+        border-radius: $brd-100;
+        box-shadow: 0 0 3px $clr-black-100;
+        width: fit-content;
+        padding: 0.4rem;
+        border: 0.2rem solid $clr-primary-300;
+        background-color: $clr-primary-50;
+
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+
+        h3{
+            font-size: $fs-400;
+            color: $clr-white;
+        }
+    }
+
+    img{
+        border-radius: $brd-200;
+        background-color: $clr-white-50;
+        padding: 0.2rem;
+        box-shadow: 0 0 5px $clr-black-100;
+        aspect-ratio: inherit;
+        width: 100px;
+    }
+
+    img:hover{
+        cursor:pointer;
+    }
+}

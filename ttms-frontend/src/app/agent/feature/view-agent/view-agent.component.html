@@ -1,0 +1,14 @@
+<div class="agent-view-container">
+    <div class="agent-view-header">
+        <h2 class="list-header">Agents</h2>
+        <agent-utility-bar 
+            (searchValueChange)="handleSearch($event)" 
+            (fieldChoiceChange)="handleFieldChange($event)">
+        </agent-utility-bar>
+    </div>
+    <div class="list-cards agent-list-card" style="flex-wrap: wrap;">
+        <div *ngFor="let agent of (agents$ | async) | agentFilter: searchValue: fieldChoice">
+            <agent-card [agent]="agent" id="agent-card"></agent-card>
+        </div>
+    </div>
+</div>
