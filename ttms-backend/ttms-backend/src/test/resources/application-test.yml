@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=TTMS;encrypt=true;trustServerCertificate=true;
+    url: jdbc:sqlserver://localhost:1433;databaseName=TTMSTest;encrypt=true;trustServerCertificate=true;
     username: admin
     password: ttmssmtt-2023
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

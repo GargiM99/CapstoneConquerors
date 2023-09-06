@@ -280,7 +280,7 @@ class TestAuthenticationService {
 		
 		//JWTService jwtService = new JWTService();
 		
-		UserAuthenticationDetails inputAuth = new UserAuthenticationDetails(inputUsername, inputPassword);
+		UserAuthenticationDetails inputAuth = new UserAuthenticationDetails(0, inputUsername, inputPassword);
 		Authentication authResponse = new UsernamePasswordAuthenticationToken(inputUsername, inputPassword);
 		
 		User mockOutputUser = new User();
@@ -313,7 +313,7 @@ class TestAuthenticationService {
 		ResponseToken resultToken;
 		int jwtLength = 150;
 		
-		UserAuthenticationDetails inputAuth = new UserAuthenticationDetails(inputUsername, inputPassword);
+		UserAuthenticationDetails inputAuth = new UserAuthenticationDetails(0, inputUsername, inputPassword);
 		Authentication authResponse = new UsernamePasswordAuthenticationToken(inputUsername, inputPassword);
 		
 		User mockOutputUser = new User();

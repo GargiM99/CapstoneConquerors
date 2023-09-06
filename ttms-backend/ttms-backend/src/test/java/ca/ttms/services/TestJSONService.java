@@ -27,7 +27,7 @@ public class TestJSONService {
 		
 		//Arrange
 		UserAuthenticationDetails resultObject;
-		UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+		UserAuthenticationDetails inputObject = new UserAuthenticationDetails(0, "testUser", "testPass");
 		UserAuthenticationDetails expectedObject = inputObject;
 		
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
@@ -48,7 +48,7 @@ public class TestJSONService {
 		
 		//Arrange
 		UserAuthenticationDetails resultObject;
-		UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+		UserAuthenticationDetails inputObject = new UserAuthenticationDetails(0, "testUser", "testPass");
 		UserAuthenticationDetails expectedObject;
 		
 		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
@@ -74,7 +74,7 @@ public class TestJSONService {
 		
 		//Arrange
         String filePath = null;
-        UserAuthenticationDetails inputObject = new UserAuthenticationDetails("testUser", "testPass");
+        UserAuthenticationDetails inputObject = new UserAuthenticationDetails(0, "testUser", "testPass");
 		
         //Act & Assert
 		assertThrows(NullPointerException.class , () -> jsonService.writeJsonObject(inputObject , filePath));
