@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 
@@ -30,5 +31,24 @@ public class AgentService {
 		List<Map<String, Object>> agentList = userRepo.getAllAgents();
 		Map<String, Object>[] agentArray = agentList.toArray(new Map[agentList.size()]);
 		return agentArray;
+	}
+	
+	public UserFullDetails getAgentDetails (int id) {
+		if (id < 0)
+			return null;
+		
+		try {
+			List<Map<String, Object>> userDetailsMapDB = userRepo.getUserFullInfoById(id);
+			
+			if (userDetailsMapDB.size() < 1)
+				return null;
+			
+			UserFullDetails userDetails = new UserFullDetails();
+			userDetails.mapDetailsFromRepo(userDetailsMapDB.get(0));
+			
+			return userDetails;
+		}catch(Exception e) {
+			return null;
+		}
 	}
 }

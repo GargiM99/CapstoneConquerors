@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.repositories.UserRepo;
 
 class TestAgentService {
@@ -75,5 +77,67 @@ class TestAgentService {
 		
 		//Assert
 		assertEquals(resultOutput.length, expectedLength);
+	}
+	
+	@Test
+	void Get_AgentFullDetails_CheckAgentDetailsNotNull() {
+		
+		//Arrange Mock
+		Map mockDetailsMap = new HashMap<String, Object>();
+		
+		List mockDetailsList = new ArrayList<Map<String, Object>>();
+		mockDetailsList.add(mockDetailsMap);
+		
+		when(userRepo.getUserFullInfoById(2)).thenReturn(mockDetailsList);
+		
+		//Arrange
+		UserFullDetails resultOutput;  
+		
+		//Act
+		resultOutput = agentService.getAgentDetails(2);
+		
+		//Assert
+		assertNotNull(resultOutput);
+	}
+	
+	@Test
+	void Get_AgentFullDetailsWithIncorrectId_CheckAgentDetailsIsNull() {
+		
+		//Arrange Mock
+		Map mockDetailsMap = new HashMap<String, Object>();
+		
+		List mockDetailsList = new ArrayList<Map<String, Object>>();
+		mockDetailsList.add(mockDetailsMap);
+		
+		when(userRepo.getUserFullInfoById(0)).thenReturn(mockDetailsList);
+		
+		//Arrange
+		UserFullDetails resultOutput;  
+		
+		//Act
+		resultOutput = agentService.getAgentDetails(-1);
+		
+		//Assert
+		assertNull(resultOutput);
+	}
+	
+	@Test
+	void Get_AgentFullDetailsWithNonExistantId_CheckAgentDetailsIsNull() {
+		
+		//Arrange Mock
+		Map mockDetailsMap = new HashMap<String, Object>();
+		
+		List mockDetailsList = new ArrayList<Map<String, Object>>();
+		
+		when(userRepo.getUserFullInfoById(2)).thenReturn(mockDetailsList);
+		
+		//Arrange
+		UserFullDetails resultOutput;  
+		
+		//Act
+		resultOutput = agentService.getAgentDetails(0);
+		
+		//Assert
+		assertNull(resultOutput);
 	}
 }

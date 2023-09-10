@@ -52,13 +52,13 @@ public class ProfileService {
 		return true;
 	}
 	
-	public User getFullDetails(String username) {
-		if (username == null)
-			return null;
-		
-		Optional<User> user = userRepo.findByUsername(username);
-		return user.orElse(null);
-	}
+//	public User getFullDetails(String username) {
+//		if (username == null)
+//			return null;
+//		
+//		Optional<User> user = userRepo.findByUsername(username);
+//		return user.orElse(null);
+//	}
 	
 	public UserFullDetails getUserDetails (String username) {
 		if (username == null)

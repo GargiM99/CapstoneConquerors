@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store'
 import { IAgentState } from '../types/agent-basics-state.interface'
 import * as AgentAction from './agent-actions'
-
+ 
 export const intialState: IAgentState = {
     isLoading: false,
     agentBasics: [],

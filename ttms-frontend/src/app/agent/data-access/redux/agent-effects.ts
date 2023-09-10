@@ -4,7 +4,7 @@ import { AgentService } from "../services/agent.service";
 import * as AgentAction from './agent-actions'
 import { catchError, map, mergeMap, of } from "rxjs";
 
-@Injectable()
+@Injectable() 
 export class AgentBasicsEffect{
     getAgents$ = createEffect(() =>
         this.actions$.pipe(

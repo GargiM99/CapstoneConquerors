@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.services.AgentService;
 import ca.ttms.services.AuthenticationService;
@@ -38,8 +40,29 @@ public class AgentController {
 	private final AuthenticationService authService;
 
 	@GetMapping()
-	public Map<String, Object>[] getMeals() {
+	public Map<String, Object>[] getAgents() {
 		return service.getAgents();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserFullDetails> getAgentDetails(@PathVariable Integer id,
+			@RequestHeader("Authorization") String authHeader) {
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		if (role == null || !role.equals("ADMIN"))
+			return ResponseEntity.status(401).headers(headers).body(null);
+		
+		UserFullDetails details = service.getAgentDetails(id);
+		
+		if (details == null)
+			return ResponseEntity.status(400).headers(headers).body(null);
+		
+		return ResponseEntity.ok().headers(headers).body(details);
 	}
 	
 	@PostMapping()
@@ -64,4 +87,6 @@ public class AgentController {
 
 		return ResponseEntity.ok().headers(headers).body(details);
 	}
+	
+	
 }

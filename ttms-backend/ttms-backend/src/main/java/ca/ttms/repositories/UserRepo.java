@@ -73,6 +73,20 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 	        """)
 	List<Map<String,Object>> getUserFullInfo(@Param("un") String username);
 	
+	@Query(nativeQuery = true, value =
+			"""
+			SELECT u.id AS id, u.username AS username, u.role AS role,\s
+			c.email AS email, c.primary_phone_number AS primaryPhoneNumber, c.secondary_phone_number AS secondaryPhoneNumber,\s
+			p.firstname AS firstname, p.lastname AS lastname, p.birth_date AS birthDate,\s
+			a.address_line AS addressLine, a.postal_code AS postalCode, a.city AS city, a.province AS province, a.country AS country\s
+			FROM _user u JOIN person p ON u.person_id = p.id\s
+			JOIN contact c ON c.person_id = p.id\s
+			JOIN address_person ap ON ap.person_id = p.id\s
+			JOIN _address a ON ap.address_id = a.id\s
+			WHERE u.id = :id\s
+	        """)
+	List<Map<String,Object>> getUserFullInfoById(@Param("id") Integer id);
+	
 	Optional<User> findByUsername(String username);
 	
 }
