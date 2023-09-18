@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.response.ResetPasswordResponse;
 import ca.ttms.services.AgentService;
 import ca.ttms.services.AuthenticationService;
 import ca.ttms.services.JWTService;
@@ -88,5 +91,40 @@ public class AgentController {
 		return ResponseEntity.ok().headers(headers).body(details);
 	}
 	
-	
+	@PutMapping("/{id}")
+	public ResponseEntity<String> updateProfile(@PathVariable Integer id,
+										 @RequestHeader("Authorization") String authHeader,
+										 @RequestBody UserEditDetails profileDetails) {
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		
+		if (role == null || !role.equals("ADMIN"))
+			return ResponseEntity.status(401).body("incorrect role");
+		
+		boolean isUpdated = service.updateAgentProfile(profileDetails, id);
+		
+		if (!isUpdated)
+			return ResponseEntity.status(400).body("invalid information");
+		
+		return ResponseEntity.ok("profile updated");
+	}
+
+	@PutMapping("/pass/{id}")
+	public ResponseEntity<ResetPasswordResponse> resetPassword(@PathVariable Integer id, 
+													@RequestHeader("Authorization") String authHeader){
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		
+		if (role == null || !role.equals("ADMIN"))
+			return ResponseEntity.status(401).body(null);
+		
+		ResetPasswordResponse response = service.resetAgentPassword(id);
+		
+		if (response == null)
+			return ResponseEntity.status(400).body(null);
+		
+		return ResponseEntity.ok(response);
+	}
 }

@@ -14,7 +14,7 @@ export class AgentCardComponent {
   @Input() agent!: IAgentBasics
 
   viewProfile(id: number){
-    console.log(id)
+    this.router.navigate([`agent`, id])
   }
   
   constructor(private router: Router){}

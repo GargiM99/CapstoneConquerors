@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserFullDetails;
-import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.services.JWTService;
 import ca.ttms.services.ProfileService;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +45,24 @@ public class ProfileController {
 		return ResponseEntity.ok(userDetails);
 	}
 	
+	@PutMapping("")
+	public ResponseEntity<String> updateProfile(@RequestHeader("Authorization") String authHeader,
+										 @RequestBody UserEditDetails profileDetails) {
+		
+		String jwtoken = authHeader.substring(7);
+		String subject = jwtService.extractSubject(jwtoken);
+		
+		if (subject == null)
+			return ResponseEntity.status(401).body("username null");
+		
+		boolean isUpdated = profileService.updateProfile(profileDetails, subject);
+		
+		if (!isUpdated)
+			return ResponseEntity.status(400).body("invalid information");
+		
+		return ResponseEntity.ok("profile updated");
+	}
+	
 	@PutMapping("password/{userId}")
 	public ResponseEntity<String> updatePassword(@PathVariable Integer userId, 
 							             @RequestHeader("Authorization") String authHeader,
@@ -68,4 +86,6 @@ public class ProfileController {
 		
 		return ResponseEntity.ok("password updated");
 	}
+	
+	
 }

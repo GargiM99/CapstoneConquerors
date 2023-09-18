@@ -9,7 +9,7 @@ export const intialState: IAgentDetailState = {
     error: null
 }
 
-export const agentBasicReducer = createReducer(
+export const agentDetailReducer = createReducer(
     intialState,
     on(AgentDetailsAction.getAgentDetails, (state, action) => ({
       ...state,

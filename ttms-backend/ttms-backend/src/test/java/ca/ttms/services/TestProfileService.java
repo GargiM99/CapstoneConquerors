@@ -1,8 +1,11 @@
 package ca.ttms.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +16,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import ca.ttms.beans.Address;
+import ca.ttms.beans.Contact;
+import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
@@ -47,7 +54,7 @@ class TestProfileService {
 	
 	@InjectMocks
 	private ProfileService profileService;
-	
+
 	@BeforeEach
 	public void init() {
 		MockitoAnnotations.openMocks(this);
@@ -183,5 +190,72 @@ class TestProfileService {
 		
 		//Assert
 		assertEquals(expectedResult, actualResult);
+	}
+	
+	@Test
+	void Change_ProfileWithCorrectDetails_CheckResultTrue() {
+		//Arrange
+		String inputUsername = "doesam";
+		boolean result;
+		
+		Person inputPerson = Person.builder().firstname("Samuel").lastname("Doe").birthDate(LocalDate.of(2003, 10, 28)).build();
+		Contact inputContact = Contact.builder().email("john.doe@example.com").primaryPhoneNumber("123-456-7890").build();
+		Address inputAddress = Address.builder().addressLine("1 Main St").city("Oakville").country("Canada")
+				               .province("Ontario").postalCode("L2V1Q8").build();
+		
+		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		
+		//Arrange Mocks
+		when(personRepo.updatePersonByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(1);
+		when(addressRepo.updateAddressByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), 
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		when(contactRepo.updateContactByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		
+		//Act
+		result = profileService.updateProfile(inputDetails, inputUsername);
+		
+		//Assert
+		assertTrue(result, "Update profile should return true");
+	}
+	
+	@Test
+	void Change_ProfileWithIncorrectDetails_CheckResultFalse() {
+		//Arrange
+		String inputUsername = "doesam";
+		String incorrectEmail = "j";
+		boolean result;
+		
+		Person inputPerson = Person.builder().firstname("Samuel").lastname("Doe").birthDate(LocalDate.of(2003, 10, 28)).build();
+		Contact inputContact = Contact.builder().email(incorrectEmail).primaryPhoneNumber("123-456-7890").build();
+		Address inputAddress = Address.builder().addressLine("1 Main St").city("Oakville").country("Canada")
+				               .province("Ontario").postalCode("L2V1Q8").build();
+		
+		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		
+		//Arrange Mocks
+		when(personRepo.updatePersonByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(1);
+		when(addressRepo.updateAddressByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), 
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		when(contactRepo.updateContactByUsername(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		
+		//Act
+		result = profileService.updateProfile(inputDetails, inputUsername);
+		
+		//Assert
+		assertFalse(result, "Update profile should return false");
+	}
+	
+	@Test
+	void Change_ProfileWithNull_CheckResultFalse() {
+		//Arrange
+		String inputUsername = "doesam";
+		boolean result;	
+		UserEditDetails inputDetails = null;
+		
+		//Act
+		result = profileService.updateProfile(inputDetails, inputUsername);
+		
+		//Assert
+		assertFalse(result, "Update profile should return false");
 	}
 }

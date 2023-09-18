@@ -42,4 +42,5 @@ public class AuthenticationController {
 	public Integer logout(@RequestHeader("Authorization") String authHeader) {
 		return tokenRepo.deleteUserTokens("Admin");
 	}
+
 }

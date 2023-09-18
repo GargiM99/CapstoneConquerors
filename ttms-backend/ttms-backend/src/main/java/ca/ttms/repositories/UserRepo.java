@@ -86,7 +86,7 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			WHERE u.id = :id\s
 	        """)
 	List<Map<String,Object>> getUserFullInfoById(@Param("id") Integer id);
-	
+
 	Optional<User> findByUsername(String username);
 	
 }

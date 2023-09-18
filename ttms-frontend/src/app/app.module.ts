@@ -21,6 +21,9 @@ import { ViewAgentModule } from './agent/feature/view-agent/view-agent.module';
 import { PersistentModule } from './share/ui/persistent/persistent.module';
 import { CommonModule } from '@angular/common';
 import { LoadingScreenComponent } from './share/ui/loading-screen/loading-screen.component';
+import { agentDetailReducer } from './agent/data-access/redux/agent-details/agent-details-reducers';
+import { AgentDetailsEffect } from './agent/data-access/redux/agent-details/agent-details-effects';
+import { AgentDetailsModule } from './agent/feature/agent-details/agent-details.module';
 
 @NgModule({
   declarations: [
@@ -36,12 +39,14 @@ import { LoadingScreenComponent } from './share/ui/loading-screen/loading-screen
     AddAgentModule,
     ViewAgentModule,
     PersistentModule,
+    AgentDetailsModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,
+      'agentDetails': agentDetailReducer,
       'profileDetails': profileReducers
     }),
-    EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect]),
+    EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect, AgentDetailsEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
     LoadingScreenComponent

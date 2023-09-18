@@ -9,6 +9,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { detailSelector } from 'src/app/share/data-access/redux/auth/token-selectors';
 import { Router } from '@angular/router';
+import { IAgentDetails } from '../types/agent-details.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,33 @@ export class AgentService {
   sendGetAgentsByIds(agentIds: number[]): Observable<IAgentBasics[]>{
     //Add code for Ids
     return of([])
+  }
+
+  getAgentDetails(agentId: number | null): Observable<IAgentDetails>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+        
+        return this.sendGetAgentDetailsById(agentId, tokenDetails.token)
+      })
+    )
+  }
+
+  sendGetAgentDetailsById(agentId: number | null, token: string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    let response = this.http.get<IAgentDetails>(
+      `${this.endPoints.agent}/${agentId}`,
+      { headers: headers }
+    )
+    
+    return response
   }
 
   addAgent(profile: IProfileDetails): Observable<IAddAgentAction>{

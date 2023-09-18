@@ -7,7 +7,11 @@ import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ca.ttms.beans.Address;
+import ca.ttms.beans.Contact;
+import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
@@ -21,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class ProfileService {
 	
 	private final UserRepo userRepo;
-	private final TokenRepo tokenRepo;
 	private final AddressRepo addressRepo;
 	private final ContactRepo contactRepo;
 	private final PersonRepo personRepo;
@@ -52,13 +55,32 @@ public class ProfileService {
 		return true;
 	}
 	
-//	public User getFullDetails(String username) {
-//		if (username == null)
-//			return null;
-//		
-//		Optional<User> user = userRepo.findByUsername(username);
-//		return user.orElse(null);
-//	}
+	public boolean updateProfile(UserEditDetails updateProfile, String username) {
+		if (updateProfile == null)
+			return false;
+		
+		if (!updateProfile.verifyDetails())
+			return false;
+		
+		try {
+			Address updateAddress = updateProfile.getAddress();
+			Contact updateContact = updateProfile.getContact();
+			Person updatePerson = updateProfile.getPerson();
+			
+			addressRepo.updateAddressByUsername(username, updateAddress.getAddressLine(), updateAddress.getPostalCode(),
+										updateAddress.getCity(), updateAddress.getProvince(), updateAddress.getCountry());
+			
+			contactRepo.updateContactByUsername(username, updateContact.getEmail(), 
+										updateContact.getPrimaryPhoneNumber(), updateContact.getSecondaryPhoneNumber());
+			
+			personRepo.updatePersonByUsername(username, updatePerson.getFirstname(), updatePerson.getLastname(), updatePerson.getBirthDate());
+
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
+
+	}
 	
 	public UserFullDetails getUserDetails (String username) {
 		if (username == null)
