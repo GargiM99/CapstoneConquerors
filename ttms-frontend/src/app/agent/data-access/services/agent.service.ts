@@ -3,7 +3,7 @@ import { IAgentBasics } from '../types/agent-basics.interface';
 import { Observable, map, mergeMap, of, tap } from 'rxjs';
 import { ITokenDetail } from 'src/app/share/data-access/types/auth/token-details.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IAddAgentAction, IAddAgentRes } from '../types/agent-responses.interface';
+import { IAddAgentAction, IAddAgentRes, IResetPasswordRes } from '../types/agent-responses.interface';
 import { IProfileDetails } from 'src/app/share/data-access/types/profile/profile-details.interface';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
@@ -18,7 +18,6 @@ export class AgentService {
   endPoints = {agent: "http://localhost:8080/api/agent"}
 
   tokenDetails$: Observable<ITokenDetail | null>
-
 
   getAgentBasics(agentIds: number[] | null): Observable<IAgentBasics[]>{
     return this.tokenDetails$.pipe(
@@ -123,6 +122,32 @@ export class AgentService {
       let action: IAddAgentAction = {profile: updateProfile, agentBasic: agentBasics}
       return action
     }))
+  }
+
+  resetAgentPassword(agentId: number): Observable<IResetPasswordRes>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+         
+        return this.sendResetAgentPassword(agentId, tokenDetails!.token)
+      })
+    )
+  }
+
+  sendResetAgentPassword(agentId: number, token: string): Observable<IResetPasswordRes>{
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    let response = this.http.put<IResetPasswordRes>(
+      `${this.endPoints.agent}/pass/${agentId}`, {}, { headers: headers }
+    )
+
+    return response
   }
 
   constructor(private store: Store<IAppState>, private http: HttpClient, private router: Router) { 

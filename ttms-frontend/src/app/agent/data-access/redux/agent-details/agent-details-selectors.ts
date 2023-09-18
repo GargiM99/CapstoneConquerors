@@ -15,3 +15,7 @@ export const agentDetailsSelector = createSelector(
     selectFeature,
     (state) =>state.agentDetails[state.agentId ?? 0]
 )
+export const agentUpdatedPasswordSelector = createSelector(
+    selectFeature,
+    (state) =>state.updatedPassword
+)

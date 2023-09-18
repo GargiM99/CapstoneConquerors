@@ -10,7 +10,7 @@ import * as AgentAction from '../../data-access/redux/agent-actions'
 import { IProfileDetails, User } from 'src/app/share/data-access/types/profile/profile-details.interface';
 import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
 import { AddCompleteModalComponent } from '../../ui/add-complete-modal/add-complete-modal.component';
-import { IAgentCompForm } from '../../data-access/types/agent-complete.interface';
+import { IAgentCompForm } from '../../data-access/types/agent-modal-input.interface';
 
 @Component({
   selector: 'app-add-agent',

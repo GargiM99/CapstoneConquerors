@@ -11,3 +11,7 @@ export interface IAddAgentAction{
     profile: IProfileDetails,
     agentBasic: IAgentBasics,
 }
+
+export interface IResetPasswordRes{
+    password: string
+}

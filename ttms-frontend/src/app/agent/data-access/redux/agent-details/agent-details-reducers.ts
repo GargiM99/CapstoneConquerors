@@ -6,6 +6,7 @@ export const intialState: IAgentDetailState = {
     isLoading: false,
     agentDetails: {},
     agentId: null,
+    updatedPassword: "",
     error: null
 }
 
@@ -30,7 +31,23 @@ export const agentDetailReducer = createReducer(
     }),
     on(AgentDetailsAction.getAgentDetailsFailure, (state, action) => ({
         ...state,
-        isLoading: true,
+        isLoading: false,
         error: action.error
-    }))
+    })),
+
+  on(AgentDetailsAction.resetAgentPassword, (state, action) => ({
+    ...state,
+    isLoading: true,
+    agentId: action.agentId   
+  })),
+  on(AgentDetailsAction.resetAgentPasswordSuccess, (state,action) => ({
+    ...state,
+    isLoading: false,
+    updatedPassword: action.password
+  })),
+  on(AgentDetailsAction.resetAgentPasswordFailure, (state, action) => ({
+    ...state,
+    isLoading: false,
+    error: action.error
+  }))
 )

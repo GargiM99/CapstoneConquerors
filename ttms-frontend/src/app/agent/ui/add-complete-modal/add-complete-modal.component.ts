@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { IModal } from 'src/app/share/data-access/types/modal/modal.interface';
 import { Observable } from 'rxjs';
-import { IAgentCompForm } from '../../data-access/types/agent-complete.interface';
+import { IAgentCompForm } from '../../data-access/types/agent-modal-input.interface';
 
 @Component({
   selector: 'app-add-complete-modal',

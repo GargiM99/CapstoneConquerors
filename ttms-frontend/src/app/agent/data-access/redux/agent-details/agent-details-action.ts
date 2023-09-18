@@ -14,3 +14,16 @@ export const getAgentDetailsFailure = createAction(
     '[AgentDetails] Get Agent Details Failure',
     props<{ error: HttpErrorResponse | Error | null }>()
 )
+
+export const resetAgentPassword = createAction(
+    '[AgentDetails] Reset Agent Password',
+    props<{ agentId: number }>()
+  )
+export const resetAgentPasswordSuccess = createAction(
+    '[AgentDetails] Reset Agent Password Success',
+    props<{ password: string }>()
+)
+export const resetAgentPasswordFailure = createAction(
+    '[AgentDetails] Reset Agent Password Failure',
+    props<{ error: HttpErrorResponse | Error | null }>()
+)
