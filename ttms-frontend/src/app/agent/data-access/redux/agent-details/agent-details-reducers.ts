@@ -6,34 +6,59 @@ export const intialState: IAgentDetailState = {
     isLoading: false,
     agentDetails: {},
     agentId: null,
+    updateDetails: null,
     updatedPassword: "",
     error: null
 }
 
 export const agentDetailReducer = createReducer(
-    intialState,
-    on(AgentDetailsAction.getAgentDetails, (state, action) => ({
-      ...state,
-      isLoading: true,
-      agentId: action.agentId   
-    })),
-    on(AgentDetailsAction.getAgentDetailsSuccess, (state, action) => {
-        const updatedAgentDetails = { ...state.agentDetails };
-      
-        if (state.agentId !== null) 
-          updatedAgentDetails[state.agentId] = action.agentDetails 
+  intialState,
+  on(AgentDetailsAction.getAgentDetails, (state, action) => ({
+    ...state,
+    isLoading: true,
+    agentId: action.agentId   
+  })),
+  on(AgentDetailsAction.getAgentDetailsSuccess, (state, action) => {
+      const updatedAgentDetails = { ...state.agentDetails };
+    
+      if (state.agentId !== null) 
+        updatedAgentDetails[state.agentId] = action.agentDetails 
 
-        return {
-          ...state,
-          isLoading: false,
-          agentDetails: updatedAgentDetails,
-        };
-    }),
-    on(AgentDetailsAction.getAgentDetailsFailure, (state, action) => ({
+      return {
         ...state,
         isLoading: false,
-        error: action.error
-    })),
+        agentDetails: updatedAgentDetails,
+      };
+  }),
+  on(AgentDetailsAction.getAgentDetailsFailure, (state, action) => ({
+      ...state,
+      isLoading: false,
+      error: action.error
+  })),
+
+  on(AgentDetailsAction.updateAgentDetails, (state, action) => ({
+    ...state,
+    isLoading: true,
+    agentId: action.agentId,
+    updateDetails: action.agentDetails
+  })),
+  on(AgentDetailsAction.updateAgentDetailsSuccess, (state, action) => {
+    const updatedAgentDetails = { ...state.agentDetails };
+    
+    if (state.agentId !== null) 
+      updatedAgentDetails[state.agentId] = action.agentDetails 
+  
+    return {
+      ...state,
+      isLoading: false,
+      agentDetails: updatedAgentDetails,
+    };
+  }),  
+  on(AgentDetailsAction.updateAgentDetailsFailure, (state, action) => ({
+    ...state,
+    isLoading: false,
+    error: action.error
+  })),
 
   on(AgentDetailsAction.resetAgentPassword, (state, action) => ({
     ...state,

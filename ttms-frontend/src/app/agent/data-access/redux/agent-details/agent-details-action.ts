@@ -15,6 +15,19 @@ export const getAgentDetailsFailure = createAction(
     props<{ error: HttpErrorResponse | Error | null }>()
 )
 
+export const updateAgentDetails = createAction(
+    '[AgentDetails] Update Agent Details',
+    props<{ agentId: number, agentDetails: IAgentDetails }>()
+  )
+export const updateAgentDetailsSuccess = createAction(
+    '[AgentDetails] Update Agent Details Success',
+    props<{ agentDetails: IAgentDetails }>()
+)
+export const updateAgentDetailsFailure = createAction(
+    '[AgentDetails] Update Agent Details Failure',
+    props<{ error: HttpErrorResponse | Error | null }>()
+)
+
 export const resetAgentPassword = createAction(
     '[AgentDetails] Reset Agent Password',
     props<{ agentId: number }>()

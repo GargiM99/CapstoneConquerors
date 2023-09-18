@@ -66,6 +66,15 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
     this.modalService.open(ResetPasswordModalComponent, this.viewContainerRef, true, resetComplete$)
   }
 
+  enableEdit(){
+    this.isEditEnable = true
+  }
+
+  editProfile(){
+    let updatedAgent = <IAgentDetails>this.agentForm.value
+    this.store.dispatch(AgentDetailAction.updateAgentDetails({ agentId: this.agentId, agentDetails: updatedAgent }))
+  }
+
   isInvalid(groupName: string, fieldName: string): boolean {
     const control = this.agentForm.get(groupName)?.get(fieldName)
     return control ? control.invalid && (control.dirty || control.touched) : true

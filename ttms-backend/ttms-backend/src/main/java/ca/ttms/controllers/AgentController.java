@@ -92,22 +92,24 @@ public class AgentController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<String> updateProfile(@PathVariable Integer id,
+	public ResponseEntity updateProfile(@PathVariable Integer id,
 										 @RequestHeader("Authorization") String authHeader,
 										 @RequestBody UserEditDetails profileDetails) {
 		
 		String jwtoken = authHeader.substring(7);
 		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		if (role == null || !role.equals("ADMIN"))
-			return ResponseEntity.status(401).body("incorrect role");
+			return ResponseEntity.status(401).headers(headers).body("incorrect role");
 		
 		boolean isUpdated = service.updateAgentProfile(profileDetails, id);
 		
 		if (!isUpdated)
-			return ResponseEntity.status(400).body("invalid information");
+			return ResponseEntity.status(400).headers(headers).body("invalid information");
 		
-		return ResponseEntity.ok("profile updated");
+		return ResponseEntity.ok().headers(headers).body(profileDetails);
 	}
 
 	@PutMapping("/pass/{id}")

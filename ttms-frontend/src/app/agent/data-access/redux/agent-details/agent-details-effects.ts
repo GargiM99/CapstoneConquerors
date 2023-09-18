@@ -23,6 +23,23 @@ export class AgentDetailsEffect{
         )
     )
 
+    updateAgents$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AgentDetailAction.updateAgentDetails),
+            mergeMap((action) =>
+                this.agentService.updateAgent(action.agentDetails, action.agentId).pipe(
+                    map((agentDetails) => AgentDetailAction.updateAgentDetailsSuccess({ agentDetails })),
+                    catchError((error) =>
+                        of(AgentDetailAction.updateAgentDetailsFailure({ error: error }))
+                    )
+                )
+            ),
+            catchError((error) =>
+                of(AgentDetailAction.updateAgentDetailsFailure({ error: error }))
+            )
+        )
+    )
+
     resetPassword$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AgentDetailAction.resetAgentPassword),

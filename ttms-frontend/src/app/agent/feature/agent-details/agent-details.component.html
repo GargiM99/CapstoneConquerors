@@ -1,5 +1,6 @@
 <div class="agent-details-container">
-    <form [formGroup]="agentForm" class="flex-column">
+    <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
+        <button type="button" (click)="enableEdit()">Enable Edit</button>
         <h3 class="group-header">User Info</h3>
         <div formGroupName="user" class="form-group-card">
             <div class="input-section">

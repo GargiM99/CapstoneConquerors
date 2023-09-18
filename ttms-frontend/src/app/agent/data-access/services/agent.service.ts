@@ -124,6 +124,36 @@ export class AgentService {
     }))
   }
 
+  updateAgent(detail: IAgentDetails, agentId: number): Observable<IAgentDetails>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+         
+        return this.sendUpdateAgent(detail, agentId, tokenDetails!.token)
+      })
+    )
+  }
+
+  sendUpdateAgent(detail: IAgentDetails, agentId: number, token: string){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    let response = this.http.put(
+      `${this.endPoints.agent}/${agentId}`, detail, { headers: headers }
+    )
+    
+    return response.pipe(
+      mergeMap((value) =>{
+        return of(detail)
+      })
+    )
+  }
+
   resetAgentPassword(agentId: number): Observable<IResetPasswordRes>{
     return this.tokenDetails$.pipe(
       mergeMap((tokenDetails) => {
