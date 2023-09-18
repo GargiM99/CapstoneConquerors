@@ -17,11 +17,11 @@ export const agentDetailReducer = createReducer(
       agentId: action.agentId   
     })),
     on(AgentDetailsAction.getAgentDetailsSuccess, (state, action) => {
-        let updatedAgentDetails = state.agentDetails;
+        const updatedAgentDetails = { ...state.agentDetails };
       
         if (state.agentId !== null) 
           updatedAgentDetails[state.agentId] = action.agentDetails 
-      
+
         return {
           ...state,
           isLoading: false,

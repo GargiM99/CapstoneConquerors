@@ -1,29 +1,100 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as AgentDetailAction from '../../data-access/redux/agent-details/agent-details-action'
 import { IAgentDetails } from '../../data-access/types/agent-details.interface';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { Store, select } from '@ngrx/store';
 import { agentDetailErrorSelector, agentDetailIsLoadingSelector, agentDetailsSelector } from '../../data-access/redux/agent-details/agent-details-selectors';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators } from '@angular/forms';
+import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 
 @Component({
   selector: 'agent-details',
   templateUrl: './agent-details.component.html',
   styleUrls: ['./agent-details.component.scss']
 })
-export class AgentDetailsComponent implements OnInit{
+export class AgentDetailsComponent implements OnInit, OnDestroy{
+  isEditEnable: boolean = false
+  MAX_LENGTH = 70;
+
   agentId: number
   agentDetails$: Observable<IAgentDetails>
   agentError$: Observable<Error | HttpErrorResponse | null>
   agentIsLoading$: Observable<boolean>
+  agentSub!: Subscription
   
-  ngOnInit(): void {
-    this.store.dispatch(AgentDetailAction.getAgentDetails({ agentId: this.agentId }))
+  agentForm = this.fb.group({
+    user: this.fb.group({
+      username: [''],
+      role: ['']
+    }),
+    person: this.fb.group({
+      firstname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      lastname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      birthDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator ]]
+    }),
+    address: this.fb.group({
+      addressLine: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
+      postalCode: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      city: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
+      province: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
+      country: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+    }),
+    contact: this.fb.group({
+      email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH), Validators.email]],
+      primaryPhoneNumber: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      secondaryPhoneNumber: ['', [Validators.maxLength(this.MAX_LENGTH)]]
+    }) 
+  })
+
+  resetPassword(){}
+
+  isInvalid(groupName: string, fieldName: string): boolean {
+    const control = this.agentForm.get(groupName)?.get(fieldName)
+    return control ? control.invalid && (control.dirty || control.touched) : true
   }
 
-  constructor(private store: Store<IAppState>, private route: ActivatedRoute){
+  ngOnInit(): void {
+
+    this.store.dispatch(AgentDetailAction.getAgentDetails({ agentId: this.agentId }))
+
+    this.agentSub = this.agentDetails$.subscribe((data) => {
+      if (data) {
+        this.agentForm.patchValue({
+          user:{
+            username: data.user.username,
+            role: data.user.role
+          },
+          person: {
+            firstname: data.person.firstname,
+            lastname: data.person.lastname,
+            birthDate: data.person.birthDate          
+          },
+          contact: {
+            email: data.contact.email,
+            primaryPhoneNumber: data.contact.primaryPhoneNumber,
+            secondaryPhoneNumber: data.contact.secondaryPhoneNumber
+          },
+          address: {
+            addressLine: data.address.addressLine,
+            city: data.address.city,
+            country: data.address.country,
+            postalCode: data.address.postalCode,
+            province: data.address.province
+          }
+        })
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.agentSub.unsubscribe()
+  }
+
+  constructor(private store: Store<IAppState>, private route: ActivatedRoute,
+              private fb: FormBuilder){
     this.agentId = +(this.route.snapshot.paramMap.get('id') ?? 0)
 
     this.agentIsLoading$ = this.store.pipe(select(agentDetailIsLoadingSelector))

@@ -35,6 +35,7 @@ public class UserFullDetails {
 		
 	    user.put("id", detailsMap.get("id"));
 	    user.put("username", detailsMap.get("username"));
+	    user.put("role", detailsMap.get("role"));
 
 	    person.put("firstname", detailsMap.get("firstname"));
 	    person.put("lastname", detailsMap.get("lastname"));

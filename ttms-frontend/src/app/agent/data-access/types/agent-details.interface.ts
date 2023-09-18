@@ -8,6 +8,7 @@ export interface IAgentDetails{
 interface User{
    id: number
    username: string
+   role?: roles
    password?: string  
 }
 
@@ -30,3 +31,5 @@ interface Person{
     lastname : string
     birthDate : Date
 }
+
+type roles = "ADMIN" | "AGENT"

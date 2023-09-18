@@ -6,7 +6,7 @@ export const minDateValidator = (control: AbstractControl,
     minDate: Date = DEFAULT_MIN_DATE): ValidationErrors | null =>{
     
     const selectedDate: Date = new Date(control.value)
-    if (selectedDate && selectedDate > minDate) 
+    if (selectedDate && selectedDate < minDate) 
         return null
     return { minDate: true }
 }
@@ -15,7 +15,7 @@ export const maxDateValidator = (control: AbstractControl,
     maxDate: Date = DEFAULT_MAX_DATE ): ValidationErrors | null => {
     
     const selectedDate: Date = new Date(control.value)
-    if (selectedDate && selectedDate < maxDate) 
+    if (selectedDate && selectedDate > maxDate) 
         return null
     return { maxDate: true }
 }
