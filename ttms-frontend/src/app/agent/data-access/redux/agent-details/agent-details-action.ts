@@ -40,3 +40,16 @@ export const resetAgentPasswordFailure = createAction(
     '[AgentDetails] Reset Agent Password Failure',
     props<{ error: HttpErrorResponse | Error | null }>()
 )
+
+export const promoteAgent = createAction(
+    '[AgentDetails] Promote Agent',
+    props<{ agentId: number }>()
+  )
+export const promoteAgentSuccess = createAction(
+    '[AgentDetails] Promote Agent Success',
+    props<{ role: string }>()
+)
+export const promoteAgentFailure = createAction(
+    '[AgentDetails] Promote Agent Failure',
+    props<{ error: HttpErrorResponse | Error | null }>()
+)

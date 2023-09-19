@@ -75,6 +75,10 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
     this.store.dispatch(AgentDetailAction.updateAgentDetails({ agentId: this.agentId, agentDetails: updatedAgent }))
   }
 
+  promoteAgent(){
+    this.store.dispatch(AgentDetailAction.promoteAgent({ agentId: this.agentId }))
+  }
+
   isInvalid(groupName: string, fieldName: string): boolean {
     const control = this.agentForm.get(groupName)?.get(fieldName)
     return control ? control.invalid && (control.dirty || control.touched) : true

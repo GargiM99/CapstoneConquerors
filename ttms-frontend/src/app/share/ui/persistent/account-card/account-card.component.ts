@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'account-card',
@@ -7,4 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class AccountCardComponent {
   @Input() username: string | null = 'username'
+
+  constructor(public router: Router){}
 }

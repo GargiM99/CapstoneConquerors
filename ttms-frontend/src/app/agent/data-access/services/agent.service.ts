@@ -3,7 +3,7 @@ import { IAgentBasics } from '../types/agent-basics.interface';
 import { Observable, map, mergeMap, of, tap } from 'rxjs';
 import { ITokenDetail } from 'src/app/share/data-access/types/auth/token-details.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IAddAgentAction, IAddAgentRes, IResetPasswordRes } from '../types/agent-responses.interface';
+import { IAddAgentAction, IAddAgentRes, IPromoteAgentRes, IResetPasswordRes } from '../types/agent-responses.interface';
 import { IProfileDetails } from 'src/app/share/data-access/types/profile/profile-details.interface';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
@@ -175,6 +175,32 @@ export class AgentService {
 
     let response = this.http.put<IResetPasswordRes>(
       `${this.endPoints.agent}/pass/${agentId}`, {}, { headers: headers }
+    )
+
+    return response
+  }
+
+  promoteAgent(agentId: number): Observable<IPromoteAgentRes>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+         
+        return this.sendPromoteAgent(agentId, tokenDetails!.token)
+      })
+    )
+  }
+
+  sendPromoteAgent(agentId: number, token: string): Observable<IPromoteAgentRes>{
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    let response = this.http.put<IPromoteAgentRes>(
+      `${this.endPoints.agent}/promote/${agentId}`, {"role": "ADMIN"}, { headers: headers }
     )
 
     return response

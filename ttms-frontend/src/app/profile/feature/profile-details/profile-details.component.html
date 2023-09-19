@@ -10,7 +10,6 @@
             <div class="input-section">
                 <label>Role</label>
                 <input type="text" formControlName="role" [readonly]="true"/>
-                <button (click) = "promoteAgent()">Promote </button>
             </div>
         </div>
         <br>
@@ -124,6 +123,5 @@
         </div>
 
         <button *ngIf="isEditEnable" type="submit">Edit</button>
-        <button type="button" (click)="resetPassword()">Reset Password</button>
     </form>
 </div>

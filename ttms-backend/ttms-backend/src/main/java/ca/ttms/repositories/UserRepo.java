@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserFullDetails;
+import ca.ttms.beans.enums.Roles;
 
 /**
  * Repository class for User class
@@ -89,4 +90,8 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 
 	Optional<User> findByUsername(String username);
 	
+    @Transactional
+    @Modifying
+    @Query("UPDATE User u SET u.role = :ro WHERE u.id = :id")
+    void updateRoleById(@Param("id") Integer userId, @Param("ro") Roles newRole);
 }

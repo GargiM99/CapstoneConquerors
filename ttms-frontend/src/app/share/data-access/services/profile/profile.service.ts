@@ -49,9 +49,7 @@ export class ProfileService {
           throw new Error("Session Expired")
         }
          
-        this.sendUpdateProfile(updateDetails, tokenDetails!.token)
-
-        return of(updateDetails)
+        return this.sendUpdateProfile(updateDetails, tokenDetails!.token)
       })
     )
   }
@@ -62,7 +60,7 @@ export class ProfileService {
       'Content-Type': 'application/json'
     })
 
-    this.http.put(
+    return this.http.put<IProfileDetails>(
       this.endpoints.profile, 
       JSON.stringify(updateDetails), 
       { headers: headers })

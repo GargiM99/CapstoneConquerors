@@ -19,7 +19,10 @@ import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
+import ca.ttms.beans.details.UserPromoteDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.enums.Roles;
+import ca.ttms.beans.response.PromoteAgentResponse;
 import ca.ttms.beans.response.ResetPasswordResponse;
 import ca.ttms.services.AgentService;
 import ca.ttms.services.AuthenticationService;
@@ -128,5 +131,30 @@ public class AgentController {
 			return ResponseEntity.status(400).body(null);
 		
 		return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/promote/{id}")
+	public ResponseEntity<PromoteAgentResponse> promoteAgent(@PathVariable Integer id,
+										@RequestHeader("Authorization") String authHeader,
+										@RequestBody UserPromoteDetails promoteDetails) {
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		PromoteAgentResponse response = new PromoteAgentResponse();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		if (role == null || !role.equals("ADMIN"))
+			return ResponseEntity.status(401).body(null);
+		
+		if (promoteDetails == null)
+			promoteDetails = new UserPromoteDetails(Roles.ADMIN);
+		
+		response.setPromoted(service.promoteAgent(promoteDetails, id));
+		
+		if (!response.isPromoted())
+			return ResponseEntity.status(400).body(null);
+		
+		return ResponseEntity.ok().headers(headers).body(response);
 	}
 }

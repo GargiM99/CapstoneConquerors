@@ -57,6 +57,27 @@ export class AgentDetailsEffect{
         )
     )
 
+    promoteAgent$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AgentDetailAction.promoteAgent),
+            mergeMap((action) =>
+                this.agentService.promoteAgent(action.agentId).pipe(
+                    map((result) => {
+                        if (result.isPromoted == false)
+                            return AgentDetailAction.getAgentDetailsFailure({error: new Error("Couldn't promote")})
+                        return AgentDetailAction.promoteAgentSuccess({role: "ADMIN"})
+                    }),
+                    catchError((error) => 
+                        of(AgentDetailAction.resetAgentPasswordFailure({ error: error }))
+                    )
+                )
+            ),
+            catchError((error) => 
+                of(AgentDetailAction.resetAgentPasswordFailure({ error: error }))
+            )
+        )
+    )
+
     constructor(
         private actions$: Actions,
         private agentService: AgentService

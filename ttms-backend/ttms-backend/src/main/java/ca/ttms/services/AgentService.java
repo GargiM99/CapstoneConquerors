@@ -11,6 +11,8 @@ import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
+import ca.ttms.beans.details.UserPromoteDetails;
+import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.ResetPasswordResponse;
 import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
@@ -108,5 +110,20 @@ public class AgentService {
 			return null;
 		}
 		
+	}
+
+	public boolean promoteAgent (UserPromoteDetails details, int id) {
+		if (id <= 0)
+			return false;
+		
+		if (!(details.getRole() == Roles.ADMIN || details.getRole() == Roles.AGENT))
+			return false;
+		
+		try {
+			userRepo.updateRoleById(id, details.getRole());
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
 	}
 }

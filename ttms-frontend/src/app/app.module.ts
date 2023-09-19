@@ -24,6 +24,7 @@ import { LoadingScreenComponent } from './share/ui/loading-screen/loading-screen
 import { agentDetailReducer } from './agent/data-access/redux/agent-details/agent-details-reducers';
 import { AgentDetailsEffect } from './agent/data-access/redux/agent-details/agent-details-effects';
 import { AgentDetailsModule } from './agent/feature/agent-details/agent-details.module';
+import { ProfileDetailsModule } from './profile/feature/profile-details/profile-details.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AgentDetailsModule } from './agent/feature/agent-details/agent-details.
     ViewAgentModule,
     PersistentModule,
     AgentDetailsModule,
+    ProfileDetailsModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,

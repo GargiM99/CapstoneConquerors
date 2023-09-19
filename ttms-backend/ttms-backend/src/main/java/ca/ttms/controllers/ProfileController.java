@@ -1,5 +1,7 @@
 package ca.ttms.controllers;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,11 +48,13 @@ public class ProfileController {
 	}
 	
 	@PutMapping("")
-	public ResponseEntity<String> updateProfile(@RequestHeader("Authorization") String authHeader,
+	public ResponseEntity updateProfile(@RequestHeader("Authorization") String authHeader,
 										 @RequestBody UserEditDetails profileDetails) {
 		
 		String jwtoken = authHeader.substring(7);
 		String subject = jwtService.extractSubject(jwtoken);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		if (subject == null)
 			return ResponseEntity.status(401).body("username null");
@@ -60,7 +64,7 @@ public class ProfileController {
 		if (!isUpdated)
 			return ResponseEntity.status(400).body("invalid information");
 		
-		return ResponseEntity.ok("profile updated");
+		return ResponseEntity.ok().headers(headers).body(profileDetails);
 	}
 	
 	@PutMapping("password/{userId}")

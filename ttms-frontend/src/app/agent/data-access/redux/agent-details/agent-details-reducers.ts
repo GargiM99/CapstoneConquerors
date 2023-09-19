@@ -74,5 +74,30 @@ export const agentDetailReducer = createReducer(
     ...state,
     isLoading: false,
     error: action.error
-  }))
+  })),
+
+  on(AgentDetailsAction.promoteAgent, (state, action) => ({
+    ...state,
+    isLoading: true,
+    agentId: action.agentId 
+  })),
+  on(AgentDetailsAction.promoteAgentSuccess, (state, action) => {
+    // Deep copy of agentDetails
+    const updatedAgentDetails = JSON.parse(JSON.stringify(state.agentDetails));
+  
+    if (state.agentId !== null && updatedAgentDetails[state.agentId]) {
+      updatedAgentDetails[state.agentId].user.role = "ADMIN";
+    }
+  
+    return {
+      ...state,
+      isLoading: false,
+      agentDetails: updatedAgentDetails,
+    };
+  }),  
+  on(AgentDetailsAction.promoteAgentFailure, (state, action) => ({
+    ...state,
+    isLoading: false,
+    error: action.error
+  })),
 )

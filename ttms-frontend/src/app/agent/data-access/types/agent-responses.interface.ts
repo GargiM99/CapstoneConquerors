@@ -15,3 +15,7 @@ export interface IAddAgentAction{
 export interface IResetPasswordRes{
     password: string
 }
+
+export interface IPromoteAgentRes{
+    isPromoted: boolean
+}
