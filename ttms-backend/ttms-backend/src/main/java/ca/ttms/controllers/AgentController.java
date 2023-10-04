@@ -95,7 +95,7 @@ public class AgentController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity updateProfile(@PathVariable Integer id,
+	public ResponseEntity updateUser(@PathVariable Integer id,
 										 @RequestHeader("Authorization") String authHeader,
 										 @RequestBody UserEditDetails profileDetails) {
 		

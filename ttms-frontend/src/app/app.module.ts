@@ -25,6 +25,9 @@ import { agentDetailReducer } from './agent/data-access/redux/agent-details/agen
 import { AgentDetailsEffect } from './agent/data-access/redux/agent-details/agent-details-effects';
 import { AgentDetailsModule } from './agent/feature/agent-details/agent-details.module';
 import { ProfileDetailsModule } from './profile/feature/profile-details/profile-details.module';
+import { clientReducer } from './client/data-access/redux/client-reducers';
+import { ClientEffect } from './client/data-access/redux/client-effects';
+import { CreateClientModule } from './client/feature/create-client/create-client.module';
 
 @NgModule({
   declarations: [
@@ -42,13 +45,16 @@ import { ProfileDetailsModule } from './profile/feature/profile-details/profile-
     PersistentModule,
     AgentDetailsModule,
     ProfileDetailsModule,
+    CreateClientModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,
       'agentDetails': agentDetailReducer,
-      'profileDetails': profileReducers
+      'profileDetails': profileReducers,
+      'clientDetails': clientReducer
     }),
-    EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect, AgentDetailsEffect]),
+    EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect, AgentDetailsEffect,
+                          ClientEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
     LoadingScreenComponent

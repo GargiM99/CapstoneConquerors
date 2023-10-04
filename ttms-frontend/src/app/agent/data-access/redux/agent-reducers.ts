@@ -32,7 +32,7 @@ export const agentBasicReducer = createReducer(
         ...state,
         isLoading: true,
         newProfile: action.profileDetails
-    })),
+    })), 
     on(AgentAction.addAgentSuccess, (state, action) => ({
         ...state,
         isLoading: false,

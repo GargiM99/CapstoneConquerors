@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -45,6 +46,10 @@ public class User implements UserDetails {
 
 	private String username;
 	private String password;
+	
+    @ManyToOne
+    @JoinColumn(name = "agent_id")
+    private User agentUser;
 
 	@Enumerated(EnumType.STRING)
 	private Roles role;

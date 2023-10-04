@@ -52,7 +52,7 @@ export class AddAgentComponent{
     } 
 
     let newAgent = <IProfileDetails>this.agentForm.value
-    this.store.dispatch(AgentAction.addAgent({ profileDetails: newAgent }))
+    this.store.dispatch(AgentAction.addAgent({ profileDetails: newAgent })) 
     this.modalService.open(AddCompleteModalComponent, this.viewContainerRef, true, agentComplete$)
   } 
 

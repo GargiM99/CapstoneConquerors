@@ -12,7 +12,7 @@ export const getAgentBasicsSuccess = createAction(
   props<{ agentBasics: IAgentBasics[] | null }>()
 )
 export const getAgentBasicsFailure = createAction(
-  '[AgentBasics] Get Agent Basics Failure',
+  '[AgentBasics] Get Agent Basics Failure', 
   props<{ error: HttpErrorResponse | Error | null }>()
 )
 

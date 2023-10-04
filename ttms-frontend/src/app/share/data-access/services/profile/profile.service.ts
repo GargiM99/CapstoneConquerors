@@ -7,13 +7,14 @@ import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { detailSelector } from '../../redux/auth/token-selectors';
 import { ITokenDetail } from '../../types/auth/token-details.interface';
+import endPoints from '../../../../../assets/data/endpoints.json'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
   tokenDetails$: Observable<ITokenDetail | null>
-  endpoints = { profile: "http://localhost:8080/api/profile" }
+  //endpoints = { profile: "https://ttms-backend.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile" }
 
   getProfile(username: string | null): Observable<IProfileDetails>{
     return this.tokenDetails$.pipe(
@@ -35,7 +36,7 @@ export class ProfileService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     })
-    return  this.http.get<IProfileDetails>(this.endpoints.profile, { headers: headers })
+    return  this.http.get<IProfileDetails>(endPoints.profile, { headers: headers })
   }
 
   updateProfile(updateDetails: IProfileDetails): Observable<IProfileDetails>{
@@ -61,7 +62,7 @@ export class ProfileService {
     })
 
     return this.http.put<IProfileDetails>(
-      this.endpoints.profile, 
+      endPoints.profile, 
       JSON.stringify(updateDetails), 
       { headers: headers })
   }

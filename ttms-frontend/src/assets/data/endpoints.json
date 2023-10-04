@@ -1,4 +1,7 @@
 {
-    "server" : "https://localhost:8080/api/",
-    "authenticate" : "https://localhost:8080/api/auth/authenticate"
+    "server": "http://localhost:8080/api/",
+    "authenticate": "http://localhost:8080/api/auth/authenticate",
+    "profile": "http://localhost:8080/api/profile",
+    "agent": "http://localhost:8080/api/agent",
+    "client": "http://localhost:8080/api/client"
 }

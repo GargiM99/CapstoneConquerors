@@ -10,5 +10,5 @@ package ca.ttms.beans.enums;
 public enum Roles {
 	AGENT,
 	ADMIN,
-	CUSTOMER
+	CLIENT
 }

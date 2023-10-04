@@ -19,11 +19,13 @@ CREATE TABLE _address
 CREATE TABLE _user
   (
      id        INT IDENTITY NOT NULL PRIMARY KEY,
-     password  VARCHAR(255) NOT NULL UNIQUE,
+     password  VARCHAR(255),
      role      VARCHAR(255) NOT NULL,
      username  VARCHAR(255) NOT NULL UNIQUE,
      person_id INT,
-	 CONSTRAINT fk_user_person FOREIGN KEY (person_id) REFERENCES person(id)
+     agent_id  INT,
+	CONSTRAINT fk_user_person FOREIGN KEY (person_id) REFERENCES person(id),
+        CONSTRAINT fk_agentId_user_id FOREIGN KEY (agent_id) REFERENCES user(id)
   )  
 
 CREATE TABLE contact

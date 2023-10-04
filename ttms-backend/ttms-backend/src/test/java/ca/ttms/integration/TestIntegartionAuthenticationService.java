@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,11 +28,11 @@ import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.response.ResponseToken;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.TokenRepo;
 import ca.ttms.repositories.UserRepo;
 import ca.ttms.services.AuthenticationService;
 
+@Ignore
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

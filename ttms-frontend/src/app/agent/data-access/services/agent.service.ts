@@ -10,12 +10,12 @@ import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { detailSelector } from 'src/app/share/data-access/redux/auth/token-selectors';
 import { Router } from '@angular/router';
 import { IAgentDetails } from '../types/agent-details.interface';
+import endPoints from '../../../../assets/data/endpoints.json'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentService {
-  endPoints = {agent: "http://localhost:8080/api/agent"}
 
   tokenDetails$: Observable<ITokenDetail | null>
 
@@ -41,7 +41,7 @@ export class AgentService {
     })
 
     let response = this.http.get<IAgentBasics[]>(
-      this.endPoints.agent,
+      endPoints.agent,
       { headers: headers }
     )
     
@@ -73,7 +73,7 @@ export class AgentService {
     })
 
     let response = this.http.get<IAgentDetails>(
-      `${this.endPoints.agent}/${agentId}`,
+      `${endPoints.agent}/${agentId}`,
       { headers: headers }
     )
     
@@ -100,7 +100,7 @@ export class AgentService {
     })
 
     let response = this.http.post<IAddAgentRes>(
-      `${this.endPoints.agent}`, profile, { headers: headers }
+      `${endPoints.agent}`, profile, { headers: headers }
     )
 
     return response.pipe(map((res) =>{
@@ -144,7 +144,7 @@ export class AgentService {
     })
 
     let response = this.http.put(
-      `${this.endPoints.agent}/${agentId}`, detail, { headers: headers }
+      `${endPoints.agent}/${agentId}`, detail, { headers: headers }
     )
     
     return response.pipe(
@@ -174,7 +174,7 @@ export class AgentService {
     })
 
     let response = this.http.put<IResetPasswordRes>(
-      `${this.endPoints.agent}/pass/${agentId}`, {}, { headers: headers }
+      `${endPoints.agent}/pass/${agentId}`, {}, { headers: headers }
     )
 
     return response
@@ -200,7 +200,7 @@ export class AgentService {
     })
 
     let response = this.http.put<IPromoteAgentRes>(
-      `${this.endPoints.agent}/promote/${agentId}`, {"role": "ADMIN"}, { headers: headers }
+      `${endPoints.agent}/promote/${agentId}`, {"role": "ADMIN"}, { headers: headers }
     )
 
     return response
