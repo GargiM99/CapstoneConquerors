@@ -1,1 +1,5 @@
-<p>client-card works!</p>
+<div (click)="viewDetails(client.id)" class="view-card"> 
+    <img src="https://fakeimg.pl/50/"/>
+    <hr>
+    <p>{{client.firstname}} {{client.lastname.charAt(0)}}</p>
+</div>

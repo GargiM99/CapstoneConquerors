@@ -4,9 +4,12 @@ import { IAgentBasics } from 'src/app/agent/data-access/types/agent-basics.inter
 import { IAppState } from '../../data-access/types/app-state.interface';
 import { Store, select } from '@ngrx/store';
 import { agentBasicsSelector, agentErrorSelector, agentIsLoadingSelector } from '../../../agent/data-access/redux/agent-selectors';
-import * as AgentAction from '../../../agent/data-access/redux/agent-actions'
 import { HttpErrorResponse } from '@angular/common/http';
- 
+import { clientBasicsSelector, clientErrorSelector, clientIsLoadingSelector } from 'src/app/client/data-access/redux/client-selectors';
+import { IClientBasics } from 'src/app/client/data-access/types/client-basic.inteface';
+import * as AgentAction from '../../../agent/data-access/redux/agent-actions';
+import * as ClientAction from '../../../client/data-access/redux/client-actions';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,13 +20,22 @@ export class HomeComponent implements OnInit{
   agentError$: Observable<HttpErrorResponse | Error | null>
   agents$: Observable<IAgentBasics[] | null>
 
+  clientIsLoading$: Observable<boolean>
+  clientError$: Observable<HttpErrorResponse | Error | null>
+  clients$: Observable<IClientBasics[] | null>
+
   constructor(private store: Store<IAppState>){
     this.agentIsLoading$ = this.store.pipe(select(agentIsLoadingSelector))
     this.agentError$ = this.store.pipe(select(agentErrorSelector))
     this.agents$ = this.store.pipe(select(agentBasicsSelector))
+
+    this.clientIsLoading$ = this.store.pipe(select(clientIsLoadingSelector))
+    this.clientError$ = this.store.pipe(select(clientErrorSelector))
+    this.clients$ = this.store.pipe(select(clientBasicsSelector))
   }
   
   ngOnInit(): void {
     this.store.dispatch(AgentAction.getAgentBasics({ agentIds: null }))
+    this.store.dispatch(ClientAction.getClientBasics())
   }
 }

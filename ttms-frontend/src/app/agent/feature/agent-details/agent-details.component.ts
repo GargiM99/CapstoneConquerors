@@ -30,7 +30,7 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
   agentSub!: Subscription
   
   agentForm = this.fb.group({
-    user: this.fb.group({
+    user: this.fb.group({ 
       username: [''],
       role: ['']
     }),
@@ -60,14 +60,12 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
       isLoading: this.agentIsLoading$ 
     } 
 
-    this.agentDetails$.forEach((agent) => console.log(agent.user))
-
     this.store.dispatch(AgentDetailAction.resetAgentPassword({ agentId: this.agentId }))
     this.modalService.open(ResetPasswordModalComponent, this.viewContainerRef, true, resetComplete$)
   }
 
-  enableEdit(){
-    this.isEditEnable = true
+  toggleEdit(){
+    this.isEditEnable = !this.isEditEnable
   }
 
   editProfile(){

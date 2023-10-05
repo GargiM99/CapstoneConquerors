@@ -1,5 +1,5 @@
 <div class="agent-details-container">
-    <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
+    <form [formGroup]="clientForm" (submit)="editDetails()" class="flex-column">
         <button type="button" (click)="toggleEdit()">
             {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
         </button>
@@ -8,11 +8,6 @@
             <div class="input-section">
                 <label>Username</label>
                 <input type="text" formControlName="username" [readonly]="true"/>
-            </div>
-            <div class="input-section">
-                <label>Role</label>
-                <input type="text" formControlName="role" [readonly]="true"/>
-                <button (click) = "promoteAgent()">Promote </button>
             </div>
         </div>
         <br>
@@ -125,7 +120,6 @@
             </div>    
         </div>
 
-        <button *ngIf="isEditEnable" type="submit">Edit</button>
-        <button type="button" (click)="resetPassword()">Reset Password</button>
+        <button *ngIf="isEditEnable" type="submit">Save</button>
     </form>
 </div>
