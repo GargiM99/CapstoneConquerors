@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import ca.ttms.beans.enums.Roles;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -45,6 +46,8 @@ public class User implements UserDetails {
 	private Integer id;
 
 	private String username;
+	
+	@Column (name = "password", nullable = true)
 	private String password;
 	
     @ManyToOne
@@ -56,6 +59,9 @@ public class User implements UserDetails {
 
 	@OneToMany(mappedBy = "user")
 	private List<Token> tokens;
+	
+//	@OneToMany(mappedBy = "User")
+//	private List<Trip> trips;
 	
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personId", referencedColumnName = "id")

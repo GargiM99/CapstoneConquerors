@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class BasicUsersDetails {
 	private String firstname;
 	private String lastname;

@@ -28,6 +28,7 @@ import { ProfileDetailsModule } from './profile/feature/profile-details/profile-
 import { clientReducer } from './client/data-access/redux/client-reducers';
 import { ClientEffect } from './client/data-access/redux/client-effects';
 import { CreateClientModule } from './client/feature/create-client/create-client.module';
+import { ClientDetailsModule } from './client/feature/client-details/client-details.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CreateClientModule } from './client/feature/create-client/create-client
     AgentDetailsModule,
     ProfileDetailsModule,
     CreateClientModule,
+    ClientDetailsModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,

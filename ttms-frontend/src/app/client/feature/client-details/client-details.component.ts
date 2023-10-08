@@ -11,7 +11,7 @@ import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/se
 import * as ClientAction from '../../../client/data-access/redux/client-actions'
 
 @Component({
-  selector: 'app-client-details',
+  selector: 'client-details',
   templateUrl: './client-details.component.html',
   styleUrls: ['./client-details.component.scss']
 })

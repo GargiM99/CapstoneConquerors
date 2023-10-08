@@ -2,7 +2,7 @@
     <h2 class="list-header">Clients</h2>
     <div class="list-cards">
         <div *ngFor="let client of (clients$ | async | slice:0:numberCards); let i = index">
-            <client-card [client]="client"~></client-card>
+            <client-card [client]="client"></client-card>
         </div>
         <arrow-button (click)="viewAll()"></arrow-button>
     </div>

@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ClientDetailsComponent } from './client-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
-
 @NgModule({
   declarations: [ClientDetailsComponent],
   imports: [CommonModule, ReactiveFormsModule],

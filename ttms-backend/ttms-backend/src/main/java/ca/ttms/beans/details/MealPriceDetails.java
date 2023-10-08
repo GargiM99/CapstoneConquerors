@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class MealPriceDetails {
     private double qaPrice;
     private double qcPrice;

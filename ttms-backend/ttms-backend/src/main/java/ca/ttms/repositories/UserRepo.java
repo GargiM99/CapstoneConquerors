@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.enums.Roles;
@@ -50,6 +51,28 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			ON p.id = u.person.id\s	
 			""")
 	List<Map<String, Object>> getAllAgents();	
+	
+	@Query(value =
+			"""
+			SELECT p.firstname AS firstname, p.lastname AS lastname,
+			u.id AS id, u.username AS username FROM\s
+			Person p INNER JOIN User u\s
+			ON p.id = u.person.id\s	
+			WHERE u.agentUser.id = 
+			(SELECT id FROM User WHERE username = :un)
+			AND u.role = 'CLIENT'
+			""")
+	List<Map<String, Object>> getClientsForAgents(@Param("un") String agentUsername);
+	
+	@Query(value =
+			"""
+			SELECT p.firstname AS firstname, p.lastname AS lastname,
+			u.id AS id, u.username AS username FROM\s
+			Person p INNER JOIN User u\s
+			ON p.id = u.person.id\s	
+			AND u.role = 'CLIENT'
+			""")
+	List<Map<String, Object>> getAllClients();
 
 	@Transactional
 	@Modifying
@@ -94,4 +117,14 @@ public interface UserRepo extends JpaRepository<User, Integer>{
     @Modifying
     @Query("UPDATE User u SET u.role = :ro WHERE u.id = :id")
     void updateRoleById(@Param("id") Integer userId, @Param("ro") Roles newRole);
+
+    @Query(value = """
+    		SELECT COUNT(u)
+    		FROM User u JOIN u.agentUser a
+    		ON u.agentUser.id = a.id
+    		WHERE a.username = :un
+    		AND u.id = :cid
+    		""")
+    long isAgentClientRelated(@Param("un") String agentUsername, @Param("cid") Integer clientId);
+
 }

@@ -57,3 +57,25 @@ CREATE TABLE address_person
      CONSTRAINT fk_ap_person FOREIGN KEY (person_id) REFERENCES person(id)
   ) 
 
+CREATE TABLE trip
+ (
+     id INT IDENTITY NOT NULL PRIMARY KEY,
+     trip_name VARCHAR(255) NOT NULL,
+     trip_start_date DATE NOT NULL,
+     trip_end_date DATE NOT NULL,
+     status VARCHAR(255) NOT NULL,
+     user_id INT,
+     CONSTRAINT fk_trip_user FOREIGN KEY (user_id) REFERENCES _user(id)
+ )
+
+CREATE TABLE _event
+ (
+     id INT IDENTITY NOT NULL PRIMARY KEY,
+     event_name VARCHAR(255) NOT NULL,
+     event_date DATE NOT NULL,
+     status VARCHAR(255) NOT NULL,
+     trip_id INT,
+     CONSTRAINT fk_event_trip FOREIGN KEY (trip_id) REFERENCES trip(id)
+ )
+
+
