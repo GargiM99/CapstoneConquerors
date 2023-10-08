@@ -1,8 +1,11 @@
+import { ITripDetails } from "./trip/trip-details.interface"
+
 export interface IClientDetails{
     user: User
     contact: Contact
     address: Address
     person: Person
+    tripDetails: ITripDetails
 }
 
 interface User{

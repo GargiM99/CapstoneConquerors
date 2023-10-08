@@ -25,7 +25,7 @@ CREATE TABLE _user
      person_id INT,
      agent_id  INT,
 	CONSTRAINT fk_user_person FOREIGN KEY (person_id) REFERENCES person(id),
-        CONSTRAINT fk_agentId_user_id FOREIGN KEY (agent_id) REFERENCES user(id)
+        CONSTRAINT fk_agentId_user_id FOREIGN KEY (agent_id) REFERENCES _user(id)
   )  
 
 CREATE TABLE contact

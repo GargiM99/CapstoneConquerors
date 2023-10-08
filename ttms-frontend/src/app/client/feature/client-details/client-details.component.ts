@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { IClientDetails } from '../../data-access/types/client-details.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client-selectors';
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 import * as ClientAction from '../../../client/data-access/redux/client-actions'
+import { ITripDetails } from '../../data-access/types/trip/trip-details.interface';
 
 @Component({
   selector: 'client-details',
@@ -21,6 +22,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
 
   clientId: number
   clientDetails$: Observable<IClientDetails | null>
+  // tripDetails$: Observable<ITripDetails | null>
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
@@ -103,5 +105,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.clientIsLoading$ = this.store.pipe(select(clientIsLoadingSelector))
     this.clientError$ = this.store.pipe(select(clientErrorSelector))
     this.clientDetails$ = this.store.pipe(select(clientDetailsSelector))
+
+    // this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails);
   }
 }

@@ -1,0 +1,7 @@
+<div class="list-container">
+    <div class="list-cards">
+        <div *ngFor="let trip of (trips$ | async ); let i = index">
+            <trip-card [trip]="trip"></trip-card>
+        </div>
+    </div>
+</div>

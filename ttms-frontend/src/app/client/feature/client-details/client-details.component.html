@@ -1,4 +1,5 @@
 <div class="agent-details-container">
+    <!-- <trip-list-card [trips$]=""></trip-list-card> -->
     <form [formGroup]="clientForm" (submit)="editDetails()" class="flex-column">
         <button type="button" (click)="toggleEdit()">
             {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
