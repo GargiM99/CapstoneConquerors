@@ -8,11 +8,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ca.ttms.beans.Address;
+import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.BasicUsersDetails;
 import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.BasicClientResponse;
@@ -118,7 +121,34 @@ public class ClientService {
 		return userRepo.getAllClients();
 	}
 	
-//	public List<Map<String, Object>> getClients (String username) {
-//		return userRepo.getClientsForAgents(username);
-//	}
+	public UserEditDetails editClientDetails(UserEditDetails editDetails, int id ) {
+		
+		if(!editDetails.verifyDetails())
+			return null;
+		
+		if(id <= 0)
+			return null;
+		
+		try{
+			Address updateAddress = editDetails.getAddress();
+			Contact updateContact = editDetails.getContact();
+			Person updatePerson = editDetails.getPerson();
+			
+			addressRepo.updateAddressByUserId(id, updateAddress.getAddressLine(), updateAddress.getPostalCode(),
+										updateAddress.getCity(), updateAddress.getProvince(), updateAddress.getCountry());
+			
+			contactRepo.updateContactByUserId(id, updateContact.getEmail(), 
+										updateContact.getPrimaryPhoneNumber(), updateContact.getSecondaryPhoneNumber());
+			
+			personRepo.updatePersonByUserId(id, updatePerson.getFirstname(), updatePerson.getLastname(), updatePerson.getBirthDate());
+			
+			return editDetails;
+			
+		}catch(Exception e) {
+			return null;
+		}
+		
+		
+		
+	}
 }

@@ -10,12 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.details.UserAuthenticationDetails;
+import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.response.BasicClientResponse;
 import ca.ttms.beans.response.ClientDetailsResponse;
@@ -118,5 +120,29 @@ public class ClientController {
 			return ResponseEntity.ok().headers(headers).body(response);
 		}
 		return ResponseEntity.status(401).headers(headers).body(null);
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<UserEditDetails> editClient(
+			@RequestHeader("Authorization") String authHeader,
+			@PathVariable Integer id,
+			@RequestBody UserEditDetails clientDetails) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		String username = jwtService.extractSubject(jwtoken);
+		
+		if ((role.equals("AGENT") && service.verfiyClientToAgent(username, id)) || role.equals("ADMIN")) {
+			UserEditDetails response = service.editClientDetails(clientDetails, id);
+			
+			if (response == null)
+				return ResponseEntity.status(400).headers(headers).body(null);
+			return ResponseEntity.ok().headers(headers).body(response);
+		}
+		return ResponseEntity.status(401).headers(headers).body(null);
+		
 	}
 }
