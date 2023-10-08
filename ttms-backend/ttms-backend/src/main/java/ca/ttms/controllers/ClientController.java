@@ -87,18 +87,7 @@ public class ClientController {
 		}
 		return ResponseEntity.status(401).headers(headers).body(null);
 	}
-	
-//	@GetMapping()
-//	public ResponseEntity getClients(@RequestHeader("Authorization") String authHeader) {
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//		
-//		String jwtoken = authHeader.substring(7);
-//		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
-//		String username = jwtService.extractSubject(jwtoken);
-//		
-//		return ResponseEntity.ok().headers(headers).body(service.getClients(username));
-//	}
+
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClientDetailsResponse> getClientDetails(
