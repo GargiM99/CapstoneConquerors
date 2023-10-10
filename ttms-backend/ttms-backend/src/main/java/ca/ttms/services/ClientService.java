@@ -123,7 +123,7 @@ public class ClientService {
 	
 	public UserEditDetails editClientDetails(UserEditDetails editDetails, int id ) {
 		
-		if(!editDetails.verifyDetails())
+		if(editDetails == null || !editDetails.verifyDetails())
 			return null;
 		
 		if(id <= 0)
@@ -147,8 +147,5 @@ public class ClientService {
 		}catch(Exception e) {
 			return null;
 		}
-		
-		
-		
 	}
 }

@@ -88,7 +88,6 @@ public class ClientController {
 		return ResponseEntity.status(401).headers(headers).body(null);
 	}
 
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<ClientDetailsResponse> getClientDetails(
 			@RequestHeader("Authorization") String authHeader,
