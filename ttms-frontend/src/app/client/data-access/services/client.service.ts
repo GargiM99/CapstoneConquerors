@@ -108,7 +108,7 @@ export class ClientService {
       'Authorization': `Bearer ${token}`
     })
 
-    let response = this.http.post<IClientDetails>(
+    let response = this.http.put<IClientDetails>(
       `${endPoints.client}/${clientId}`, clientDetails, { headers: headers }
     )
 

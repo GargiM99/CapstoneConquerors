@@ -10,6 +10,7 @@ ALTER COLUMN password VARCHAR(255) NULL;
 ALTER TABLE _user
 DROP CONSTRAINT UQ___user__6E2DBEDED2C86917;
 
+
 SELECT 
     constraint_name, 
     constraint_type 

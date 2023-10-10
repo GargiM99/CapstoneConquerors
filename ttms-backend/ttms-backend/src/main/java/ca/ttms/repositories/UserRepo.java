@@ -48,7 +48,8 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			SELECT p.firstname AS firstname, p.lastname AS lastname,
 			u.id AS id, u.username AS username FROM\s
 			Person p INNER JOIN User u\s
-			ON p.id = u.person.id\s	
+			ON p.id = u.person.id\s
+			WHERE u.role IN ('AGENT','ADMIN') 	
 			""")
 	List<Map<String, Object>> getAllAgents();	
 	

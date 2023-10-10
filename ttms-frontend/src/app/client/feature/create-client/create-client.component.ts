@@ -52,7 +52,7 @@ export class CreateClientComponent {
           return clientBasics[clientBasics.length - 1];
         }
         return null;
-      }))
+      })) 
     
 
     let clientComplete$ : IClientCompForm = {
@@ -64,7 +64,7 @@ export class CreateClientComponent {
     let newClient = <IClientDetails>this.clientForm.value
     this.store.dispatch(ClientAction.createClient({ clientDetails: newClient }))
     this.modalService.open(CreateCompleteModalComponent, this.viewContainerRef, true, clientComplete$)
-  } 
+  }  
 
   isInvalid(groupName: string, fieldName: string): boolean {
     const control = this.clientForm.get(groupName)?.get(fieldName)

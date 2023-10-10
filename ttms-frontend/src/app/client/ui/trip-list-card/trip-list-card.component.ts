@@ -12,5 +12,5 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./trip-list-card.component.scss']
 })
 export class TripListCardComponent {
-  @Input() trips$: Observable<ITripDetails[] | null> = of([])
+  @Input() trips$: Observable<ITripDetails[] | undefined> = of([])
 }

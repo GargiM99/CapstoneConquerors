@@ -29,6 +29,9 @@ import { clientReducer } from './client/data-access/redux/client-reducers';
 import { ClientEffect } from './client/data-access/redux/client-effects';
 import { CreateClientModule } from './client/feature/create-client/create-client.module';
 import { ClientDetailsModule } from './client/feature/client-details/client-details.module';
+import { tripReducer } from './client/data-access/redux/trip/trip-reducers';
+import { TripEffect } from './client/data-access/redux/trip/trip-effects';
+import { TripDetailsModule } from './client/feature/trip-details/trip-details.module';
 
 @NgModule({
   declarations: [
@@ -48,15 +51,17 @@ import { ClientDetailsModule } from './client/feature/client-details/client-deta
     ProfileDetailsModule,
     CreateClientModule,
     ClientDetailsModule,
+    TripDetailsModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,
       'agentDetails': agentDetailReducer,
       'profileDetails': profileReducers,
-      'clientDetails': clientReducer
+      'clientDetails': clientReducer,
+      'tripDetails': tripReducer
     }),
     EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect, AgentDetailsEffect,
-                          ClientEffect]),
+                          ClientEffect, TripEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
     LoadingScreenComponent

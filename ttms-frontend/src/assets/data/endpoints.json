@@ -1,7 +1,8 @@
 {
-    "server": "http://localhost:8080/api/",
-    "authenticate": "http://localhost:8080/api/auth/authenticate",
-    "profile": "http://localhost:8080/api/profile",
-    "agent": "http://localhost:8080/api/agent",
-    "client": "http://localhost:8080/api/client"
+    "server": "https://ttms-backend-s4.internal.icysand-a5394cb1.eastus.azurecontainerapps.io/api",
+    "authenticate": "https://ttms-backend-s4.icysand-a5394cb1.eastus.azurecontainerapps.io/api/auth/authenticate",
+    "profile": "https://ttms-backend-s4.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile",
+    "agent": "https://ttms-backend-s4.icysand-a5394cb1.eastus.azurecontainerapps.io/api/agent",
+    "client": "https://ttms-backend-s4.icysand-a5394cb1.eastus.azurecontainerapps.io/api/client",
+    "trip": "https://ttms-backend-s4.icysand-a5394cb1.eastus.azurecontainerapps.io/api/trip"
 }

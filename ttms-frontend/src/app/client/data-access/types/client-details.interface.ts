@@ -5,7 +5,7 @@ export interface IClientDetails{
     contact: Contact
     address: Address
     person: Person
-    tripDetails: ITripDetails
+    tripDetails: ITripDetails[]
 }
 
 interface User{

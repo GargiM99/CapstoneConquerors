@@ -9,6 +9,7 @@ import { AgentDetailsComponent } from './agent/feature/agent-details/agent-detai
 import { ProfileDetailsComponent } from './profile/feature/profile-details/profile-details.component';
 import { CreateClientComponent } from './client/feature/create-client/create-client.component';
 import { ClientDetailsComponent } from './client/feature/client-details/client-details.component';
+import { TripDetailsComponent } from './client/feature/trip-details/trip-details.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'agent/:id', component: AgentDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'client/create', component: CreateClientComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'client/:id', component: ClientDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
+  { path: 'trip/:id', component: TripDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'profile', component: ProfileDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }} 
 ];
 

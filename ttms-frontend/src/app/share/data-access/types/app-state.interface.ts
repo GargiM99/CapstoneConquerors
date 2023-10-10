@@ -3,11 +3,13 @@ import { IAgentState } from "../../../agent/data-access/types/agent-basics-state
 import { ITokenDetailState } from "./auth/token-details-state.interface";
 import { IProfileDetailState } from "./profile/profile-details-state.interface";
 import { IClientState } from "src/app/client/data-access/types/client-state.interface";
+import { ITripState } from "src/app/client/data-access/types/trip/trip-state.interface";
 
 export interface IAppState{
     tokenDetails: ITokenDetailState,
     agentBasics: IAgentState,
     agentDetails: IAgentDetailState,
     profileDetails: IProfileDetailState,
-    clientDetails: IClientState
+    clientDetails: IClientState,
+    tripDetails: ITripState
 }

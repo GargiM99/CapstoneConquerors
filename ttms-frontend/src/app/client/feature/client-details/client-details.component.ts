@@ -10,6 +10,8 @@ import { clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } f
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 import * as ClientAction from '../../../client/data-access/redux/client-actions'
 import { ITripDetails } from '../../data-access/types/trip/trip-details.interface';
+import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
+import { TripCreateModalComponent } from '../../ui/trip-create-modal/trip-create-modal.component';
 
 @Component({
   selector: 'client-details',
@@ -22,7 +24,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
 
   clientId: number
   clientDetails$: Observable<IClientDetails | null>
-  // tripDetails$: Observable<ITripDetails | null>
+  tripDetails$: Observable<ITripDetails[] | undefined>
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
@@ -64,6 +66,10 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.isEditEnable = !this.isEditEnable
   }
 
+  createTripModal(){
+    this.modalService.open(TripCreateModalComponent, this.viewContainerRef, true, this.clientId)
+  }
+
   ngOnInit(): void {
     this.store.dispatch(ClientAction.getClientDetails({ clientId: this.clientId }))
 
@@ -98,7 +104,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void { this.clientSub.unsubscribe() }
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute,
-    private fb: FormBuilder, private viewContainerRef: ViewContainerRef){
+    private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private modalService: ModalService){
       
     this.clientId = +(this.route.snapshot.paramMap.get('id') ?? 0)
 
@@ -106,6 +112,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.clientError$ = this.store.pipe(select(clientErrorSelector))
     this.clientDetails$ = this.store.pipe(select(clientDetailsSelector))
 
-    // this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails);
+    this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails));
   }
 }

@@ -5,6 +5,6 @@ export interface ITripDetails{
 	tripEndDate : Date;
 	status : TTripStatus;
 	clientId : number;
-}
+} 
 
 export type TTripStatus = "INPROGRESS" | "COMPLETE" | "INCOMPLETE"

@@ -1,7 +1,22 @@
+#spring:
+#  datasource:
+#    url: jdbc:sqlserver://localhost:1433;databaseName=TTMS;encrypt=true;trustServerCertificate=true;
+#    username: admin
+#    password: ttmssmtt-2023
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    database: sql-server
+#    database-platform: org.hibernate.dialect.SQLServerDialect
+
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=TTMS;encrypt=true;trustServerCertificate=true;
-    username: admin
+    url: jdbc:sqlserver://server-db-ttms.database.windows.net:1433;database=DB_TTMS;user=ttmsmark@server-db-ttms;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     password: ttmssmtt-2023
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
@@ -13,3 +28,5 @@ spring:
         format_sql: true
     database: sql-server
     database-platform: org.hibernate.dialect.SQLServerDialect
+    
+    

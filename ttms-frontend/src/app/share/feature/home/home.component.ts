@@ -9,6 +9,7 @@ import { clientBasicsSelector, clientErrorSelector, clientIsLoadingSelector } fr
 import { IClientBasics } from 'src/app/client/data-access/types/client-basic.inteface';
 import * as AgentAction from '../../../agent/data-access/redux/agent-actions';
 import * as ClientAction from '../../../client/data-access/redux/client-actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,11 @@ export class HomeComponent implements OnInit{
   clientError$: Observable<HttpErrorResponse | Error | null>
   clients$: Observable<IClientBasics[] | null>
 
-  constructor(private store: Store<IAppState>){
+  addClient(){
+    this.router.navigate([`client/create`])
+  }
+
+  constructor(private store: Store<IAppState>, private router: Router){
     this.agentIsLoading$ = this.store.pipe(select(agentIsLoadingSelector))
     this.agentError$ = this.store.pipe(select(agentErrorSelector))
     this.agents$ = this.store.pipe(select(agentBasicsSelector))

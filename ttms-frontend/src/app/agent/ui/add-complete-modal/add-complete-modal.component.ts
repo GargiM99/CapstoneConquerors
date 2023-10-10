@@ -20,4 +20,4 @@ export class AddCompleteModalComponent implements IModal{
   }
 
   constructor(private elementRef: ElementRef){}
-}
+} 

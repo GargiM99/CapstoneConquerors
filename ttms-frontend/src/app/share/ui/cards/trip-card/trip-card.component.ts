@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ITripDetails } from 'src/app/client/data-access/types/trip/trip-details.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'trip-card',
@@ -11,4 +12,10 @@ import { ITripDetails } from 'src/app/client/data-access/types/trip/trip-details
 })
 export class TripCardComponent {
   @Input() trip!: ITripDetails
+
+  viewDetails(tripId: number){
+    this.router.navigate([`trip`, this.trip.id])
+  }
+
+  constructor(private router: Router){}
 }
