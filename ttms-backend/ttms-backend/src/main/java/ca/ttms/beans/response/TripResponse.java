@@ -21,7 +21,7 @@ public class TripResponse {
 	
 	public TripResponse(Trip trip, Event[] events) {
 		this.tripDetails = new TripDetails(trip.getId(), trip.getTripName(), trip.getTripStartDate(),
-										trip.getTripEndDate(), trip.getStatus(), trip.getUsers().getId());
+										trip.getTripEndDate(), trip.getTripType(), trip.getStatus(), trip.getUsers().getId());
 		
 		this.eventDetails = Arrays.stream(events)
 			    .map(event -> EventDetails.builder()

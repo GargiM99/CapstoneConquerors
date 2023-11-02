@@ -19,4 +19,8 @@ FROM
 WHERE 
     table_name = '_user';
 
-SELECT * FROM _user;
+ALTER TABLE trip
+ADD trip_type VARCHAR(255) NULL;
+
+ALTER TABLE _event
+ADD event_description VARCHAR(1024) NULL;

@@ -35,6 +35,9 @@ public class Trip {
 	@Column (name = "trip_name", nullable = false)
 	private String tripName; 
 	
+	@Column (name = "trip_type")
+	private String tripType;
+	
 	@Column (name = "trip_start_date", nullable = false)
 	private LocalDate tripStartDate;
 	

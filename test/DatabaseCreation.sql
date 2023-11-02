@@ -63,6 +63,7 @@ CREATE TABLE trip
      trip_name VARCHAR(255) NOT NULL,
      trip_start_date DATE NOT NULL,
      trip_end_date DATE NOT NULL,
+	 trip_type VARCHAR(255) NULL,
      status VARCHAR(255) NOT NULL,
      user_id INT,
      CONSTRAINT fk_trip_user FOREIGN KEY (user_id) REFERENCES _user(id)
@@ -74,6 +75,7 @@ CREATE TABLE _event
      event_name VARCHAR(255) NOT NULL,
      event_date DATE NOT NULL,
      status VARCHAR(255) NOT NULL,
+	 event_description VARCHAR(1024) NULL,
      trip_id INT,
      CONSTRAINT fk_event_trip FOREIGN KEY (trip_id) REFERENCES trip(id)
  )

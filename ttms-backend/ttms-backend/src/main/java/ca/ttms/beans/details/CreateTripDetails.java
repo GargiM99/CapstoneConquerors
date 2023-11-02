@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class CreateTripDetails {
 	private LocalDate tripEndDate;
 	private String tripName;
+	private String tripType;
 	private Integer clientId;
 	
 	private final int MIN_NAME_LENGTH = 3;

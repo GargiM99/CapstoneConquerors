@@ -18,6 +18,7 @@ public class TripDetails {
 	private String tripName; 
 	private LocalDate tripStartDate;
 	private LocalDate tripEndDate;
+	private String tripType;
 	private TripStatus status;
 	private Integer clientId;
 }

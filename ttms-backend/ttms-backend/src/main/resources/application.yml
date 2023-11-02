@@ -1,22 +1,7 @@
-#spring:
-#  datasource:
-#    url: jdbc:sqlserver://localhost:1433;databaseName=TTMS;encrypt=true;trustServerCertificate=true;
-#    username: admin
-#    password: ttmssmtt-2023
-#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#  jpa:
-#    hibernate:
-#      ddl-auto: none
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-#    database: sql-server
-#    database-platform: org.hibernate.dialect.SQLServerDialect
-
 spring:
   datasource:
-    url: jdbc:sqlserver://server-db-ttms.database.windows.net:1433;database=DB_TTMS;user=ttmsmark@server-db-ttms;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    url: jdbc:sqlserver://localhost:1433;databaseName=TTMS;encrypt=true;trustServerCertificate=true;
+    username: admin
     password: ttmssmtt-2023
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
@@ -28,5 +13,28 @@ spring:
         format_sql: true
     database: sql-server
     database-platform: org.hibernate.dialect.SQLServerDialect
+  cloud:
+    azure:
+      storage:
+        connection-string: DefaultEndpointsProtocol=https;AccountName=ttmsblob;AccountKey=/wuUt4nA7ENGBHPfe9/laM4DFR+Eahkgzg3Rjt2QXQQIWDroad+06d0gBFjMn8K0+8EjEQqKc+3c+AStiVjmxw==;EndpointSuffix=core.windows.net
+        blob:
+          container-name: ttms
+          trip-blob-name: trip/tripType.json
+          meal-blob-name: meal/mealPrice.json
+
+#spring:
+#  datasource:
+#    url: jdbc:sqlserver://server-db-ttms.database.windows.net:1433;database=DB_TTMS;user=ttmsmark@server-db-ttms;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+#    password: ttmssmtt-2023
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    database: sql-server
+#    database-platform: org.hibernate.dialect.SQLServerDialect
     
     

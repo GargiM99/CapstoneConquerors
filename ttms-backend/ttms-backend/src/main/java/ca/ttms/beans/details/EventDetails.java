@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class EventDetails {
 	private Integer id;
 	private String eventName; 
+	private String eventDescription;
 	private LocalDate eventDate;
 	private EventStatus status;
 	private Integer tripId;

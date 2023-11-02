@@ -3,25 +3,27 @@ package ca.ttms.services;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.azure.storage.blob.models.BlobStorageException;
+import com.google.gson.reflect.TypeToken;
 
 import ca.ttms.beans.Event;
 import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.CreateTripDetails;
-import ca.ttms.beans.details.TripDetails;
+import ca.ttms.beans.details.EventTypeDetails;
+import ca.ttms.beans.details.TripTypeDetails;
 import ca.ttms.beans.enums.EventStatus;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.enums.TripStatus;
-import ca.ttms.beans.response.EventTemplate;
 import ca.ttms.beans.response.TripResponse;
-import ca.ttms.repositories.AddressRepo;
-import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.EventRepo;
-import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TripRepo;
 import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,15 @@ public class TripService {
 	private final UserRepo userRepo;
 	private final TripRepo tripRepo;
 	private final EventRepo eventRepo;
+	private final BlobService blobService;
 	
+	@Value("${spring.cloud.azure.storage.blob.trip-blob-name}")
+	private String tripBlobName;
+	
+	@Value("${spring.cloud.azure.storage.blob.container-name}")
+	private String containerName;
+	
+	private final int MAX_DATEDIFF = 1000;
 	
 	public TripResponse createTrip(CreateTripDetails createDetails) {
 		if (!createDetails.verifyTripDetails())
@@ -44,6 +54,7 @@ public class TripService {
 				.tripStartDate(LocalDate.now())
 				.tripEndDate(createDetails.getTripEndDate())
 				.tripName(createDetails.getTripName())
+				.tripType(createDetails.getTripType())
 				.build();
 		
 		Optional<User> clientUserOpt = userRepo.findById(createDetails.getClientId());
@@ -55,6 +66,12 @@ public class TripService {
 		newTrip.setUsers(clientUser);
 		newTrip = tripRepo.save(newTrip);
 		Event[] newEvents = generateBaseEvents(newTrip);
+		
+		if (newEvents == null) {
+			tripRepo.delete(newTrip);
+			return null;
+		}
+		
 		TripResponse tripResponse = new TripResponse(newTrip, newEvents);
 		
 		return tripResponse;
@@ -64,17 +81,24 @@ public class TripService {
 		if (relatedTrip == null)
 			return null;
 		
-		EventTemplate[] baseEventTemplate = generateBaseEventTemplate();
+		List<TripTypeDetails> tripTypeDetails = getTripType();
+		List<EventTypeDetails> baseEventTemplate = tripTypeDetails.stream()
+			    .filter(tripTypeDetail -> tripTypeDetail.getTypeName().equals(relatedTrip.getTripType()))
+			    .findFirst()
+			    .map(TripTypeDetails::getEventTypes)
+			    .orElse(Collections.emptyList());
+		
 		List<Event> newEvents = new ArrayList<Event>();
 		
-		if (baseEventTemplate.length <= 0)
+		if (baseEventTemplate.size() <= 0)
 			return null;
 		
-		for (EventTemplate eventTemplate : baseEventTemplate) {
+		for (EventTypeDetails eventTemplate : baseEventTemplate) {
 			Event newEvent = Event
 					.builder()
-					.eventDate(relatedTrip.getTripEndDate().minusDays(eventTemplate.getDateOffset()))
+					.eventDate(relatedTrip.getTripEndDate().minusDays(eventTemplate.getDateDiff()))
 					.eventName(eventTemplate.getEventName())
+					.eventDescription(eventTemplate.getEventDescription())
 					.status(EventStatus.INCOMPLETE)
 					.trip(relatedTrip)
 					.build();
@@ -83,15 +107,6 @@ public class TripService {
 		newEvents = eventRepo.saveAll(newEvents);
 		
 		return newEvents.toArray(new Event[newEvents.size()]);
-	}
-	
-	public EventTemplate[] generateBaseEventTemplate() {
-		EventTemplate[] template = {new EventTemplate("Renew Passport", 120),
-		                            new EventTemplate("Pay Intial Fees", 90),
-		                            new EventTemplate("Reserve Resturants", 20),
-		                            new EventTemplate("Pay Final Fees", 5)};
-		
-		return template;
 	}
 
 	public boolean verifyTripToAgent(String agentUsername, int tripId) {
@@ -110,5 +125,45 @@ public class TripService {
 		Event[] eventArray = trip.getEvents().toArray(new Event[0]);
 		TripResponse response = new TripResponse(trip, eventArray);
 		return response;
+	}
+
+	public List<TripTypeDetails> uploadTripType (List<TripTypeDetails> typeDetails) {
+		try {
+			for (TripTypeDetails typeDetail : typeDetails) {
+				if (!verifyTripType(typeDetail))
+					return null;
+			}
+			blobService.uploadJsonBlob(containerName, tripBlobName, typeDetails);
+		}catch(Exception ex) {
+			return null;
+		}
+		
+		return typeDetails;
+	}
+	
+	public List<TripTypeDetails> getTripType () {
+		try {
+			TypeToken<List<TripTypeDetails>> typeToken = new TypeToken<List<TripTypeDetails>>() {};
+			List<TripTypeDetails> typeDetails = (List<TripTypeDetails>) blobService.downloadJsonBlob(containerName, tripBlobName, typeToken);
+			return typeDetails;
+		}catch(Exception ex) {
+			return null;
+		}
+	}
+	
+	public boolean verifyTripType (TripTypeDetails typeDetails) {
+		if (typeDetails.getTypeName() == null || typeDetails.getTypeName() == "")
+			return false;
+		
+		if (typeDetails.getEventTypes() == null)
+			return false;
+			
+		for (EventTypeDetails eventDetails : typeDetails.getEventTypes()) {
+			if (eventDetails.getEventName() == null || eventDetails.getEventName() == "")
+				return false;
+			if (eventDetails.getDateDiff() <= 0 || eventDetails.getDateDiff() > MAX_DATEDIFF)
+				return false;
+		}
+		return true;
 	}
 }

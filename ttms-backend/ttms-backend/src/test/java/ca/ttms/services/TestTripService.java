@@ -79,7 +79,7 @@ public class TestTripService {
 		TripResponse resultOutput;
 		
 		LocalDate inputDate = LocalDate.now();
-		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Test Trip", 2); 
+		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Test Trip", "Basic Trip", 2); 
 		
 		int expectedEventMinLength = 1;
 		
@@ -99,6 +99,7 @@ public class TestTripService {
 		when(tripRepo.save(Mockito.any(Trip.class))).thenReturn(mockTrip);
 		when(eventRepo.saveAll(Mockito.any())).thenReturn(mockEvents);
 		
+		
 		//Act
 		resultOutput = tripService.createTrip(inputTrip);
 		
@@ -112,7 +113,7 @@ public class TestTripService {
 		TripResponse resultOutput;
 		
 		LocalDate inputDate = LocalDate.now();
-		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Test Trip", 2); 
+		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Test Trip", "Basic Trip", 2); 
 		Roles incorrectRole = Roles.AGENT;
 		
 		//Arrange Mock
@@ -143,7 +144,7 @@ public class TestTripService {
 		
 		LocalDate inputDate = LocalDate.now();
 		String incorrectName = "";
-		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, incorrectName, 2); 
+		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, incorrectName, "Basic Trip", 2); 
 		
 		//Act
 		resultOutput = tripService.createTrip(inputTrip);
@@ -160,7 +161,7 @@ public class TestTripService {
 		LocalDate inputDate = LocalDate.now();
 		String incorrectName = "";
 		int inputTripId = 2;
-		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, incorrectName, 2); 
+		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, incorrectName, "Basic Trip", 2); 
 		
 		//Arrange Mock
 		List<Event> mockEvents = new ArrayList<>();
@@ -209,7 +210,7 @@ public class TestTripService {
 		TripResponse resultOutput;
 		int inputId = 0; 
 		LocalDate inputDate = LocalDate.now();
-		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Trip Name", 2); 
+		CreateTripDetails inputTrip = new CreateTripDetails(inputDate, "Trip Name", "Basic Trip", 2); 
 		
 		
 		//Arrange Mock

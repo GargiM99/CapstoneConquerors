@@ -36,6 +36,9 @@ public class Event {
 	@Column (name = "event_date", nullable = false)
 	private LocalDate eventDate;
 	
+	@Column (name = "event_description")
+	private String eventDescription;
+	
 	@Enumerated(EnumType.STRING)
 	private EventStatus status;
 	

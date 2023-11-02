@@ -1,5 +1,7 @@
 package ca.ttms.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,13 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.details.CreateTripDetails;
-import ca.ttms.beans.details.UserRegisterDetails;
-import ca.ttms.beans.response.BasicClientResponse;
+import ca.ttms.beans.details.TripTypeDetails;
 import ca.ttms.beans.response.TripResponse;
 import ca.ttms.services.AuthenticationService;
 import ca.ttms.services.ClientService;
 import ca.ttms.services.JWTService;
-import ca.ttms.services.ProfileService;
 import ca.ttms.services.TripService;
 import lombok.RequiredArgsConstructor;
 
@@ -79,6 +79,45 @@ public class TripController {
 			return ResponseEntity.ok().headers(headers).body(response);
 		}
 		
+		return ResponseEntity.status(401).headers(headers).body(null);
+	}
+
+	@PostMapping("/type")
+	public ResponseEntity<List<TripTypeDetails>> modifyTripType(
+			@RequestHeader("Authorization") String authHeader,
+			@RequestBody List<TripTypeDetails> tripTypeDetails) {
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		
+		if (role.equals("ADMIN")) {
+			List<TripTypeDetails> response = service.uploadTripType(tripTypeDetails);
+			
+			if (response == null)
+				return ResponseEntity.status(400).headers(headers).body(null);
+			return ResponseEntity.ok().headers(headers).body(response);
+		}
+		return ResponseEntity.status(401).headers(headers).body(null);
+	}
+	
+	@GetMapping("/type")
+	public ResponseEntity<List<TripTypeDetails>> modifyTripType(@RequestHeader("Authorization") String authHeader) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		
+		if (role.equals("ADMIN") || role.equals("AGENT")) {
+			List<TripTypeDetails> response = service.getTripType();
+			
+			if (response == null)
+				return ResponseEntity.status(400).headers(headers).body(null);
+			return ResponseEntity.ok().headers(headers).body(response);
+		}
 		return ResponseEntity.status(401).headers(headers).body(null);
 	}
 }
