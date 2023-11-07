@@ -4,15 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
-import { ITripDetails, TTripStatus } from '../../data-access/types/trip/trip-details.interface'
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, take } from 'rxjs';
 import * as TripAction from '../../data-access/redux/trip/trip-action'
 import { HttpErrorResponse } from '@angular/common/http';
-import { tripDetailsSelector, tripErrorSelector, tripIsLoadingSelector } from '../../data-access/redux/trip/trip-selectors';
+import { tripDetailsSelector, tripErrorSelector, tripIsLoadingSelector, tripTypeSelector } from '../../data-access/redux/trip/trip-selectors';
 import { ITripEventDetails } from '../../data-access/types/trip/trip-event-details.interface';
 import { IEventDetails } from '../../data-access/types/trip/event-details.interface';
-import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
-import { TripCreateModalComponent } from '../../ui/trip-create-modal/trip-create-modal.component';
+import { TripService } from '../../data-access/services/trip.service';
+import { ITripDetails } from '../../data-access/types/trip/trip-details.interface';
 
 @Component({
   selector: 'app-trip-details',
@@ -32,9 +31,12 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
   eventDetails$: Observable<IEventDetails[] | undefined>
 
   tripForm = this.fb.group({
+    clientId: [1],
+    id: [0],
     tripName: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
     tripStartDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator]],
     tripEndDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator]],
+    tripType: ['', [Validators.required]],
     status: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]]        
   })
 
@@ -53,6 +55,7 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
     this.tripSub = this.tripDetails$.subscribe((data) => {
       if (data) {
         this.tripForm.patchValue({
+          id: this.tripId,
           tripName: data.tripDetails.tripName.toString(),
           tripStartDate: data.tripDetails.tripStartDate,
           tripEndDate: data.tripDetails.tripEndDate,
@@ -62,10 +65,26 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
     })
   }
 
+  printSchedule(){this.tripService.printTripSchedule(this.tripId)}
+
+  updateTrip(){
+    let updatedTrip = <ITripEventDetails>this.tripForm.value
+    this.eventDetails$
+    .pipe(take(1))
+    .subscribe((eventDetails) => {
+      let updatedTrip: ITripEventDetails = {
+        tripDetails: <ITripDetails>this.tripForm.value,
+        eventDetails: eventDetails ?? []
+      }
+      this.store.dispatch(TripAction.updateTrip({ tripDetails: updatedTrip }));
+    });
+  }
+
   ngOnDestroy(): void { this.tripSub.unsubscribe() }
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute,
-    private fb: FormBuilder, private viewContainerRef: ViewContainerRef){
+    private fb: FormBuilder, private viewContainerRef: ViewContainerRef, 
+    private tripService: TripService){
 
       this.tripId = +(this.route.snapshot.paramMap.get('id') ?? 0)
 

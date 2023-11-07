@@ -27,6 +27,7 @@ public class TripResponse {
 			    .map(event -> EventDetails.builder()
 			        .eventName(event.getEventName())
 			        .eventDate(event.getEventDate())
+			        .eventDescription(event.getEventDescription())
 			        .id(event.getId())
 			        .status(event.getStatus())
 			        .tripId(event.getTrip().getId())

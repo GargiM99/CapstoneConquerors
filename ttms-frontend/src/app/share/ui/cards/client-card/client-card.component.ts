@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IClientBasics } from 'src/app/client/data-access/types/client-basic.inteface';
+import { IClientBasics } from 'src/app/client/data-access/types/client/client-basic.inteface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./client-card.component.scss']
 })
 export class ClientCardComponent {
-  @Input() client!: IClientBasics
+  @Input() client!: IClientBasics 
 
   viewDetails(id: number){
     this.router.navigate([`client`, id])

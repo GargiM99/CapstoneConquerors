@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import ca.ttms.beans.details.TripDetails;
 import ca.ttms.beans.enums.TripStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,4 +54,13 @@ public class Trip {
 	
 	@OneToMany(mappedBy = "trip")
 	private List<Event> events;
+
+	public Trip (TripDetails tripDetails) {
+		this.id = tripDetails.getId();
+		this.tripName = tripDetails.getTripName();
+		this.tripType = tripDetails.getTripType();
+		this.tripStartDate = tripDetails.getTripStartDate();
+		this.tripEndDate = tripDetails.getTripEndDate();
+		this.status = tripDetails.getStatus();
+	}
 }

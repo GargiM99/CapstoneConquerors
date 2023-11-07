@@ -14,8 +14,8 @@ export class TripCardComponent {
   @Input() trip!: ITripDetails
 
   viewDetails(tripId: number){
-    this.router.navigate([`trip`, this.trip.id])
+    this.router.navigate([`trip/details`, this.trip.id])
   }
 
-  constructor(private router: Router){}
+  constructor(private router: Router){} 
 }

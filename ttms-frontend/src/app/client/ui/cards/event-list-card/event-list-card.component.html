@@ -1,0 +1,7 @@
+<div class="list-container">
+    <div class="list-cards">
+        <div *ngFor="let event of (events$ | async ); let i = index">
+            <event-card [event]="event" ></event-card>
+        </div>
+    </div>
+</div>

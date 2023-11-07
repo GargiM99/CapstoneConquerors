@@ -2,25 +2,27 @@
     <button type="button" (click)="toggleEdit()">
         {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
     </button>
+    <button type="button" (click)="printSchedule()">Print Schedule</button>
     <event-list-card [events$]="eventDetails$"></event-list-card>
-    <form [formGroup]="tripForm" class="flex-column">
+    <form [formGroup]="tripForm" class="flex-column" (submit)="updateTrip()">
         <h3 class="group-header">Trip Details</h3>
         <div class="form-group-card">
             <div class="input-section">
                 <label>Trip Name</label>
-                <input type="text" formControlName="tripName" [readonly]="true"/>
+                <input type="text" formControlName="tripName" [readonly]="!isEditEnable"/>
             </div>
             <div class="input-section">
                 <label>Trip Start Date</label>
-                <input type="date" formControlName="tripStartDate" [readonly]="true"/>
+                <input type="date" formControlName="tripStartDate" [readonly]="!isEditEnable"/>
             </div>
             <div class="input-section">
                 <label>Trip End Date</label>
-                <input type="date" formControlName="tripEndDate" [readonly]="true"/>
+                <input type="date" formControlName="tripEndDate" [readonly]="!isEditEnable"/>
             </div>
             <div class="input-section">
                 <label>Status</label>
-                <input type="text" [value]="tripForm.get('status')?.value" formControlName="Status" [readonly]="true"/>
+                <input type="text" [value]="tripForm.get('status')?.value" 
+                formControlName="Status" [readonly]="!isEditEnable"/>
             </div>
         </div>
         <button *ngIf="isEditEnable" type="submit">Save</button>

@@ -3,6 +3,7 @@ package ca.ttms.beans;
 import java.time.LocalDate;
 import java.util.Date;
 
+import ca.ttms.beans.details.EventDetails;
 import ca.ttms.beans.enums.EventStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,4 +46,20 @@ public class Event {
 	@ManyToOne
 	@JoinColumn(name = "trip_id")
     private Trip trip;
+
+	public Event(EventDetails eventDetails) {
+		this.id = eventDetails.getId();
+		this.eventName = eventDetails.getEventName();
+		this.eventDate = eventDetails.getEventDate();
+		this.status = eventDetails.getStatus();
+	}
+	
+	public Event(EventDetails eventDetails, Trip eventTrip) {
+		this.id = eventDetails.getId();
+		this.eventName = eventDetails.getEventName();
+		this.eventDate = eventDetails.getEventDate();
+		this.eventDescription = eventDetails.getEventDescription();
+		this.status = eventDetails.getStatus();
+		this.trip = eventTrip;
+	}
 }

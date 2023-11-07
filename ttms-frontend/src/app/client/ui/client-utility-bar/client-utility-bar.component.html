@@ -1,0 +1,9 @@
+<div class="utility-card">
+    <button class="addSymbol" (click)="goToAdd()">+</button>
+    <select class="box-shadow" [(ngModel)]="fieldChoice" (change)="onFieldChange()">
+        <option value="firstname">First Name</option>
+        <option value="lastname">Last Name</option>
+        <option value="username">Username</option>
+    </select>
+    <input type="text" class="search-bar box-shadow" [(ngModel)]="searchValue" (input)="onSearchChange()">
+</div> 

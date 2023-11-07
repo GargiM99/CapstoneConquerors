@@ -4,14 +4,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable, map, mergeMap } from 'rxjs';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
-import { IClientDetails } from '../../data-access/types/client-details.interface';
-import * as ClientAction from '../../data-access/redux/client-actions';
-import { clientBasicsSelector, clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client-selectors';
+import { IClientDetails } from '../../data-access/types/client/client-details.interface';
+import * as ClientAction from '../../data-access/redux/client/client-actions';
+import { clientBasicsSelector, clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client/client-selectors';
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
-import { IClientCompForm } from '../../data-access/types/client-modal-input.interface';
-import { IClientBasics } from '../../data-access/types/client-basic.inteface';
+import { IClientCompForm } from '../../data-access/types/client/client-modal-input.interface';
+import { IClientBasics } from '../../data-access/types/client/client-basic.inteface';
 import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
-import { CreateCompleteModalComponent } from '../../ui/create-complete-modal/create-complete-modal.component';
+import { CreateCompleteModalComponent } from '../../ui/modals/create-complete-modal/create-complete-modal.component';
 
 @Component({
   selector: 'app-create-client',

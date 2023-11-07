@@ -40,5 +40,56 @@ export class TripEffect{
         )
     )
 
+    updateTrip$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TripAction.updateTrip),
+            mergeMap((action) =>
+                this.tripService.updateTrip(action.tripDetails).pipe(
+                    map((tripDetails) => TripAction.updateTripSuccess({tripDetails})),
+                    catchError((error) =>
+                        of(TripAction.updateTripFailure({ error }))
+                    )
+                )
+            ), 
+            catchError((error) =>
+                of(TripAction.updateTripFailure({ error }))
+            )
+        )
+    )
+
+    getTripType$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TripAction.getTripType),
+            mergeMap(() =>
+                this.tripService.getTripType().pipe(
+                    map((tripType) => TripAction.getTripTypeSuccess({tripType})),
+                    catchError((error) =>
+                        of(TripAction.getTripTypeFailure({error}))
+                    )
+                )
+            ),
+            catchError((error) =>
+                of(TripAction.getTripTypeFailure({error}))
+            )
+        )
+    )
+
+    modifyTripType$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(TripAction.modifyTripType),
+            mergeMap((action) =>
+                this.tripService.modifyTripType(action.tripType).pipe(
+                    map((tripType) => TripAction.modifyTripTypeSuccess({tripType})),
+                    catchError((error) =>
+                        of(TripAction.modifyTripTypeFailure({ error }))
+                    )
+                )
+            ), 
+            catchError((error) =>
+                of(TripAction.modifyTripTypeFailure({ error }))
+            )
+        )
+    )
+
     constructor(private actions$: Actions, private tripService: TripService){}
 }

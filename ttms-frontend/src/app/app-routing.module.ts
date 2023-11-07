@@ -10,6 +10,8 @@ import { ProfileDetailsComponent } from './profile/feature/profile-details/profi
 import { CreateClientComponent } from './client/feature/create-client/create-client.component';
 import { ClientDetailsComponent } from './client/feature/client-details/client-details.component';
 import { TripDetailsComponent } from './client/feature/trip-details/trip-details.component';
+import { TripTypeComponent } from './client/feature/trip-type/trip-type.component';
+import { ViewClientComponent } from './client/feature/view-client/view-client.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,10 +19,12 @@ const routes: Routes = [
   { path: 'agent', component: ViewAgentComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'agent/add', component: AddAgentComponent, canActivate: [authGuardFn], data: { role: ['ADMIN'] }},
   { path: 'agent/:id', component: AgentDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
+  { path: 'client', component: ViewClientComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'client/create', component: CreateClientComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'client/:id', component: ClientDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
-  { path: 'trip/:id', component: TripDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
-  { path: 'profile', component: ProfileDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }} 
+  { path: 'trip/details/:id', component: TripDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
+  { path: 'profile', component: ProfileDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
+  { path: 'trip/type', component: TripTypeComponent, canActivate: [authGuardFn], data: { role: ['ADMIN'] }} 
 ];
 
 @NgModule({

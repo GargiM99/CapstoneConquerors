@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClientCardComponent } from '../../cards/client-card/client-card.component';
 import { ArrowButtonComponent } from '../../arrow-button/arrow-button.component';
 import { Observable, of } from 'rxjs';
-import { IClientBasics } from 'src/app/client/data-access/types/client-basic.inteface';
+import { IClientBasics } from 'src/app/client/data-access/types/client/client-basic.inteface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +32,7 @@ export class ClientListCardComponent implements OnInit {
     let screenWidth: number = window.innerWidth;
     const cardWidth = this.CARD_SIZE
     this.numberCards = Math.max(Math.min(Math.round(screenWidth/cardWidth) - 1, this.MAX_NUMBER_CARDS), 1)
-    return this.numberCards
+    return this.numberCards 
   }
 
   constructor(private router: Router){}

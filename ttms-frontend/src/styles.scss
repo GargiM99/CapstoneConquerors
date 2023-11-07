@@ -93,6 +93,17 @@ form{
             margin-left: $form-input-margin;
         }
     }
+
+    .input-area{
+        display: flex; 
+        flex-direction: row;
+        margin: 0;
+        gap: 0.7rem;
+
+        > input ,div, span{
+            margin-left: $form-input-margin;
+        }
+    }
 }
 
 //For cards i.e(Agents, Clients, etc)
@@ -159,6 +170,38 @@ form{
     border-radius: $brd-200 $brd-200 0 0;
 }
 
+.details-card{
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    gap: 1rem;
+
+    width: fit-content;
+    padding: 1.5rem;
+
+    border: 0.5rem solid $clr-primary;
+    border-radius: $brd-200;
+    border-top-left-radius: 0;
+    box-shadow: 0 0 15px $clr-black-100;
+    background-color: $clr-primary-100;
+
+    .details-inner-card{
+        display: flex;
+        flex-direction: row;
+        align-content: flex-start;
+        gap: 1rem;
+    
+        width: fit-content;
+        padding: 1.5rem;
+    
+        border: 0.5rem solid $clr-primary;
+        border-radius: $brd-200;
+        border-top-left-radius: 0;
+        box-shadow: 0 0 15px $clr-black-100;
+        background-color: $clr-primary-100;
+    }
+}
+
 
 .remove-style{
     background-color: transparent;
@@ -190,7 +233,7 @@ form{
     border-radius: 0.3rem;
 }
 .search-bar:focus{
-    outline: 0.1rem solid $clr-primary;
+    outline: 0.1rem solid $clr-primary; 
 }
 
 //Arrow such as the one in home page
@@ -221,6 +264,25 @@ form{
     cursor: pointer;
 }
 
+.minusSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35px; 
+    height: 35px; 
+
+    background-color: $clr-alert-500;
+    color: $clr-white; 
+    border: 0.07rem solid $clr-primary;
+    border-radius: $brd-200;
+    box-shadow: 0 0 7px $clr-black-100;
+
+    font-size: $fs-600; 
+    font-weight: $fw-bold;
+    cursor: pointer;
+}
+
 .modal-backdrop {
     width: 100vw;
     height: 100vh;
@@ -229,3 +291,4 @@ form{
     inset: 0;
     z-index: 100;
   }
+

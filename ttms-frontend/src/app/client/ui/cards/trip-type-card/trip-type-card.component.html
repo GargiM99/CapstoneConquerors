@@ -1,0 +1,12 @@
+<div class="details-card">
+    <button (click)="onRemove()">-</button>
+    <form [formGroup]="tripTypeForm" *ngIf="canEdit">
+        <input type="text" formControlName="typeName" (blur)="onChange()"/>
+    </form>
+    
+    <event-type-card *ngFor="let eventType of tripType.eventTypes; let i = index" 
+    [canEdit]="canEdit" [eventType]="eventType" [eventIndex]="i"
+    (removeEvent)="onRemoveEventType($event)" (eventTypeChange)="onEventTypeChange($event)"
+    class="details-inner-card"></event-type-card>
+    <button (click)="onAddEventType()">Add Event</button>
+</div>

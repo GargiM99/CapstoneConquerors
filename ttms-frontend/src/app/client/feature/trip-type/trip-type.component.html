@@ -1,0 +1,7 @@
+<div>
+    <trip-type-card *ngFor="let tripType of (tripType$ | async ); let i = index"
+    [tripType]="tripType" [canEdit]="canEdit" [tripIndex] = "i"
+    (removeTrip)="onRemoveTripType($event)" (tripTypeChange)="changeTripType($event)"></trip-type-card>
+    <button (click)="onAdd()" class="">Add Trip</button>
+    <button (click)="onSaveAll()">Save All</button>
+</div>

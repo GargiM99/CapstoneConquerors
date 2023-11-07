@@ -1,17 +1,21 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { Observable, Subscription, map } from 'rxjs';
-import { IClientDetails } from '../../data-access/types/client-details.interface';
+import { IClientDetails } from '../../data-access/types/client/client-details.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client-selectors';
+import { clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client/client-selectors';
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
-import * as ClientAction from '../../../client/data-access/redux/client-actions'
+import * as ClientAction from '../../data-access/redux/client/client-actions'
+import * as TripAction from '../../data-access/redux/trip/trip-action'
 import { ITripDetails } from '../../data-access/types/trip/trip-details.interface';
 import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
-import { TripCreateModalComponent } from '../../ui/trip-create-modal/trip-create-modal.component';
+import { TripCreateModalComponent } from '../../ui/modals/trip-create-modal/trip-create-modal.component';
+import { tripTypeSelector } from '../../data-access/redux/trip/trip-selectors';
+import { ITripType } from '../../data-access/types/trip/trip-type.interface';
+import { ITripCreateModalDetails } from '../../data-access/types/trip/create-trip-details.interface';
 
 @Component({
   selector: 'client-details',
@@ -28,6 +32,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
+
+  tripType$: Observable<ITripType[]>
 
   clientForm = this.fb.group({
     user: this.fb.group({ 
@@ -67,11 +73,13 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   }
 
   createTripModal(){
-    this.modalService.open(TripCreateModalComponent, this.viewContainerRef, true, this.clientId)
+    const modalInput: ITripCreateModalDetails = {clientId: this.clientId, tripType$: this.tripType$}
+    this.modalService.open(TripCreateModalComponent, this.viewContainerRef, true, modalInput)
   }
 
   ngOnInit(): void {
     this.store.dispatch(ClientAction.getClientDetails({ clientId: this.clientId }))
+    this.store.dispatch(TripAction.getTripType())
 
     this.clientSub = this.clientDetails$.subscribe((data) => {
       if (data) {
@@ -113,5 +121,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.clientDetails$ = this.store.pipe(select(clientDetailsSelector))
 
     this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails));
+    this.tripType$ = this.store.pipe(select(tripTypeSelector))
   }
 }

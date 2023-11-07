@@ -5,10 +5,10 @@ import { IAppState } from '../../data-access/types/app-state.interface';
 import { Store, select } from '@ngrx/store';
 import { agentBasicsSelector, agentErrorSelector, agentIsLoadingSelector } from '../../../agent/data-access/redux/agent-selectors';
 import { HttpErrorResponse } from '@angular/common/http';
-import { clientBasicsSelector, clientErrorSelector, clientIsLoadingSelector } from 'src/app/client/data-access/redux/client-selectors';
-import { IClientBasics } from 'src/app/client/data-access/types/client-basic.inteface';
+import { clientBasicsSelector, clientErrorSelector, clientIsLoadingSelector } from 'src/app/client/data-access/redux/client/client-selectors';
+import { IClientBasics } from 'src/app/client/data-access/types/client/client-basic.inteface';
 import * as AgentAction from '../../../agent/data-access/redux/agent-actions';
-import * as ClientAction from '../../../client/data-access/redux/client-actions';
+import * as ClientAction from '../../../client/data-access/redux/client/client-actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit{
   clientError$: Observable<HttpErrorResponse | Error | null>
   clients$: Observable<IClientBasics[] | null>
 
-  addClient(){
-    this.router.navigate([`client/create`])
+  viewTripType(){
+    this.router.navigate([`trip/type`])
   }
 
   constructor(private store: Store<IAppState>, private router: Router){

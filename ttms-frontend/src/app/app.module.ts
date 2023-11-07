@@ -25,13 +25,15 @@ import { agentDetailReducer } from './agent/data-access/redux/agent-details/agen
 import { AgentDetailsEffect } from './agent/data-access/redux/agent-details/agent-details-effects';
 import { AgentDetailsModule } from './agent/feature/agent-details/agent-details.module';
 import { ProfileDetailsModule } from './profile/feature/profile-details/profile-details.module';
-import { clientReducer } from './client/data-access/redux/client-reducers';
-import { ClientEffect } from './client/data-access/redux/client-effects';
+import { clientReducer } from './client/data-access/redux/client/client-reducers';
+import { ClientEffect } from './client/data-access/redux/client/client-effects';
 import { CreateClientModule } from './client/feature/create-client/create-client.module';
 import { ClientDetailsModule } from './client/feature/client-details/client-details.module';
 import { tripReducer } from './client/data-access/redux/trip/trip-reducers';
 import { TripEffect } from './client/data-access/redux/trip/trip-effects';
 import { TripDetailsModule } from './client/feature/trip-details/trip-details.module';
+import { TripTypeModule } from './client/feature/trip-type/trip-type.module';
+import { ViewClientModule } from './client/feature/view-client/view-client.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { TripDetailsModule } from './client/feature/trip-details/trip-details.mo
     CreateClientModule,
     ClientDetailsModule,
     TripDetailsModule,
+    TripTypeModule,
+    ViewClientModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,

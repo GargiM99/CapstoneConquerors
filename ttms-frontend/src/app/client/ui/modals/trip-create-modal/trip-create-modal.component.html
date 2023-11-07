@@ -1,0 +1,34 @@
+<div class="modal-card"> 
+    <div class="modal-header-section">
+        <h1>Create Trip</h1>
+    </div>
+    <div class="modal-body-section">
+        <h3>Create a trip and enter details!</h3>
+        <form [formGroup]="tripForm" (ngSubmit)="onCreate()" class="flex-column">
+            <div class="flex-column">
+                <div style="margin: 0;">
+                    <input class="short-text-input" type="text" formControlName="tripName" 
+                    [class.invalid]="isInvalid('tripName')" placeholder="Trip name"/>
+                </div>
+                <div style="margin: 0;">
+                    <input class="short-text-input" type="date" formControlName="tripEndDate" 
+                    [class.invalid]="isInvalid('tripEndDate')" placeholder="Trip end date"/>
+                </div>
+                <div style="margin: 0;">
+                    <select formControlName="tripType" placeholder="Trip type">
+                        <option *ngFor="let tripType of inputValue.tripType$ | async" 
+                        [value]="tripType.typeName">{{ tripType.typeName }}</option>
+                    </select>  
+                </div>
+            </div>
+            <span *ngIf="isInvalid('tripName') || isInvalid('tripEndDate')">Invalid Information</span>
+            <button (click)="onCreate()">Submit</button>
+        </form>
+        <div *ngIf="isSubmitted">
+            <div *ngIf="tripDetails$ | async as details">
+                Trip created!
+            </div>
+        </div>
+    </div>
+</div>
+

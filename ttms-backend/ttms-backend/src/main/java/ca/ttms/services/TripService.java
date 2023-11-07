@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,10 @@ import ca.ttms.beans.Event;
 import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.CreateTripDetails;
+import ca.ttms.beans.details.EditTripDetails;
+import ca.ttms.beans.details.EventDetails;
 import ca.ttms.beans.details.EventTypeDetails;
+import ca.ttms.beans.details.TripDetails;
 import ca.ttms.beans.details.TripTypeDetails;
 import ca.ttms.beans.enums.EventStatus;
 import ca.ttms.beans.enums.Roles;
@@ -35,6 +41,7 @@ public class TripService {
 	private final TripRepo tripRepo;
 	private final EventRepo eventRepo;
 	private final BlobService blobService;
+	private final JasperService jasperService;
 	
 	@Value("${spring.cloud.azure.storage.blob.trip-blob-name}")
 	private String tripBlobName;
@@ -114,6 +121,35 @@ public class TripService {
 		return tripCount > 0;
 	}
 	
+	public TripResponse editTrip(EditTripDetails editDetails) {
+		if (!editDetails.verifyDetails())
+			return null;
+		
+		try {
+			Optional<Trip> currTripOpt = tripRepo.findById(editDetails.getTripDetails().getId());
+			Trip currTrip = currTripOpt.orElse(null);
+			
+			if (currTrip == null)
+				return null;
+			
+			List<Event> newEvents = Arrays.asList(editDetails.getEventDetails()).stream()
+				    .map(detail -> new Event(detail, currTrip))
+				    .collect(Collectors.toList());
+			Trip newTrip = new Trip(editDetails.getTripDetails());
+			newTrip.setUsers(currTrip.getUsers());
+			newTrip.setEvents(newEvents);
+			
+			newEvents = eventRepo.saveAll(newEvents);
+			newTrip = tripRepo.save(newTrip);
+
+			Event[] tripEvents = newEvents.toArray(new Event[newEvents.size()]);
+			TripResponse response = new TripResponse(newTrip, tripEvents);
+			return response;
+		}catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public TripResponse getTripDetails(int tripId) {
 		if (tripId <= 0)
 			return null;
@@ -125,6 +161,32 @@ public class TripService {
 		Event[] eventArray = trip.getEvents().toArray(new Event[0]);
 		TripResponse response = new TripResponse(trip, eventArray);
 		return response;
+	}
+	
+	public byte[] generateTripReport(int tripId) {
+		try {
+			if (tripId <= 0)
+				return null;
+			
+			Trip trip = tripRepo.findById(tripId).orElse(null);
+			if (trip == null)
+				return null;
+			
+			EventDetails[] eventDetailArray = trip.getEvents().stream()
+				    .map(event -> new EventDetails(event))
+				    .toArray(EventDetails[]::new);
+			TripDetails tripDetails = new TripDetails(trip);
+			
+	        Map<String, Object> reportParam = new HashMap<>();
+	        reportParam.put("tripDetails", tripDetails);
+	        reportParam.put("eventDetails", eventDetailArray);
+	        
+	        byte[] reportByte = jasperService.generateReport(reportParam, "ttms_schedule.jasper");
+			return reportByte;
+		}catch(Exception e) {
+			return null;
+		}
+
 	}
 
 	public List<TripTypeDetails> uploadTripType (List<TripTypeDetails> typeDetails) {

@@ -1,1 +1,14 @@
-<p>view-client works!</p>
+<div class="agent-view-container">
+    <div class="agent-view-header">
+        <h2 class="list-header">Client</h2>
+        <client-utility-bar 
+            (searchValueChange)="handleSearch($event)" 
+            (fieldChoiceChange)="handleFieldChange($event)">
+        </client-utility-bar>
+    </div>
+    <div class="list-cards agent-list-card" style="flex-wrap: wrap;">
+        <div *ngFor="let client of (clients$ | async) | clientFilter: searchValue: fieldChoice">
+            <client-card [client]="client" id="client-card"></client-card>
+        </div>
+    </div>
+</div>

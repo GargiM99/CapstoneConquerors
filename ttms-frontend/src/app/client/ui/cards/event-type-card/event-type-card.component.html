@@ -1,0 +1,15 @@
+<form [formGroup]="eventTypeForm" *ngIf="canEdit" class="flex-column">
+    <div class="input-area">
+        <label>Event Name:</label>
+        <input type="text" formControlName="eventName" (blur)="onChange()"/>
+    </div>
+    <div class="input-area">
+        <label>Event Description:</label>
+        <input type="text" formControlName="eventDescription" (blur)="onChange()"/>
+    </div>
+    <div class="input-area">
+        <label>End Date Difference:</label>
+        <input type="number" formControlName="dateDiff" (blur)="onChange()"/>
+    </div>
+</form>
+<button (click)="onRemove()" class="minusSymbol">-</button>

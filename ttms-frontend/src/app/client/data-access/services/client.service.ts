@@ -7,8 +7,8 @@ import { ITokenDetail } from 'src/app/share/data-access/types/auth/token-details
 import { Observable, map, mergeMap } from 'rxjs';
 import { detailSelector } from 'src/app/share/data-access/redux/auth/token-selectors';
 import endPoints from '../../../../assets/data/endpoints.json'
-import { IClientDetails } from '../types/client-details.interface';
-import { IClientBasics } from '../types/client-basic.inteface';
+import { IClientDetails } from '../types/client/client-details.interface';
+import { IClientBasics } from '../types/client/client-basic.inteface';
 import { IAgentBasics } from 'src/app/agent/data-access/types/agent-basics.interface';
 
 @Injectable({

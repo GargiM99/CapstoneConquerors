@@ -19,6 +19,10 @@ export const tripIdSelector = createSelector(
     selectFeature,
     (state) =>state.tripId
 )
+export const tripTypeSelector = createSelector(
+    selectFeature,
+    (state) =>state.tripType
+)
 export const tripCreateDetailsSelector = createSelector(
     selectFeature,
     (state) =>state.tripCreateDetails
