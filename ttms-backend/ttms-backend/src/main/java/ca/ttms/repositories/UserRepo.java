@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserFullDetails;
+import ca.ttms.beans.dto.ClientDTO;
+import ca.ttms.beans.dto.ScheduleDTO;
 import ca.ttms.beans.enums.Roles;
 
 /**
@@ -64,6 +66,16 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			AND u.role = 'CLIENT'
 			""")
 	List<Map<String, Object>> getClientsForAgents(@Param("un") String agentUsername);
+	
+	@Query(value =
+		    """
+		    SELECT new ca.ttms.beans.dto.ClientDTO(p.id, u.username, p.firstname, p.lastname)
+		    FROM Person p
+		    INNER JOIN User u ON p.id = u.person.id
+		    WHERE u.agentUser.id = :aid AND u.role = 'CLIENT'
+		    """)
+	List<ClientDTO> getClientForAgentsById(@Param("aid") Integer agentId);
+
 	
 	@Query(value =
 			"""
@@ -127,5 +139,18 @@ public interface UserRepo extends JpaRepository<User, Integer>{
     		AND u.id = :cid
     		""")
     long isAgentClientRelated(@Param("un") String agentUsername, @Param("cid") Integer clientId);
-
+    
+    @Query(nativeQuery = true, value = """
+            SELECT
+                c.id as clientId, c.username, p.firstname, p.lastname,
+                t.id as tripId, t.trip_name, t.trip_type, t.trip_start_date, t.trip_end_date,
+                e.id as eventId, e.event_name, e.event_date, e.event_description
+            FROM _user u
+            JOIN _user c ON u.id = c.agent_id
+            JOIN trip t ON c.id = t.user_id
+            LEFT JOIN _event e ON t.id = e.trip_id
+            JOIN person p ON c.person_id = p.id
+            WHERE u.id = :uid
+            """)
+    List<Map<String, Object>> getAgentSchedule(@Param("uid") Integer userId);
 }

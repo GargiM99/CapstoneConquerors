@@ -1,5 +1,6 @@
 package ca.ttms.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.Person;
+import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.details.UserPromoteDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.dto.ClientDTO;
+import ca.ttms.beans.dto.ScheduleDTO;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.PromoteAgentResponse;
 import ca.ttms.beans.response.ResetPasswordResponse;
@@ -156,5 +160,22 @@ public class AgentController {
 			return ResponseEntity.status(400).body(null);
 		
 		return ResponseEntity.ok().headers(headers).body(response);
+	}
+
+	@GetMapping("/schedule/{id}")
+	public ResponseEntity<List<ScheduleDTO>> getAgentSchedule(@PathVariable Integer id,
+			@RequestHeader("Authorization") String authHeader){
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		String username = jwtService.extractSubject(jwtoken);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		if (role.equals("ADMIN") || (role.equals("AGENT") && service.verifyAgentToUsername(username, id))) {
+			return ResponseEntity.status(200).headers(headers).body(service.getAgentSchedule(id));
+		}
+		return ResponseEntity.status(401).headers(headers).body(null);
 	}
 }

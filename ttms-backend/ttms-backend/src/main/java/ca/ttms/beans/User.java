@@ -1,5 +1,6 @@
 package ca.ttms.beans;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,8 +37,8 @@ import lombok.NoArgsConstructor;
 //Uses this class as an object for JPA
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "_user")
 public class User implements UserDetails {
@@ -60,7 +61,7 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	private List<Token> tokens;
 	
-//	@OneToMany(mappedBy = "User")
+//	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
 //	private List<Trip> trips;
 	
     @OneToOne(fetch = FetchType.LAZY)
