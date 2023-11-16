@@ -138,6 +138,7 @@ public class TripService {
 			Trip newTrip = new Trip(editDetails.getTripDetails());
 			newTrip.setUsers(currTrip.getUsers());
 			newTrip.setEvents(newEvents);
+			newTrip.setTripType(currTrip.getTripType());
 			
 			newEvents = eventRepo.saveAll(newEvents);
 			newTrip = tripRepo.save(newTrip);
@@ -189,18 +190,19 @@ public class TripService {
 
 	}
 
-	public List<TripTypeDetails> uploadTripType (List<TripTypeDetails> typeDetails) {
-		try {
-			for (TripTypeDetails typeDetail : typeDetails) {
-				if (!verifyTripType(typeDetail))
-					return null;
-			}
-			blobService.uploadJsonBlob(containerName, tripBlobName, typeDetails);
-		}catch(Exception ex) {
-			return null;
-		}
-		
-		return typeDetails;
+	public List<TripTypeDetails> uploadTripType(List<TripTypeDetails> typeDetails) {
+	    try {
+	        for (TripTypeDetails typeDetail : typeDetails) {
+	            if (!verifyTripType(typeDetail))
+	                return null;
+	        }
+	        blobService.uploadJsonBlob(containerName, tripBlobName, typeDetails);
+	        return typeDetails;
+	    } catch (BlobStorageException ex) {
+	        return null;
+	    } catch (Exception ex) {
+	        return null;
+	    }
 	}
 	
 	public List<TripTypeDetails> getTripType () {

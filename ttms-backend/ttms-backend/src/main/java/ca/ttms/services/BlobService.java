@@ -32,15 +32,21 @@ public class BlobService {
     }
 	
 	public void uploadJsonBlob(String containerName, String blobName, Object jsonObject) throws BlobStorageException {
-        BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName).getBlobClient(blobName);
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(jsonObject);
-        blobClient.upload(
-            new ByteArrayInputStream(jsonContent.getBytes(StandardCharsets.UTF_8)),
-            jsonContent.length(),
-            true
-        );
-    }
+	    try {
+	        BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName).getBlobClient(blobName);
+	        Gson gson = new Gson();
+	        String jsonContent = gson.toJson(jsonObject);
+	        blobClient.upload(
+	            new ByteArrayInputStream(jsonContent.getBytes(StandardCharsets.UTF_8)),
+	            jsonContent.length(),
+	            true
+	        );
+	    } catch (Exception ex) {
+	        // If an error occurs during the upload, throw a custom BlobStorageException
+	        throw new BlobStorageException("Blob couldn't upload", null, ex);
+	    }
+	}
+
 	
 	public String downloadJsonBlob(String containerName, String blobName) throws BlobStorageException {
 	    BlobClient blobClient = blobServiceClient.getBlobContainerClient(containerName).getBlobClient(blobName);

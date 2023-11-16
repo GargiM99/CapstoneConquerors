@@ -77,6 +77,7 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
         eventDetails: eventDetails ?? []
       }
       this.store.dispatch(TripAction.updateTrip({ tripDetails: updatedTrip }));
+      this.isEditEnable = false
     });
   }
 

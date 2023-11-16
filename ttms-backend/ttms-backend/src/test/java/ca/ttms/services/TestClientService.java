@@ -1,16 +1,11 @@
 package ca.ttms.services;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,11 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import com.sun.jna.platform.win32.OaIdl.DATE;
 
 import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
@@ -135,11 +127,9 @@ public class TestClientService {
 		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
 		
 		String inputUsername = "doesam";
-		String expectedUsername = "atchah";
 		
 		//Arrange Mock
 		String mockUsernameOutput = "atchah";
-		User mockUserOutput = User.builder().username(mockUsernameOutput).id(2).role(Roles.CLIENT).build();
 		Optional<User> mockUserOpt = Optional.empty();
 		
 		when(authService.generateUsername(Mockito.anyString(), Mockito.anyString())).thenReturn(mockUsernameOutput);
