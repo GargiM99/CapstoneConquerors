@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
  
 @Injectable()
 export class TokenEffect{
-    getToken$ = createEffect(() =>
+    getToken$ = createEffect(() => 
         this.actions$.pipe(
             ofType(TokenAction.getTokenDetails),
             mergeMap((action) =>
@@ -17,7 +17,7 @@ export class TokenEffect{
                     map((tokenDetails) => {
                         setTimeout(() => {
                             this.store.dispatch(ProfileAction.
-                                getProfileDetails({ 'username': tokenDetails.decoded?.sub ?? null }));
+                                getProfileDetails({ 'username': tokenDetails.decoded?.sub ?? null }))
                         }, 500)
                         return TokenAction.getTokenDetailsSuccess({ tokenDetails })
                     }),

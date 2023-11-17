@@ -11,9 +11,17 @@ export const detailSelector = createSelector(
     selectFeature,
     (state) => state.profileDetail
 )
-export const idSelector = createSelector(
+export const usernameSelector = createSelector(
     selectFeature,
     (state) => state.username
+)
+export const scheduleSelector = createSelector(
+    selectFeature,
+    (state) => state.profileSchedule
+)
+export const idSelector = createSelector(
+    selectFeature,
+    (state) => state.profileId
 )
 export const errorSelector = createSelector(
     selectFeature,

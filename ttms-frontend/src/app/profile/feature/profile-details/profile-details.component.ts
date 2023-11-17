@@ -71,8 +71,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-
-
     this.profileSub = this.profileDetails$.subscribe((data) => {
       if (data) {
         this.agentForm.patchValue({

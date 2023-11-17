@@ -31,5 +31,6 @@ export interface Address {
 export interface User {
     username: string
     role: TRoles
+    id?: number
     password?: string
 }

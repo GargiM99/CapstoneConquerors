@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 import { detailSelector } from '../../redux/auth/token-selectors';
 import { ITokenDetail } from '../../types/auth/token-details.interface';
 import endPoints from '../../../../../assets/data/endpoints.json'
+import { IClientSchedule } from 'src/app/client/data-access/types/client/client-schedule.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
   tokenDetails$: Observable<ITokenDetail | null>
-  //endpoints = { profile: "https://ttms-backend.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile" }
 
   getProfile(username: string | null): Observable<IProfileDetails>{
     return this.tokenDetails$.pipe(
@@ -37,6 +37,29 @@ export class ProfileService {
       'Authorization': `Bearer ${token}`
     })
     return  this.http.get<IProfileDetails>(endPoints.profile, { headers: headers })
+  }
+
+  getSchedule(id: number): Observable<IClientSchedule[]>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (id < 0){
+          throw new Error("Null Username")
+        }
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+         
+        return this.sendGetSchedule(id, tokenDetails.token)
+      })
+    )
+  }
+
+  sendGetSchedule(id: number, token: string){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+    return  this.http.get<IClientSchedule[]>(`${endPoints.agent}/schedule/${id}`, { headers: headers })
   }
 
   updateProfile(updateDetails: IProfileDetails): Observable<IProfileDetails>{

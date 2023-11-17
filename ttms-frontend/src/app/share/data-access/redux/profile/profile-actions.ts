@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IProfileDetails } from '../../types/profile/profile-details.interface';
+import { IClientSchedule } from 'src/app/client/data-access/types/client/client-schedule.interface';
 
 export const getProfileDetails = createAction(
   '[ProfileDetail] Get Profile Details',
@@ -27,3 +28,15 @@ export const updateProfileDetailsFailure = createAction(
   props<{ error: string | null }>()
 )
 
+export const getProfileSchedule = createAction(
+  '[ProfileSchedule] Get Profile Schedule',
+  props<{ id: number }>()
+)
+export const getProfileScheduleSuccess = createAction(
+  '[ProfileSchedule] Get Profile Schedule Success',
+  props<{ profileSchedule: IClientSchedule[] }>()
+)
+export const getProfileScheduleFailure = createAction(
+  '[ProfileSchedule] Get Profile Schedule Failure',
+  props<{ error: string | null }>()
+)

@@ -8,7 +8,7 @@ export const intialState: ITokenDetailState = {
     loginDetail: null,
     error: null
 } 
-
+ 
 export const tokenReducers = createReducer(
     intialState,
     on(TokenAction.getTokenDetails, (state, action) => ({

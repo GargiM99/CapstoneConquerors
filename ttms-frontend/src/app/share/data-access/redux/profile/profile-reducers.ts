@@ -6,6 +6,8 @@ export const intialState: IProfileDetailState = {
     isLoading: false,
     profileDetail: null,
     username: null,
+    profileSchedule: [],
+    profileId: 0,
     error: null
 } 
 
@@ -14,7 +16,7 @@ export const profileReducers = createReducer(
     on(ProfileAction.getProfileDetails, (state, action) => ({
         ...state,
         isLoading: true,
-        profileId: action.username
+        username: action.username
     })),
     on(ProfileAction.getProfileDetailsSuccess, (state, action) => ({
         ...state,
@@ -38,6 +40,23 @@ export const profileReducers = createReducer(
         profileDetail: action.profileDetails
     })),
     on(ProfileAction.updateProfileDetailsFailure, (state, action) => ({
+        ...state,
+        isLoading: false,
+        error: action.error
+    })),
+
+    on(ProfileAction.getProfileSchedule, (state, action) => ({
+        ...state,
+        isLoading: true,
+        profileId: action.id
+    })),
+    on(ProfileAction.getProfileScheduleSuccess, (state, action) => ({
+        ...state,
+        isLoading: false,
+        profileSchedule: action.profileSchedule,
+        error: null
+    })),
+    on(ProfileAction.getProfileScheduleFailure, (state, action) => ({
         ...state,
         isLoading: false,
         error: action.error
