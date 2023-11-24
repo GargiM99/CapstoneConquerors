@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IProfileDetails } from '../../types/profile/profile-details.interface';
-import { IClientSchedule } from 'src/app/client/data-access/types/client/client-schedule.interface';
+import { IClientSchedule } from 'src/app/share/data-access/types/calendar/client-schedule.interface';
 
 export const getProfileDetails = createAction(
   '[ProfileDetail] Get Profile Details',

@@ -39,25 +39,21 @@ public interface PersonRepo extends JpaRepository<Person, Integer>{
 	@Query("""
 			UPDATE Person p
 			SET p.firstname = :fn,
-			p.lastname = :ln,
-			p.birthDate = :bd
+			p.lastname = :ln
 			WHERE p.id = (SELECT u.person.id FROM User u WHERE u.username = :un)
 			""")
 	Integer updatePersonByUsername(
-			@Param("un") String username, @Param("fn") String firstname,
-			@Param("ln") String lastname, @Param("bd") LocalDate birthdate);
+			@Param("un") String username, @Param("fn") String firstname, @Param("ln") String lastname);
 	
 	@Transactional
 	@Modifying
 	@Query("""
 			UPDATE Person p
 			SET p.firstname = :fn,
-			p.lastname = :ln,
-			p.birthDate = :bd
+			p.lastname = :ln
 			WHERE p.id = (SELECT u.person.id FROM User u WHERE u.id = :id)
 			""")
 	Integer updatePersonByUserId(
-			@Param("id") Integer id, @Param("fn") String firstname,
-			@Param("ln") String lastname, @Param("bd") LocalDate birthdate);
+			@Param("id") Integer id, @Param("fn") String firstname, @Param("ln") String lastname);
 
 }

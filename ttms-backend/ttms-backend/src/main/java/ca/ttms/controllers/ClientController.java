@@ -1,5 +1,6 @@
 package ca.ttms.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ca.ttms.beans.details.ClientNoteDetails;
+import ca.ttms.beans.details.ModifyClientNoteDetails;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
@@ -111,7 +114,7 @@ public class ClientController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<UserEditDetails> editClient(
+	public ResponseEntity<Map<String, Boolean>> editClient(
 			@RequestHeader("Authorization") String authHeader,
 			@PathVariable Integer id,
 			@RequestBody UserEditDetails clientDetails) {
@@ -122,15 +125,45 @@ public class ClientController {
 		String jwtoken = authHeader.substring(7);
 		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
 		String username = jwtService.extractSubject(jwtoken);
+		Map<String, Boolean> response = new HashMap<>();
 		
 		if ((role.equals("AGENT") && service.verfiyClientToAgent(username, id)) || role.equals("ADMIN")) {
-			UserEditDetails response = service.editClientDetails(clientDetails, id);
+			boolean isEdited = service.editClientDetails(clientDetails, id);
+			response.put("isEdited", isEdited);
 			
-			if (response == null)
-				return ResponseEntity.status(400).headers(headers).body(null);
+			if (!isEdited)
+				return ResponseEntity.status(400).headers(headers).body(response);
 			return ResponseEntity.ok().headers(headers).body(response);
 		}
-		return ResponseEntity.status(401).headers(headers).body(null);
+		response.put("isEdited", false);
+		return ResponseEntity.status(401).headers(headers).body(response);
 		
+	}
+
+	@PutMapping("/notes/{id}")
+	public ResponseEntity<Map<String,Boolean>> modifyNotes(
+			@RequestHeader("Authorization") String authHeader,
+			@PathVariable Integer id,
+			@RequestBody List<ModifyClientNoteDetails> notesDetail){
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String jwtoken = authHeader.substring(7);
+		String role = jwtService.extractAllClaims(jwtoken).get("role", String.class);
+		String username = jwtService.extractSubject(jwtoken);
+		Map<String, Boolean> response = new HashMap<>();
+		
+		
+		if ((role.equals("AGENT") && service.verfiyClientToAgent(username, id)) || role.equals("ADMIN")) {
+			boolean isEdited = service.modifyClientNotes(notesDetail, id);
+			response.put("isEdited", isEdited);
+			
+			if (!isEdited)
+				return ResponseEntity.status(400).headers(headers).body(response);
+			return ResponseEntity.ok().headers(headers).body(response);
+		}
+		response.put("isEdited", false);
+		return ResponseEntity.status(401).headers(headers).body(response);
 	}
 }

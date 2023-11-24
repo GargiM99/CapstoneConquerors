@@ -3,7 +3,7 @@ export interface IClientSchedule{
     username: string
     firstname: string
     lastname: string
-    trips: ITripSchedule | null
+    trips: ITripSchedule[]
 }
 
 export interface ITripSchedule{
@@ -13,7 +13,7 @@ export interface ITripSchedule{
     tripType: string
     tripStartDate: Date
     tripEndDate: Date
-    events: IEventSchedule | null
+    events: IEventSchedule[]
 }
 
 export interface IEventSchedule{

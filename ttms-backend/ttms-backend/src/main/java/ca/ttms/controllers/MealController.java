@@ -5,13 +5,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.ttms.beans.details.MealPriceDetails;
-import ca.ttms.beans.response.ResponseMealUpdate;
 import ca.ttms.services.MealService;
 
 /**
@@ -36,7 +35,12 @@ public class MealController {
 	public ResponseEntity<MealPriceDetails> getMeals() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		return ResponseEntity.ok().headers(headers).body(mealService.getMealPrice());
+		MealPriceDetails response = mealService.getMealPrice();
+		
+		if (response == null)
+			return ResponseEntity.status(401).headers(headers).body(response);
+			
+		return ResponseEntity.ok().headers(headers).body(response);
 	}
 	
 	/**
@@ -45,11 +49,15 @@ public class MealController {
 	 * @param mealDetails
 	 * @return ResponseMealUpdate
 	 */
-	@PostMapping()
-	public ResponseEntity<ResponseMealUpdate> changeMeals(@RequestBody MealPriceDetails mealDetails) {
+	@PutMapping()
+	public ResponseEntity<MealPriceDetails> changeMeals(@RequestBody MealPriceDetails mealDetails) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		ResponseMealUpdate response = new ResponseMealUpdate(mealService.updateMealPrice(mealDetails));
-		return ResponseEntity.ok().headers(headers).body(response);
+		boolean isUpdated = mealService.updateMealPrice(mealDetails);
+		
+		if (isUpdated)
+			return ResponseEntity.ok().headers(headers).body(mealDetails);
+		
+		return ResponseEntity.status(401).headers(headers).body(null);
 	}
 }

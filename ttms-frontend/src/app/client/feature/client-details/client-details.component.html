@@ -24,70 +24,13 @@
                         [class.invalid]="isInvalid('person','firstname')" placeholder="First name"
                         [readonly]="!isEditEnable"/>
                     </div>
-                    <div style="margin: 0;">
+                    <div style="margin: 0;"> 
                         <input class="short-text-input" type="text" formControlName="lastname" 
                         [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"
                         [readonly]="!isEditEnable"/>
                     </div>
                 </div>
                 <span *ngIf="isInvalid('person','lastname') || isInvalid('person','firstname')">Invalid Name</span>
-            </div>
-
-            <div class="input-section">
-                <label>Birthdate</label>
-                <input type="date" formControlName="birthDate" 
-                [class.invalid]="isInvalid('person','birthDate')" placeholder="Birth Date"
-                [readonly]="!isEditEnable"/>
-                <span *ngIf="isInvalid('person','birthDate')">Invalid Date</span>
-            </div>
-        </div>
-
-        <br>
-        <h3 class="group-header">Address Info</h3>
-        <div formGroupName="address" class="form-group-card">
-            <div class="input-section">
-                <label>Address</label>
-                <input type="text" formControlName="addressLine" 
-                [class.invalid]="isInvalid('address','addressLine')" placeholder="Address"
-                [readonly]="!isEditEnable"/>
-                <span *ngIf="isInvalid('address','addressLine')">Invalid Address</span>
-            </div>
-
-            <div class="input-section">
-                <label>Country & Province</label>
-                <div class="flex-row">
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="country" 
-                        [class.invalid]="isInvalid('address','country')" placeholder="Country"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('address','country')">Invalid Country</span>
-                    </div>
-
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="province" 
-                        [class.invalid]="isInvalid('address','province')" placeholder="Province"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('address','province')">Invalid Province</span>
-                    </div>
-                </div>
-            </div>
-            <div class="input-section">
-                <label>City & Postal Code</label>
-                <div class="flex-row"> 
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="city" 
-                        [class.invalid]="isInvalid('address','city')" placeholder="City"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('address','city')">Invalid City</span>
-                    </div>
-
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="postalCode" 
-                        [class.invalid]="isInvalid('address','postalCode')" placeholder="Postal Code"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('address','postalCode')">Invalid Postal Code</span>
-                    </div>
-                </div>
             </div>
         </div>
         <br>
@@ -124,4 +67,5 @@
 
         <button *ngIf="isEditEnable" type="submit">Save</button>
     </form>
+    <note-list-card [notes$]="clientNotes$"></note-list-card>
 </div>

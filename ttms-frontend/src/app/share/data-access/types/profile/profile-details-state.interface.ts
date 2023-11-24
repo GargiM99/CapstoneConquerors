@@ -1,4 +1,4 @@
-import { IClientSchedule } from "src/app/client/data-access/types/client/client-schedule.interface"
+import { IClientSchedule } from "src/app/share/data-access/types/calendar/client-schedule.interface"
 import { IProfileDetails } from "./profile-details.interface"
 
 export interface IProfileDetailState{

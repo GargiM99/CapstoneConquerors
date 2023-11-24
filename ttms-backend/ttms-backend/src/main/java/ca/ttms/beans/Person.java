@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Person Entity
@@ -28,6 +29,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -35,19 +37,6 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
 	private String firstname;
 	private String lastname;
-	private LocalDate birthDate;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(
-			  name = "address_person",
-			  joinColumns= @JoinColumn(name="person_id", referencedColumnName="id"),
-	          inverseJoinColumns= @JoinColumn(name="address_id", referencedColumnName="id"))
-	private List<Address> addresses;
-	
-	public Person() {
-		this.addresses = new ArrayList<Address>();
-	}
 }

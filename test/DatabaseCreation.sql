@@ -1,19 +1,8 @@
 CREATE TABLE person
   (
      id         INT IDENTITY NOT NULL PRIMARY KEY,
-     birth_date DATE,
      firstname  VARCHAR(255),
      lastname   VARCHAR(255)
-  )
-
-CREATE TABLE _address
-  (
-     id           INT IDENTITY NOT NULL PRIMARY KEY,
-     address_line VARCHAR(255),
-     city         VARCHAR(255),
-     country      VARCHAR(255),
-     postal_code  VARCHAR(255),
-     province     VARCHAR(255),
   )
 
 CREATE TABLE _user
@@ -49,14 +38,6 @@ CREATE TABLE token
      CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES _user(id)
   ) 
 
-CREATE TABLE address_person
-  (
-     address_id INT NOT NULL,
-     person_id  INT NOT NULL,
-     CONSTRAINT fk_ap_address FOREIGN KEY (address_id) REFERENCES _address(id),
-     CONSTRAINT fk_ap_person FOREIGN KEY (person_id) REFERENCES person(id)
-  ) 
-
 CREATE TABLE trip
  (
      id INT IDENTITY NOT NULL PRIMARY KEY,
@@ -79,5 +60,17 @@ CREATE TABLE _event
      trip_id INT,
      CONSTRAINT fk_event_trip FOREIGN KEY (trip_id) REFERENCES trip(id)
  )
+
+ CREATE TABLE client_note
+ (
+	id INT IDENTITY NOT NULL PRIMARY KEY,
+	note_title VARCHAR(255) NOT NULL,
+	note_body TEXT NOT NULL,
+	client_id INT NULL,
+	trip_id INT NULL,
+	CONSTRAINT fk_note_user FOREIGN KEY (client_id) REFERENCES _user(id),
+	CONSTRAINT fk_note_trip FOREIGN KEY (trip_id) REFERENCES trip(id)
+ )
+
 
 

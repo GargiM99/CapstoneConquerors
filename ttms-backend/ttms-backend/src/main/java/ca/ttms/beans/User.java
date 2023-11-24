@@ -61,9 +61,6 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "user")
 	private List<Token> tokens;
 	
-//	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
-//	private List<Trip> trips;
-	
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personId", referencedColumnName = "id")
 	private Person person;

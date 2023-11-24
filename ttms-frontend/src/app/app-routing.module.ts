@@ -12,6 +12,7 @@ import { ClientDetailsComponent } from './client/feature/client-details/client-d
 import { TripDetailsComponent } from './client/feature/trip-details/trip-details.component';
 import { TripTypeComponent } from './client/feature/trip-type/trip-type.component';
 import { ViewClientComponent } from './client/feature/view-client/view-client.component';
+import { MealPriceComponent } from './meal/feature/meal-price/meal-price.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'client/:id', component: ClientDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'trip/details/:id', component: TripDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
   { path: 'profile', component: ProfileDetailsComponent, canActivate: [authGuardFn], data: { role: ['ADMIN', 'AGENT'] }},
-  { path: 'trip/type', component: TripTypeComponent, canActivate: [authGuardFn], data: { role: ['ADMIN'] }} 
+  { path: 'trip/type', component: TripTypeComponent, canActivate: [authGuardFn], data: { role: ['ADMIN'] }},
+  { path: 'meal', component: MealPriceComponent, canActivate: [authGuardFn], data: { role: ['ADMIN'] }} 
 ];
 
 @NgModule({

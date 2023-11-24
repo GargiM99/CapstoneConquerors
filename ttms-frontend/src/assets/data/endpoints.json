@@ -4,5 +4,6 @@
     "profile": "http://localhost:8080/api/profile",
     "agent": "http://localhost:8080/api/agent",
     "client": "http://localhost:8080/api/client",
-    "trip": "http://localhost:8080/api/trip"
+    "trip": "http://localhost:8080/api/trip",
+    "meal": "http://localhost:8080/api/meals"
 } 

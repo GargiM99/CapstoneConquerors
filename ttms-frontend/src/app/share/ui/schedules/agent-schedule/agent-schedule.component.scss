@@ -1,0 +1,84 @@
+@import "../../../../../variables";
+
+/* calendar.component.scss */
+:host ::ng-deep {
+
+  /* Main calendar container */
+  .fc {
+    font-family: $ff-base;
+    max-height: $max-calendar-height;
+    height: auto;
+    box-shadow: 0 0 12px $clr-black-100;
+    border-radius: $brd-100;
+    border: 0.5rem $clr-primary solid;
+  }
+
+  /* Day and time grid area */
+  .fc-daygrid {
+    box-shadow: 0 0 12px $clr-black-100;
+    border-radius: $brd-100;
+    background-color: $clr-primary-400;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    height: auto;
+    display: flex;
+    align-items:center;
+    background-color: $clr-primary-100;
+    padding-right: 0.7rem;
+    margin-bottom: 0;
+  }
+
+  /* Title text in the header */
+  .fc-toolbar-title {
+    color: $clr-black;
+    font-weight: $fw-bold;
+    background-color: $clr-primary-200;
+    padding: 0.7rem 2rem 0.5rem 1rem;
+    box-shadow: 0 0 7px $clr-black-100;
+    border-radius: 0 $brd-300 0 0;
+  }
+
+  /* Navigation buttons in the header */
+  .fc-prev-button, .fc-next-button {
+    background-color: $clr-secondary-500;
+    box-shadow: 0 0 7px $clr-black-100;
+    border: 0.05rem solid $clr-black-100;
+
+    &:hover {
+      background-color: $clr-secondary-550;
+      box-shadow: 0 0 7px $clr-black-100;
+      border: 0.05rem solid $clr-black-100;
+    }
+  }
+
+  .fc-today-button{
+    background-color: $clr-alert-400; 
+    box-shadow: 0 0 7px $clr-black-100;
+    border: 0.05rem solid $clr-black-100;
+
+    &:disabled{
+      background-color: $clr-alert-300;
+    }
+
+    &:hover {
+      background-color: $clr-alert-500;
+      box-shadow: 0 0 7px $clr-black-100;
+      border: 0.05rem solid $clr-black-100;
+    }
+  }
+
+  /* Individual day cells */
+  .fc-day {
+    font-size: $fs-300;
+    font-weight: $fw-bold;
+    padding: 2px;
+  }
+
+  /* Today's day cell */
+  .fc-today {
+    background-color: red;
+    box-shadow: 0 0 12px $clr-black-100;
+    border: 0.05rem solid $clr-black-100;
+  }
+}

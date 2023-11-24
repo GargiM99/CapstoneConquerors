@@ -1,11 +1,11 @@
 package ca.ttms.services;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
@@ -25,7 +24,6 @@ import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.BasicClientResponse;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.UserRepo;
@@ -37,9 +35,6 @@ public class TestClientService {
 	
 	@Mock
 	private PersonRepo personRepo;
-
-	@Mock
-	private AddressRepo addressRepo;
 
 	@Mock
 	private ContactRepo contactRepo;
@@ -63,11 +58,9 @@ public class TestClientService {
 		//Arrange
 		BasicClientResponse resultOutput;
 		
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(2, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(2, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 		
 		String inputUsername = "doesam";
 		String expectedUsername = "atchah";
@@ -82,7 +75,6 @@ public class TestClientService {
 		when(userRepo.findByUsername(Mockito.anyString())).thenReturn(mockUserOpt);
 		when(personRepo.save(Mockito.any(Person.class))).thenReturn(inputPerson);
 		when(userRepo.save(Mockito.any(User.class))).thenReturn(mockUserOutput);
-		when(addressRepo.save(Mockito.any(Address.class))).thenReturn(inputAddress);
 		when(contactRepo.save(Mockito.any(Contact.class))).thenReturn(inputContact);
 		
 		//Act
@@ -99,12 +91,10 @@ public class TestClientService {
 		//Arrange
 		BasicClientResponse resultOutput;
 		
-		LocalDate inputDate = LocalDate.now();
 		String incorrectFirstname = null;
-		Person inputPerson = new Person(2, incorrectFirstname, "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(2, incorrectFirstname, "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 		
 		String inputUsername = "doesam";
 		
@@ -120,11 +110,9 @@ public class TestClientService {
 		//Arrange
 		BasicClientResponse resultOutput;
 		
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(2, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(2, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 		
 		String inputUsername = "doesam";
 		
@@ -145,22 +133,16 @@ public class TestClientService {
 	@Test
 	void Edit_Client_CheckClientBasicResponseIsValid() {
 		//Arrange
-		UserEditDetails resultOutput;
+		boolean resultOutput;
 		
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(2, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(2, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserEditDetails inputUser = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		UserEditDetails inputUser = new UserEditDetails(inputPerson, inputContact);
 		int inputId = 2;
 		
 		//Arrange Mock
 		when(personRepo.updatePersonByUserId(
-				Mockito.any(Integer.class), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.any(LocalDate.class))).thenReturn(1);	
-		when(addressRepo.updateAddressByUserId(
-				Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+				Mockito.any(Integer.class), Mockito.anyString(), Mockito.anyString())).thenReturn(1);	
 		when(contactRepo.updateContactByUserId(
 				Mockito.any(Integer.class), Mockito.anyString(), 
 				Mockito.anyString(), Mockito.anyString())).thenReturn(1);
@@ -169,15 +151,13 @@ public class TestClientService {
 		resultOutput = clientService.editClientDetails(inputUser, inputId);
 		
 		//Assert
-		assertEquals(resultOutput.getPerson(), inputPerson);
-		assertEquals(resultOutput.getContact(), inputContact);
-		assertEquals(resultOutput.getAddress(), inputAddress);
+		assertTrue(resultOutput);
 	}	
 
 	@Test
 	void Edit_NullClient_CheckClientBasicResponseIsNull() {
 		//Arrange
-		UserEditDetails resultOutput;
+		boolean resultOutput;
 		
 		UserEditDetails inputUser = null;
 		int inputId = 2;
@@ -186,28 +166,23 @@ public class TestClientService {
 		resultOutput = clientService.editClientDetails(inputUser, inputId);
 		
 		//Assert
-		assertNull(resultOutput);
+		assertFalse(resultOutput);
 	}
 
 	@Test
 	void Edit_ClientWithError_CheckClientBasicResponseIsValidNull() {
 		//Arrange
-		UserEditDetails resultOutput;
+		boolean resultOutput;
 		
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(2, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(2, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserEditDetails inputUser = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		UserEditDetails inputUser = new UserEditDetails(inputPerson, inputContact);
 		int inputId = 2;
 		
 		//Arrange Mock
 		when(personRepo.updatePersonByUserId(
 				Mockito.any(Integer.class), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.any(LocalDate.class))).thenThrow(new DataIntegrityViolationException("Data integrity violation occurred"));	
-		when(addressRepo.updateAddressByUserId(
-				Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+				Mockito.anyString())).thenThrow(new DataIntegrityViolationException("Data integrity violation occurred"));	
 		when(contactRepo.updateContactByUserId(
 				Mockito.any(Integer.class), Mockito.anyString(), 
 				Mockito.anyString(), Mockito.anyString())).thenReturn(1);
@@ -216,6 +191,6 @@ public class TestClientService {
 		resultOutput = clientService.editClientDetails(inputUser, inputId);
 		
 		//Assert
-		assertNull(resultOutput);
+		assertFalse(resultOutput);
 	}
 }

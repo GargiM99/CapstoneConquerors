@@ -15,6 +15,10 @@ body, p, h1, h2, h3, h4, h5, h6, input, option, select, button{
     line-height: 1.5;
 }
 
+.constrain-area{
+    margin: 0 clamp(0.5rem, 2vw, 5rem);
+}
+
 select{
     font-size: $fs-350;
     color: $clr-white;
@@ -34,6 +38,7 @@ form{
         background-color: $clr-primary;
         padding: $btn-padding;
         border-radius: $brd-100;
+        max-width: $btn-max-width;
     }
     h3{
         font-weight: $fw-bold;
@@ -292,3 +297,17 @@ form{
     z-index: 100;
   }
 
+  .custom-tooltip {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+  
+.calendar-event{
+    padding: 0.2rem 0.5rem;
+    font-size: 14px;
+    box-shadow: 0 0 7px $clr-black-100;
+}

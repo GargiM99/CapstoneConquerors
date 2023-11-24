@@ -24,3 +24,11 @@ ADD trip_type VARCHAR(255) NULL;
 
 ALTER TABLE _event
 ADD event_description VARCHAR(1024) NULL;
+
+ALTER TABLE person
+DROP COLUMN birth_date;
+
+DROP TABLE address_person;
+
+DROP TABLE _address;
+

@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { ITokenDetail } from 'src/app/share/data-access/types/auth/token-details.interface';
-import { Observable, map, mergeMap } from 'rxjs';
+import { Observable, map, mergeMap, of } from 'rxjs';
 import { detailSelector } from 'src/app/share/data-access/redux/auth/token-selectors';
 import endPoints from '../../../../assets/data/endpoints.json'
-import { IClientDetails } from '../types/client/client-details.interface';
+import { IClientDetails, IClientUpdated } from '../types/client/client-details.interface';
 import { IClientBasics } from '../types/client/client-basic.inteface';
 import { IAgentBasics } from 'src/app/agent/data-access/types/agent-basics.interface';
+import { IClientNotes } from '../types/client/client-note.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -108,11 +109,37 @@ export class ClientService {
       'Authorization': `Bearer ${token}`
     })
 
-    let response = this.http.put<IClientDetails>(
+    let response = this.http.put<IClientUpdated>(
       `${endPoints.client}/${clientId}`, clientDetails, { headers: headers }
     )
 
-    return response
+    return response.pipe(mergeMap(() => of(clientDetails))) 
+  }
+
+  modifyClientNotes(clientNotes: IClientNotes[], clientId: number): Observable<IClientNotes[]>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+
+        return this.sendModifyClientNotes(tokenDetails.token, clientNotes, clientId)
+      })
+    )
+  }
+
+  sendModifyClientNotes(token: String, clientNotes: IClientNotes[], clientId: number,){
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+
+    let response = this.http.put<IClientUpdated>(
+      `${endPoints.client}/notes/${clientId}`, clientNotes, { headers: headers }
+    )
+
+    return response.pipe(mergeMap(() => of(clientNotes))) 
   }
 
   constructor(private store: Store<IAppState>, private http: HttpClient, private router: Router) { 

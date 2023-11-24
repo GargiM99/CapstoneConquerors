@@ -8,24 +8,28 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ca.ttms.beans.Address;
+import ca.ttms.beans.ClientNote;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.Trip;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.BasicUsersDetails;
+import ca.ttms.beans.details.ClientNoteDetails;
+import ca.ttms.beans.details.ModifyClientNoteDetails;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
+import ca.ttms.beans.dto.ClientNoteDTO;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.BasicClientResponse;
 import ca.ttms.beans.response.ClientDetailsResponse;
-import ca.ttms.repositories.AddressRepo;
+import ca.ttms.repositories.ClientNoteRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TokenRepo;
 import ca.ttms.repositories.TripRepo;
 import ca.ttms.repositories.UserRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,10 +37,10 @@ import lombok.RequiredArgsConstructor;
 public class ClientService {
 	
 	private final UserRepo userRepo;
-	private final AddressRepo addressRepo;
 	private final PersonRepo personRepo;
 	private final ContactRepo contactRepo;
 	private final TripRepo tripRepo;
+	private final ClientNoteRepo clientNoteRepo;
 	 
 	private final AuthenticationService authService;
 
@@ -64,12 +68,10 @@ public class ClientService {
 				.person(savedPerson)
 				.build();
 		
-		userDetails.getAddress().getPersons().add(savedPerson);
 		userDetails.getContact().setPerson(savedPerson);
 		
 		User savedUser = userRepo.save(newUser);
 		contactRepo.save(userDetails.getContact());
-		addressRepo.save(userDetails.getAddress());
 		
 		return BasicClientResponse
 				.builder()
@@ -92,6 +94,9 @@ public class ClientService {
 		try {
 			List<Map<String, Object>> clientDetailsMapDB = userRepo.getUserFullInfoById(clientId);
 			List<Trip> clientTripList = tripRepo.findTripByClientId(clientId);
+			List<ClientNoteDTO> clientNoteList = clientNoteRepo.getNotesForClientById(clientId);
+			
+			
 			if (clientTripList == null)
 				return null;
 			
@@ -103,7 +108,7 @@ public class ClientService {
 				return null;
 			
 			Trip[] clientTrips = clientTripList.toArray(new Trip[0]);
-			ClientDetailsResponse response = new ClientDetailsResponse(clientTrips, clientDetailMap);	
+			ClientDetailsResponse response = new ClientDetailsResponse(clientTrips, clientDetailMap, clientNoteList);	
 			return response;	
 		}catch(Exception e) {
 			return null;
@@ -121,31 +126,51 @@ public class ClientService {
 		return userRepo.getAllClients();
 	}
 	
-	public UserEditDetails editClientDetails(UserEditDetails editDetails, int id ) {
+	public boolean editClientDetails(UserEditDetails editDetails, int id ) {
 		
 		if(editDetails == null || !editDetails.verifyDetails())
-			return null;
+			return false;
 		
 		if(id <= 0)
-			return null;
+			return false;
 		
 		try{
-			Address updateAddress = editDetails.getAddress();
 			Contact updateContact = editDetails.getContact();
 			Person updatePerson = editDetails.getPerson();
-			
-			addressRepo.updateAddressByUserId(id, updateAddress.getAddressLine(), updateAddress.getPostalCode(),
-										updateAddress.getCity(), updateAddress.getProvince(), updateAddress.getCountry());
 			
 			contactRepo.updateContactByUserId(id, updateContact.getEmail(), 
 										updateContact.getPrimaryPhoneNumber(), updateContact.getSecondaryPhoneNumber());
 			
-			personRepo.updatePersonByUserId(id, updatePerson.getFirstname(), updatePerson.getLastname(), updatePerson.getBirthDate());
+			personRepo.updatePersonByUserId(id, updatePerson.getFirstname(), updatePerson.getLastname());
 			
-			return editDetails;
+													
+			return true;
 			
 		}catch(Exception e) {
-			return null;
+			return false;
 		}
 	}
+
+	@Transactional
+    public boolean modifyClientNotes(List<ModifyClientNoteDetails> noteDetails, int clientId) {
+        try {
+        	clientNoteRepo.deleteClientNoteByClientId(clientId);
+
+            for (ModifyClientNoteDetails noteDetail : noteDetails) {
+                if (noteDetail == null || !noteDetail.verifyNoteDetails()) {
+                    throw new IllegalArgumentException("Invalid note details");
+                }
+                clientNoteRepo.insertClientNote(
+                        noteDetail.getNoteTitle(),
+                        noteDetail.getNoteBody(),
+                        clientId,
+                        noteDetail.getTripId()
+                );
+            }
+            
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

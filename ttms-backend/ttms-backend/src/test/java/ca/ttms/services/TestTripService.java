@@ -39,7 +39,6 @@ import ca.ttms.beans.enums.EventStatus;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.enums.TripStatus;
 import ca.ttms.beans.response.TripResponse;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.EventRepo;
 import ca.ttms.repositories.PersonRepo;
@@ -52,9 +51,6 @@ public class TestTripService {
 	
 	@Mock
 	private PersonRepo personRepo;
-
-	@Mock
-	private AddressRepo addressRepo;
 
 	@Mock
 	private ContactRepo contactRepo;

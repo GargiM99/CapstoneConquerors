@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { IClientBasics } from "../../types/client/client-basic.inteface";
 import { HttpErrorResponse } from "@angular/common/http";
 import { IClientDetails } from "../../types/client/client-details.interface";
+import { IClientNotes } from "../../types/client/client-note.interface";
 
 export const getClientBasics = createAction(
     '[Client] Get Client Basics'
@@ -51,5 +52,18 @@ export const updateClientSuccess = createAction(
 )
 export const updateClientFailure = createAction(
     '[Client] Update Client Failure',
+    props<{ error: HttpErrorResponse | Error | null }>()
+)
+
+export const modifyClientNotes = createAction(
+    '[Client] Modify Client Notes',
+    props<{ clientNotes: IClientNotes[], clientId: number }>()
+)
+export const modifyClientNotesSuccess = createAction(
+    '[Client] Modify Client Notes Success',
+    props<{ clientNotes: IClientNotes[] }>()
+)
+export const modifyClientNotesFailure = createAction(
+    '[Client] Modify Client Notes Failure',
     props<{ error: HttpErrorResponse | Error | null }>()
 )

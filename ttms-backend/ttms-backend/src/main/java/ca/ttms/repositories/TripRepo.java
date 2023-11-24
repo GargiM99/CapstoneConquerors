@@ -1,6 +1,5 @@
 package ca.ttms.repositories;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -8,9 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import ca.ttms.beans.Event;
 import ca.ttms.beans.Trip;
-import ca.ttms.beans.dto.TripDTO;
 
 public interface TripRepo extends JpaRepository<Trip, Integer>{	
 	

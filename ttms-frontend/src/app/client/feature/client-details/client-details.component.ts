@@ -1,13 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { Observable, Subscription, map } from 'rxjs';
-import { IClientDetails } from '../../data-access/types/client/client-details.interface';
+import { Observable, Subscription, map, mergeMap } from 'rxjs';
+import { IClientDetails, IClientNotes } from '../../data-access/types/client/client-details.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { clientDetailsSelector, clientErrorSelector, clientIsLoadingSelector } from '../../data-access/redux/client/client-selectors';
-import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 import * as ClientAction from '../../data-access/redux/client/client-actions'
 import * as TripAction from '../../data-access/redux/trip/trip-action'
 import { ITripDetails } from '../../data-access/types/trip/trip-details.interface';
@@ -32,6 +31,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
+  clientNotes$: Observable<IClientNotes[]>
 
   tripType$: Observable<ITripType[]>
 
@@ -41,15 +41,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     }),
     person: this.fb.group({
       firstname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      lastname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      birthDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator ]]
-    }),
-    address: this.fb.group({
-      addressLine: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      postalCode: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      city: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      province: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      country: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      lastname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]]
     }),
     contact: this.fb.group({
       email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH), Validators.email]],
@@ -89,20 +81,12 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
           },
           person: {
             firstname: data.person.firstname,
-            lastname: data.person.lastname,
-            birthDate: data.person.birthDate          
+            lastname: data.person.lastname         
           },
           contact: {
             email: data.contact.email,
             primaryPhoneNumber: data.contact.primaryPhoneNumber,
             secondaryPhoneNumber: data.contact.secondaryPhoneNumber
-          },
-          address: {
-            addressLine: data.address.addressLine,
-            city: data.address.city,
-            country: data.address.country,
-            postalCode: data.address.postalCode,
-            province: data.address.province
           }
         })
       }
@@ -119,6 +103,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.clientIsLoading$ = this.store.pipe(select(clientIsLoadingSelector))
     this.clientError$ = this.store.pipe(select(clientErrorSelector))
     this.clientDetails$ = this.store.pipe(select(clientDetailsSelector))
+    this.clientNotes$ = this.clientDetails$.pipe(map((details) => details?.clientNotes ?? []))
 
     this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails));
     this.tripType$ = this.store.pipe(select(tripTypeSelector))

@@ -19,13 +19,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
 import ca.ttms.beans.response.ResetPasswordResponse;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.UserRepo;
@@ -37,9 +35,6 @@ class TestAgentService {
 	
 	@Mock
 	private PersonRepo personRepo;
-
-	@Mock
-	private AddressRepo addressRepo;
 
 	@Mock
 	private ContactRepo contactRepo;
@@ -174,17 +169,13 @@ class TestAgentService {
 		Integer inputId = 1;
 		boolean result;
 		
-		Person inputPerson = Person.builder().firstname("Alex").lastname("Smith").birthDate(LocalDate.of(2003, 10, 28)).build();
+		Person inputPerson = Person.builder().firstname("Alex").lastname("Smith").build();
 		Contact inputContact = Contact.builder().email("alex.smith@example.com").primaryPhoneNumber("123-456-7890").build();
-		Address inputAddress = Address.builder().addressLine("1 Main St").city("Oakville").country("Canada")
-				               .province("Ontario").postalCode("L2V1Q8").build();
 		
-		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact);
 		
 		//Arrange Mocks
-		when(personRepo.updatePersonByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(1);
-		when(addressRepo.updateAddressByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		when(personRepo.updatePersonByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
 		when(contactRepo.updateContactByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
 		
 		//Act
@@ -201,17 +192,13 @@ class TestAgentService {
 		String incorrectFirstname = null;
 		boolean result;
 		
-		Person inputPerson = Person.builder().firstname(incorrectFirstname).lastname("Doe").birthDate(LocalDate.of(2003, 10, 28)).build();
+		Person inputPerson = Person.builder().firstname(incorrectFirstname).lastname("Doe").build();
 		Contact inputContact = Contact.builder().email("samuel.doe@gmail.com").primaryPhoneNumber("123-456-7890").build();
-		Address inputAddress = Address.builder().addressLine("1 Main St").city("Oakville").country("Canada")
-				               .province("Ontario").postalCode("L2V1Q8").build();
 		
-		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact);
 		
 		//Arrange Mocks
-		when(personRepo.updatePersonByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.any())).thenReturn(1);
-		when(addressRepo.updateAddressByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), 
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
+		when(personRepo.updatePersonByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
 		when(contactRepo.updateContactByUserId(Mockito.anyInt(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(1);
 		
 		//Act
@@ -228,12 +215,10 @@ class TestAgentService {
 		String incorrectFirstname = null;
 		boolean result;
 		
-		Person inputPerson = Person.builder().firstname(incorrectFirstname).lastname("Doe").birthDate(LocalDate.of(2003, 10, 28)).build();
+		Person inputPerson = Person.builder().firstname(incorrectFirstname).lastname("Doe").build();
 		Contact inputContact = Contact.builder().email("samuel.doe@gmail.com").primaryPhoneNumber("123-456-7890").build();
-		Address inputAddress = Address.builder().addressLine("1 Main St").city("Oakville").country("Canada")
-				               .province("Ontario").postalCode("L2V1Q8").build();
 		
-		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact, inputAddress);
+		UserEditDetails inputDetails = new UserEditDetails(inputPerson, inputContact);
 		
 		//Act
 		result = agentService.updateAgentProfile(inputDetails, inputId);

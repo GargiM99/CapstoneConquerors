@@ -3,12 +3,14 @@ import { IClientState } from "../../types/client/client-state.interface";
 import * as ClientAction from "./client-actions";
 import { IClientBasics } from "../../types/client/client-basic.inteface";
 import { IClientDetails } from "../../types/client/client-details.interface";
+import { UPDATE } from '@ngrx/store';
 
 export const intialState: IClientState = {
     isLoading: false,
     clientBasics: [],
     clientId: null,
     clientDetails: null,
+    modifyClientNotes: [],
     error: null
 }
 
@@ -81,7 +83,21 @@ export const clientReducer = createReducer(
         ...state,
         isLoading: false,
         error: action.error  
-    }))
+    })),
+
+    on(ClientAction.modifyClientNotes, (state, action) => ({
+        ...state,
+        isLoading: true,
+        modifyClientNotes: action.clientNotes
+    })),
+    on(ClientAction.modifyClientNotesSuccess, (state, action) => ({
+        ...state,
+        isLoading: false,
+        clientDetails: state.clientDetails? {
+              ...state.clientDetails,
+              clientNotes: action.clientNotes,
+            }: null
+      }))      
 )
 
 const updateBasicsById = (clientBasics: IClientBasics[], clientDetails: IClientDetails) =>{

@@ -34,6 +34,10 @@ import { TripEffect } from './client/data-access/redux/trip/trip-effects';
 import { TripDetailsModule } from './client/feature/trip-details/trip-details.module';
 import { TripTypeModule } from './client/feature/trip-type/trip-type.module';
 import { ViewClientModule } from './client/feature/view-client/view-client.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { mealReducer } from './meal/data-access/redux/meal-reducers';
+import { MealEffect } from './meal/data-access/redux/meal-effects';
+import { MealPriceModule } from './meal/feature/meal-price/meal-price.module';
 
 @NgModule({
   declarations: [
@@ -56,16 +60,19 @@ import { ViewClientModule } from './client/feature/view-client/view-client.modul
     TripDetailsModule,
     TripTypeModule,
     ViewClientModule,
+    FullCalendarModule,
+    MealPriceModule,
     StoreModule.forRoot({
       'tokenDetails': tokenReducers, 
       'agentBasics': agentBasicReducer,
       'agentDetails': agentDetailReducer,
       'profileDetails': profileReducers,
       'clientDetails': clientReducer,
-      'tripDetails': tripReducer
+      'tripDetails': tripReducer,
+      'mealDetails': mealReducer
     }),
     EffectsModule.forRoot([TokenEffect, AgentBasicsEffect, ProfileEffect, AgentDetailsEffect,
-                          ClientEffect, TripEffect]),
+                          ClientEffect, TripEffect, MealEffect]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
     LoadingScreenComponent

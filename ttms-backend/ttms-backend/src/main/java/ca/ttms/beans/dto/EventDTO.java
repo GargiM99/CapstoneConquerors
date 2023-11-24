@@ -14,17 +14,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventDTO {
+	private Integer tripId;
     private Integer eventId;
     private String eventName;
     private LocalDate eventDate;
     private String eventDescription;
     
     public EventDTO(Map<String, Object> eventMap) {
+    	this.tripId = (Integer) eventMap.get("tripId");
         this.eventId = (Integer) eventMap.get("eventId");
         this.eventName = (String) eventMap.get("eventName");
         this.eventDescription = (String) eventMap.get("eventDescription");
         
-        Object eventDateObject = eventMap.get("tripEndDate");
+        Object eventDateObject = eventMap.get("eventDate");
         this.eventDate = convertToLocalDate(eventDateObject);
     }
     

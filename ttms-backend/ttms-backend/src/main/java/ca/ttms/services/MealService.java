@@ -2,17 +2,12 @@ package ca.ttms.services;
 
 import java.io.File;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.reflect.TypeToken;
+
 import ca.ttms.beans.details.MealPriceDetails;
-import ca.ttms.repositories.AddressRepo;
-import ca.ttms.repositories.ContactRepo;
-import ca.ttms.repositories.PersonRepo;
-import ca.ttms.repositories.TokenRepo;
-import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -27,29 +22,17 @@ import lombok.RequiredArgsConstructor;
 public class MealService {
 	
 	private final JSONService JsonService;
+	private final BlobService blobService;
 	
 	private final double MAX_PRICE = 300.00; 
 	private final double MIN_PRICE = 0.00; 
 	
-	/**
-	 * Updates the meal price using MealPriceDetails
-	 * 
-	 * @param details: The meal details which is going to be updated
-	 * @param filePath: The path which the json file is being written to
-	 * @return: Determines if object was updated
-	 */
-	public boolean updateMealPrice(MealPriceDetails details, String filePath) {
-		try {
-			if (!details.validateMealPrice(MAX_PRICE, MIN_PRICE))
-				return false;
-			
-			JsonService.writeJsonObject(details, filePath);
-			return true;
-		}
-		catch(Exception e){
-			return false;
-		}
-	}
+	@Value("${spring.cloud.azure.storage.blob.meal-blob-name}")
+	private String mealBlobName;
+	
+	@Value("${spring.cloud.azure.storage.blob.container-name}")
+	private String containerName;
+
 	
 	/**
 	 * Updates the meal price using MealPriceDetails for default path
@@ -62,7 +45,7 @@ public class MealService {
 			if (!details.validateMealPrice(MAX_PRICE, MIN_PRICE))
 				return false;
 			
-			JsonService.writeJsonObject(details, this.getDefaultPath());
+			blobService.uploadJsonBlob(containerName, mealBlobName, details);
 			return true;
 		}
 		catch(Exception e){
@@ -77,41 +60,12 @@ public class MealService {
 	 */
 	public MealPriceDetails getMealPrice() {
 		try {
-			MealPriceDetails mealPrice = new MealPriceDetails();
-			mealPrice = (MealPriceDetails) JsonService.readJsonFile(this.getDefaultPath(), mealPrice.getClass());
+			TypeToken<MealPriceDetails> typeToken = new TypeToken<MealPriceDetails>() {};
+			MealPriceDetails mealPrice = (MealPriceDetails) blobService.downloadJsonBlob(containerName, mealBlobName, typeToken);
 			return mealPrice;
 		}
 		catch(Exception e){
 			return null;
 		}
-	}
-	
-	/**
-	 * Reads from json file and returns the MealPriceDetails
-	 * 
-	 * @param: filePath: Path for reading MealPriceDetails
-	 * @return: An MealPriceDetails from the json file
-	 */
-	public MealPriceDetails getMealPrice(String filePath) {
-		try {
-			MealPriceDetails mealPrice = new MealPriceDetails();
-			mealPrice = (MealPriceDetails) JsonService.readJsonFile(filePath, mealPrice.getClass());
-			return mealPrice;
-		}
-		catch(Exception e){
-			return null;
-		}
-	}
-	
-	/**
-	 * Returns the default path for mealPrice file
-	 * 
-	 * @return: The default path for mealPrice file
-	 */
-	private String getDefaultPath () {
-		String parentDir = new File (System.getProperty("user.dir")).getParentFile().getParent();
-		String extraPath = "\\ttms-frontend\\ttms\\src\\assets\\data\\mealPriceData.json";
-		
-		return parentDir + extraPath;
 	}
 }

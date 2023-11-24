@@ -76,5 +76,22 @@ export class ClientEffect{
         )
     )
 
+    updateClientNotes$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ClientAction.modifyClientNotes),
+            mergeMap((action) =>
+                this.clientService.modifyClientNotes(action.clientNotes, action.clientId,).pipe(
+                    map((clientNotes) => ClientAction.modifyClientNotesSuccess({clientNotes})),
+                    catchError((error) =>
+                        of(ClientAction.modifyClientNotesFailure({ error: error }))
+                    )
+                )
+            ),
+            catchError((error) =>
+                of(ClientAction.modifyClientNotesFailure({ error: error }))
+            )
+        )
+    )                            
+
     constructor( private actions$: Actions, private clientService: ClientService) {}
 }

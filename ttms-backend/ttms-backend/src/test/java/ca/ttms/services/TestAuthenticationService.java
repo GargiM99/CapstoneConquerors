@@ -22,14 +22,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserAuthenticationDetails;
 import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.response.ResponseToken;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TokenRepo;
@@ -49,9 +47,6 @@ class TestAuthenticationService {
 
 	@Mock
 	private UserRepo userRepo;
-
-	@Mock
-	private AddressRepo addressRepo;
 
 	@Mock
 	private ContactRepo contactRepo;
@@ -83,11 +78,9 @@ class TestAuthenticationService {
 	public void Register_DuplicateUser_CheckAuthDetailsNull() {
 		
 		// Arrange
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(null, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(null, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", "", new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 
 		// Arrange Mock
 		when(personRepo.countSimilarPeople(inputPerson.getFirstname(),inputPerson.getLastname(), inputContact.getEmail(),
@@ -96,7 +89,6 @@ class TestAuthenticationService {
 		when(passwordEncoder.encode(Mockito.anyString())).thenReturn("encoded_password");
 		when(userRepo.save(Mockito.any(User.class))).thenReturn(new User());
 		when(personRepo.save(Mockito.any(Person.class))).thenReturn(new Person());
-		when(addressRepo.save(Mockito.any(Address.class))).thenReturn(new Address());
 		when(contactRepo.save(Mockito.any(Contact.class))).thenReturn(new Contact());
 
 		// Act
@@ -112,8 +104,7 @@ class TestAuthenticationService {
 		// Arrange
 		Person inputPerson = new Person();
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", "", new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 
 		// Arrange Mock
 		when(personRepo.countSimilarPeople(inputPerson.getFirstname(),inputPerson.getLastname(), inputContact.getEmail(),
@@ -122,7 +113,6 @@ class TestAuthenticationService {
 		when(passwordEncoder.encode(Mockito.anyString())).thenReturn("encoded_password");
 		when(userRepo.save(Mockito.any(User.class))).thenReturn(new User());
 		when(personRepo.save(Mockito.any(Person.class))).thenReturn(new Person());
-		when(addressRepo.save(Mockito.any(Address.class))).thenReturn(new Address());
 		when(contactRepo.save(Mockito.any(Contact.class))).thenReturn(new Contact());
 
 		// Act
@@ -136,11 +126,9 @@ class TestAuthenticationService {
 	public void Register_SingleUser_CheckAuthDetailsNotNull() {
 		
 		// Arrange
-		LocalDate inputDate = LocalDate.now();
-		Person inputPerson = new Person(null, "Hamza", "Atcha", inputDate, new ArrayList<Address>());
+		Person inputPerson = new Person(null, "Hamza", "Atcha");
 		Contact inputContact = new Contact(null, "atchah@gmail.com", "905-333-4444", null, new Person());
-		Address inputAddress = new Address(null, "1 Main St", "L5Q1E3", "City", "Ontario", "Canada", new ArrayList<Person>());
-		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact, inputAddress);
+		UserRegisterDetails inputUser = new UserRegisterDetails(inputPerson, inputContact);
 
 		// Arrange Mock
 		when(personRepo.countSimilarPeople(inputPerson.getFirstname(),inputPerson.getLastname(), inputContact.getEmail(),
@@ -149,7 +137,6 @@ class TestAuthenticationService {
 		when(passwordEncoder.encode(Mockito.anyString())).thenReturn("encoded_password");
 		when(userRepo.save(Mockito.any(User.class))).thenReturn(new User());
 		when(personRepo.save(Mockito.any(Person.class))).thenReturn(new Person());
-		when(addressRepo.save(Mockito.any(Address.class))).thenReturn(new Address());
 		when(contactRepo.save(Mockito.any(Contact.class))).thenReturn(new Contact());
 
 		// Act

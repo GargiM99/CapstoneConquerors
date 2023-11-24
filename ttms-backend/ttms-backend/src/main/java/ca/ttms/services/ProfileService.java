@@ -2,21 +2,17 @@ package ca.ttms.services;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
 import ca.ttms.beans.details.UserEditDetails;
 import ca.ttms.beans.details.UserFullDetails;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
-import ca.ttms.repositories.TokenRepo;
 import ca.ttms.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class ProfileService {
 	
 	private final UserRepo userRepo;
-	private final AddressRepo addressRepo;
 	private final ContactRepo contactRepo;
 	private final PersonRepo personRepo;
 	private final PasswordEncoder passwordEncoder;
@@ -63,17 +58,13 @@ public class ProfileService {
 			return false;
 		
 		try {
-			Address updateAddress = updateProfile.getAddress();
 			Contact updateContact = updateProfile.getContact();
 			Person updatePerson = updateProfile.getPerson();
-			
-			addressRepo.updateAddressByUsername(username, updateAddress.getAddressLine(), updateAddress.getPostalCode(),
-										updateAddress.getCity(), updateAddress.getProvince(), updateAddress.getCountry());
 			
 			contactRepo.updateContactByUsername(username, updateContact.getEmail(), 
 										updateContact.getPrimaryPhoneNumber(), updateContact.getSecondaryPhoneNumber());
 			
-			personRepo.updatePersonByUsername(username, updatePerson.getFirstname(), updatePerson.getLastname(), updatePerson.getBirthDate());
+			personRepo.updatePersonByUsername(username, updatePerson.getFirstname(), updatePerson.getLastname());
 
 			return true;
 		}catch(Exception e) {

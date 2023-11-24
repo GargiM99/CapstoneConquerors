@@ -1,3 +1,7 @@
-<agent-list-card [agents$]="agents$"></agent-list-card>
-<client-list-card [clients$]="clients$"></client-list-card>
-<button (click)="viewTripType()">View Trip Type</button>
+<div class="home-container">
+    <agent-schedule [profileSchedule$]="profileSchedule$"></agent-schedule>
+    <agent-list-card [agents$]="agents$"></agent-list-card>
+    <client-list-card [clients$]="clients$"></client-list-card>
+    <button (click)="viewTripType()">View Trip Type</button>
+    <button (click)="viewMealPrice()">View Meal Price</button>
+</div>

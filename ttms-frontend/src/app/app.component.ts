@@ -8,7 +8,7 @@ import { ITokenDetail } from './share/data-access/types/auth/token-details.inter
 import { Location } from '@angular/common';
 import * as TokenAction from './share/data-access/redux/auth/token-actions';
 import { IProfileDetails } from './share/data-access/types/profile/profile-details.interface';
-import { IClientSchedule } from './client/data-access/types/client/client-schedule.interface';
+import { IClientSchedule } from './share/data-access/types/calendar/client-schedule.interface';
 
 @Component({
   selector: 'app-root',

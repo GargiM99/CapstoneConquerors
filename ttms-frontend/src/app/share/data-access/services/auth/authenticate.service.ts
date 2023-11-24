@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 import endPoints from '../../../../../assets/data/endpoints.json'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class AuthenticateService {
   login(loginDetails: ILoginDetails): Observable<ILoginResponse>{

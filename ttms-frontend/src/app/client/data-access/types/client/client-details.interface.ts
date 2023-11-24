@@ -1,11 +1,12 @@
 import { ITripDetails } from "../trip/trip-details.interface"
+import { IClientNotes } from "./client-note.interface"
 
 export interface IClientDetails{
     user: User
     contact: Contact
-    address: Address
     person: Person
     tripDetails: ITripDetails[]
+    clientNotes: IClientNotes[]
 }
 
 interface User{
@@ -20,16 +21,11 @@ interface Contact{
     email: string
 }
 
-interface Address {
-    addressLine: string
-    postalCode: string
-    city: string
-    province: string
-    country: string
-}
-
 interface Person{
     firstname : string
     lastname : string
-    birthDate : Date
+}
+
+export interface IClientUpdated{
+    isUpdated: boolean
 }

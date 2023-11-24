@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { detailSelector } from '../../redux/auth/token-selectors';
 import { ITokenDetail } from '../../types/auth/token-details.interface';
 import endPoints from '../../../../../assets/data/endpoints.json'
-import { IClientSchedule } from 'src/app/client/data-access/types/client/client-schedule.interface';
+import { IClientSchedule } from 'src/app/share/data-access/types/calendar/client-schedule.interface';
 
 @Injectable({
   providedIn: 'root'

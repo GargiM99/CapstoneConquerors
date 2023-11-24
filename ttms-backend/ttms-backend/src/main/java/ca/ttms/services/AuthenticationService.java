@@ -17,7 +17,6 @@ import ca.ttms.beans.details.UserRegisterDetails;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.enums.TokenTypes;
 import ca.ttms.beans.response.ResponseToken;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TokenRepo;
@@ -36,7 +35,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationService {
 	private final UserRepo userRepo;
 	private final TokenRepo tokenRepo;
-	private final AddressRepo addressRepo;
 	private final ContactRepo contactRepo;
 	private final PersonRepo personRepo;
 	
@@ -85,11 +83,9 @@ public class AuthenticationService {
 		Person savedPerson = personRepo.save(userDetails.getPerson());
 		
 		newUser.setPerson(savedPerson);
-		userDetails.getAddress().getPersons().add(savedPerson);
 		userDetails.getContact().setPerson(savedPerson);
 		
 		User savedUser = userRepo.save(newUser);
-		addressRepo.save(userDetails.getAddress());
 		contactRepo.save(userDetails.getContact());
 		
 		UserAuthenticationDetails details =  UserAuthenticationDetails
@@ -129,11 +125,9 @@ public class AuthenticationService {
 		Person savedPerson = personRepo.save(userDetails.getPerson());
 		
 		newUser.setPerson(savedPerson);
-		userDetails.getAddress().getPersons().add(savedPerson);
 		userDetails.getContact().setPerson(savedPerson);
 		
 		User savedUser = userRepo.save(newUser);
-		addressRepo.save(userDetails.getAddress());
 		contactRepo.save(userDetails.getContact());
 		
 		UserAuthenticationDetails details =  UserAuthenticationDetails

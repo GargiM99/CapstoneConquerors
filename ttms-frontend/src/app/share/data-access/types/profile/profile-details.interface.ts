@@ -4,7 +4,6 @@ export interface IProfileDetails{
     profileId: number | null
     user: User | null
     person: Person
-    address: Address
     contact: Contact
 }
 
@@ -17,15 +16,6 @@ export interface Contact{
 export interface Person{
     firstname : string
     lastname : string
-    birthDate : Date
-}
-
-export interface Address {
-    addressLine: string
-    postalCode: string
-    city: string
-    province: string
-    country: string
 }
 
 export interface User {

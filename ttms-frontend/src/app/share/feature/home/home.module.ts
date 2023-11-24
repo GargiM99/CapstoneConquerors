@@ -4,10 +4,11 @@ import { HomeComponent } from './home.component';
 import { ProfileService } from '../../data-access/services/profile/profile.service';
 import { AgentListCardComponent } from '../../ui/lists/agent-list-card/agent-list-card.component';
 import { ClientListCardComponent } from '../../ui/lists/client-list-card/client-list-card.component';
+import { SchedulesModule } from '../../ui/schedules/schedules.module';
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, AgentListCardComponent, ClientListCardComponent],
+  imports: [CommonModule, AgentListCardComponent, ClientListCardComponent, SchedulesModule],
   providers: [ProfileService],
   exports: [HomeComponent]
 })

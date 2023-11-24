@@ -4,16 +4,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.qpid.proton.engine.Collector;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ca.ttms.beans.Address;
 import ca.ttms.beans.Contact;
 import ca.ttms.beans.Person;
 import ca.ttms.beans.User;
@@ -26,7 +25,6 @@ import ca.ttms.beans.dto.ScheduleDTO;
 import ca.ttms.beans.dto.TripDTO;
 import ca.ttms.beans.enums.Roles;
 import ca.ttms.beans.response.ResetPasswordResponse;
-import ca.ttms.repositories.AddressRepo;
 import ca.ttms.repositories.ContactRepo;
 import ca.ttms.repositories.PersonRepo;
 import ca.ttms.repositories.TripRepo;
@@ -45,7 +43,6 @@ import lombok.RequiredArgsConstructor;
 public class AgentService {
 
 	private final UserRepo userRepo;
-	private final AddressRepo addressRepo;
 	private final PersonRepo personRepo;
 	private final ContactRepo contactRepo;
 	private final TripRepo tripRepo;
@@ -91,17 +88,13 @@ public class AgentService {
 			return false;
 		
 		try {
-			Address updateAddress = updateProfile.getAddress();
 			Contact updateContact = updateProfile.getContact();
 			Person updatePerson = updateProfile.getPerson();
-			
-			addressRepo.updateAddressByUserId(id, updateAddress.getAddressLine(), updateAddress.getPostalCode(),
-										updateAddress.getCity(), updateAddress.getProvince(), updateAddress.getCountry());
 			
 			contactRepo.updateContactByUserId(id, updateContact.getEmail(), 
 										updateContact.getPrimaryPhoneNumber(), updateContact.getSecondaryPhoneNumber());
 			
-			personRepo.updatePersonByUserId(id, updatePerson.getFirstname(), updatePerson.getLastname(), updatePerson.getBirthDate());
+			personRepo.updatePersonByUserId(id, updatePerson.getFirstname(), updatePerson.getLastname());
 
 			return true;
 		}catch(Exception e) {
@@ -155,31 +148,39 @@ public class AgentService {
 	    List<Integer> clientIds = clientDtos.stream().map(ClientDTO::getId).collect(Collectors.toList());
 	    List<Map<String, Object>> tripList = tripRepo.getTripsAndEventsForAgents(clientIds);
 
-	    // Group events by tripId
-	    Map<Integer, List<EventDTO>> eventsByTripId = tripList.stream()
-	            .collect(Collectors.groupingBy(tripMap -> (Integer) tripMap.get("tripId"),
-	                    Collectors.mapping(eventMap -> new EventDTO(eventMap), Collectors.toList())));
+	    Map<Integer, List<EventDTO>> eventsByTripId = new HashMap<>();
+	    tripList.forEach(tripMap -> 
+	        eventsByTripId.computeIfAbsent((Integer) tripMap.get("tripId"), key -> new ArrayList<>())
+	                     .add(new EventDTO(tripMap)));
 
-	    // Group trips by clientId
+
 	    Map<Integer, List<TripDTO>> tripsByClientId = tripList.stream()
-	            .collect(Collectors.groupingBy(tripMap -> (Integer) tripMap.get("clientId"),
-	                    Collectors.mapping(tripMap -> new TripDTO(tripMap), Collectors.toList())));
+	            .collect(Collectors.groupingBy(
+	                    tripMap -> (Integer) tripMap.get("clientId"),
+	                    Collectors.collectingAndThen(
+	                            Collectors.mapping(
+	                                    tripMap -> new TripDTO(tripMap, eventsByTripId.getOrDefault(tripMap.get("tripId"), Collections.emptyList())),
+	                                    Collectors.toList()
+	                            ),
+	                            trips -> new ArrayList<>(new HashSet<>(trips)) 
+	                    )
+	            ));
 
-	    // Create ScheduleDTO objects with grouped trips and events
-	    return clientDtos.stream()
-	            .map(clientDTO -> {
-	                ScheduleDTO scheduleDTO = new ScheduleDTO(clientDTO, tripsByClientId.getOrDefault(clientDTO.getId(), Collections.emptyList()));
 
-	                if (scheduleDTO.getTrips() != null) {
-	                    scheduleDTO.getTrips().forEach(tripDTO -> {
-	                        List<EventDTO> events = eventsByTripId.getOrDefault(tripDTO.getTripId(), Collections.emptyList());
-	                        tripDTO.setEvents(events);
-	                    });
-	                }
 
-	                return scheduleDTO;
-	            })
-	            .collect(Collectors.toList());
+	    List<ScheduleDTO> scheduleDto = new ArrayList<>();
+	    clientDtos.forEach(clientDTO -> {
+	        ScheduleDTO scheduleDTO = new ScheduleDTO(clientDTO, tripsByClientId.getOrDefault(clientDTO.getId(), Collections.emptyList()));
+
+	        scheduleDTO.getTrips().forEach(tripDTO ->
+	            tripDTO.setEvents(eventsByTripId.getOrDefault(tripDTO.getTripId(), Collections.emptyList()))
+	        );
+
+	        scheduleDto.add(scheduleDTO);
+	    });
+
+	    
+	    return scheduleDto;
 	}
 
 

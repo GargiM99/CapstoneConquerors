@@ -28,15 +28,7 @@ export class CreateClientComponent {
   clientForm = this.fb.group({
     person: this.fb.group({
       firstname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      lastname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      birthDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator ]]
-    }),
-    address: this.fb.group({
-      addressLine: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      postalCode: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-      city: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      province: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH + 100)]],
-      country: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
+      lastname: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]]
     }),
     contact: this.fb.group({
       email: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH), Validators.email]],

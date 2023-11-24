@@ -1,0 +1,46 @@
+<div class="agent-details-container">
+    <form [formGroup]="mealPriceForm" (submit)="updatePrices()" class="flex-column">
+        <h3 class="group-header">Meal Prices</h3>
+        <div class="form-group-card">
+            <div class="input-section">
+                <label>Quick Price (Children/Adult):</label>
+                <div class="flex-row">
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="qcPrice" 
+                        [class.invalid]="isInvalid('qcPrice')" placeholder="Quick Children"/>
+                    </div>
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="qaPrice" 
+                        [class.invalid]="isInvalid('qaPrice')" placeholder="Quick Adult"/>
+                    </div>
+                </div>
+                <span *ngIf="isInvalid('qcPrice') || isInvalid('qaPrice')">Invalid Prices</span>
+            </div>
+            <div class="input-section">
+                <label>Full Price (Children/Adult):</label>
+                <div class="flex-row">
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="fcPrice" 
+                        [class.invalid]="isInvalid('fcPrice')" placeholder="Full Children"/>
+                    </div>
+                    <div style="margin: 0;">
+                        <input class="short-text-input" type="text" formControlName="faPrice" 
+                        [class.invalid]="isInvalid('faPrice')" placeholder="Full Adult"/>
+                    </div>
+                </div>
+                <span *ngIf="isInvalid('fcPrice') || isInvalid('faPrice')">Invalid Prices</span>
+            </div>
+            <div class="input-section">
+                <label>Snack Price:</label>
+                <div class="flex-row">
+                    <div style="margin: 0;">
+                        <input type="text" formControlName="snackPrice" 
+                        [class.invalid]="isInvalid('snackPrice')" placeholder="Snack"/>
+                    </div>
+                </div>
+                <span *ngIf="isInvalid('snackPrice')">Invalid Price</span>
+            </div>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+</div>

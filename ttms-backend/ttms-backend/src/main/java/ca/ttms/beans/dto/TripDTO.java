@@ -33,6 +33,23 @@ public class TripDTO {
     @Builder.Default
     private List<EventDTO> events = new ArrayList<>();
     
+    public TripDTO(Map<String, Object> tripMap, List<EventDTO> events) {
+        this.clientId = (Integer) tripMap.get("clientId");
+        this.tripId = (Integer) tripMap.get("tripId");
+        this.tripName = (String) tripMap.get("tripName");
+        this.tripType = (String) tripMap.get("tripType");
+        
+        Object tripStartDateObject = tripMap.get("tripStartDate");
+        this.tripStartDate = convertToLocalDate(tripStartDateObject);
+
+        Object tripEndDateObject = tripMap.get("tripEndDate");
+        this.tripEndDate = convertToLocalDate(tripEndDateObject);
+
+//        Object eventsObject = tripMap.get("events");
+//        List<EventDTO> newEvents = (eventsObject != null) ? (List<EventDTO>) eventsObject : new ArrayList<EventDTO>();
+        this.events = events;
+    }
+    
     public TripDTO(Map<String, Object> tripMap) {
         this.clientId = (Integer) tripMap.get("clientId");
         this.tripId = (Integer) tripMap.get("tripId");
@@ -46,7 +63,8 @@ public class TripDTO {
         this.tripEndDate = convertToLocalDate(tripEndDateObject);
 
         Object eventsObject = tripMap.get("events");
-        this.events = (eventsObject != null) ? (List<EventDTO>) eventsObject : new ArrayList<EventDTO>();
+        List<EventDTO> newEvents = (eventsObject != null) ? (List<EventDTO>) eventsObject : new ArrayList<EventDTO>();
+        this.events = events;
     }
     
     private LocalDate convertToLocalDate(Object dateObject) {

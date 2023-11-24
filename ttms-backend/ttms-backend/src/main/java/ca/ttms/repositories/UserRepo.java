@@ -69,14 +69,13 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 	
 	@Query(value =
 		    """
-		    SELECT new ca.ttms.beans.dto.ClientDTO(p.id, u.username, p.firstname, p.lastname)
+		    SELECT new ca.ttms.beans.dto.ClientDTO(u.id, u.username, p.firstname, p.lastname)
 		    FROM Person p
 		    INNER JOIN User u ON p.id = u.person.id
 		    WHERE u.agentUser.id = :aid AND u.role = 'CLIENT'
 		    """)
 	List<ClientDTO> getClientForAgentsById(@Param("aid") Integer agentId);
 
-	
 	@Query(value =
 			"""
 			SELECT p.firstname AS firstname, p.lastname AS lastname,
@@ -100,12 +99,9 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			"""
 			SELECT u.id AS id, u.username AS username, u.role AS role,\s
 			c.email AS email, c.primary_phone_number AS primaryPhoneNumber, c.secondary_phone_number AS secondaryPhoneNumber,\s
-			p.firstname AS firstname, p.lastname AS lastname, p.birth_date AS birthDate,\s
-			a.address_line AS addressLine, a.postal_code AS postalCode, a.city AS city, a.province AS province, a.country AS country\s
+			p.firstname AS firstname, p.lastname AS lastname\s
 			FROM _user u JOIN person p ON u.person_id = p.id\s
 			JOIN contact c ON c.person_id = p.id\s
-			JOIN address_person ap ON ap.person_id = p.id\s
-			JOIN _address a ON ap.address_id = a.id\s
 			WHERE u.username = :un\s
 	        """)
 	List<Map<String,Object>> getUserFullInfo(@Param("un") String username);
@@ -114,12 +110,9 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 			"""
 			SELECT u.id AS id, u.username AS username, u.role AS role,\s
 			c.email AS email, c.primary_phone_number AS primaryPhoneNumber, c.secondary_phone_number AS secondaryPhoneNumber,\s
-			p.firstname AS firstname, p.lastname AS lastname, p.birth_date AS birthDate,\s
-			a.address_line AS addressLine, a.postal_code AS postalCode, a.city AS city, a.province AS province, a.country AS country\s
+			p.firstname AS firstname, p.lastname AS lastname\s
 			FROM _user u JOIN person p ON u.person_id = p.id\s
 			JOIN contact c ON c.person_id = p.id\s
-			JOIN address_person ap ON ap.person_id = p.id\s
-			JOIN _address a ON ap.address_id = a.id\s
 			WHERE u.id = :id\s
 	        """)
 	List<Map<String,Object>> getUserFullInfoById(@Param("id") Integer id);
