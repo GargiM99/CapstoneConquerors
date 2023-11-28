@@ -15,10 +15,10 @@ public interface ClientNoteRepo extends JpaRepository<ClientNote, Integer>{
 	
 	@Query(value =
 		    """
-		    SELECT new ca.ttms.beans.dto.ClientNoteDTO(cn.id, cn.noteTitle, cn.noteBody, u.id, t.id, t.tripName)
+		    SELECT new ca.ttms.beans.dto.ClientNoteDTO(cn.id, cn.noteTitle, cn.noteBody, u.id, t.id)
 		    FROM ClientNote cn
 		    INNER JOIN User u ON cn.client.id = u.id
-		    INNER JOIN Trip t ON cn.trip.id = t.id
+		    LEFT JOIN Trip t ON cn.trip.id = t.id
 		    WHERE u.id = :cid AND u.role = 'CLIENT'
 		    """)
 	List<ClientNoteDTO> getNotesForClientById(@Param("cid") Integer clientId);

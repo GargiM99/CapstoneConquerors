@@ -17,5 +17,4 @@ public class ClientNoteDTO {
 	private String noteBody;
 	private Integer clientId;
 	private Integer tripId;
-    private String tripName;
 }

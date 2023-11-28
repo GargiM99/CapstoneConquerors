@@ -23,7 +23,7 @@ public class ModifyClientNoteDetails {
     		return false;
     	if (this.noteBody == null || this.noteBody.length() < 2) 
     		return false;
-    	if (this.tripId <= 0) 
+    	if (this.tripId != null && this.tripId <= 0) 
     		return false;
     	if (this.clientId <= 0)
     		return false;

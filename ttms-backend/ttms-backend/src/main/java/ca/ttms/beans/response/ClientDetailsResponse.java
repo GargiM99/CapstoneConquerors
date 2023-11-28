@@ -64,7 +64,6 @@ public class ClientDetailsResponse {
 	                .noteBody(note.getNoteBody())
 	                .noteTitle(note.getNoteTitle())
 	                .tripId(note.getTripId())
-	                .tripName(note.getTripName())
 	                .clientId(note.getClientId())
 	                .clientUserName((String)clientDetailsMap.get("username"))
 	                .clientFirstName((String)clientDetailsMap.get("firstname"))

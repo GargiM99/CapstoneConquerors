@@ -311,3 +311,13 @@ form{
     font-size: 14px;
     box-shadow: 0 0 7px $clr-black-100;
 }
+
+.notes-card{
+    display: flex;
+    flex-direction: column;
+
+    .notes-header{
+        display: flex;
+        flex-direction: row;
+    }
+}

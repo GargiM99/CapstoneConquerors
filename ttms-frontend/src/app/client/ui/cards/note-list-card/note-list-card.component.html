@@ -1,7 +1,13 @@
 <div class="list-container">
     <div class="list-cards">
-        <div *ngFor="let note of (notes$ | async ); let i = index">
-            <note-card [note]="note"></note-card>
+        <div>
+            <note-card
+            [note]="undefined" [noteIndex]="undefined" [tripMap]="tripMap" [clientId]="clientId"
+            (noteChange)="onNoteChange($event)" (noteDelete)="onNoteDelete($event)"></note-card>
+
+            <note-card *ngFor="let note of (notes$ | async ); let i = index" 
+            [note]="note" [noteIndex]="i" [tripMap]="tripMap" [clientId]="clientId"
+            (noteChange)="onNoteChange($event)" (noteDelete)="onNoteDelete($event)"></note-card>
         </div>
     </div>
 </div>

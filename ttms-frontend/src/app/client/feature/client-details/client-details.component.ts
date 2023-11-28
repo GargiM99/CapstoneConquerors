@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { Observable, Subscription, map, mergeMap } from 'rxjs';
-import { IClientDetails, IClientNotes } from '../../data-access/types/client/client-details.interface';
+import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { Observable, Subscription, first, map, mergeMap, takeUntil } from 'rxjs';
+import { IClientDetails } from '../../data-access/types/client/client-details.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
@@ -15,11 +15,13 @@ import { TripCreateModalComponent } from '../../ui/modals/trip-create-modal/trip
 import { tripTypeSelector } from '../../data-access/redux/trip/trip-selectors';
 import { ITripType } from '../../data-access/types/trip/trip-type.interface';
 import { ITripCreateModalDetails } from '../../data-access/types/trip/create-trip-details.interface';
+import { IClientNoteChange, IClientNotes } from '../../data-access/types/client/client-note.interface';
 
 @Component({
   selector: 'client-details',
   templateUrl: './client-details.component.html',
-  styleUrls: ['./client-details.component.scss']
+  styleUrls: ['./client-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy{
   isEditEnable: boolean = false
@@ -31,9 +33,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
+  tripDetailSub!: Subscription
   clientNotes$: Observable<IClientNotes[]>
 
   tripType$: Observable<ITripType[]>
+  tripMap!: Map<number, string>
 
   clientForm = this.fb.group({
     user: this.fb.group({ 
@@ -69,6 +73,48 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     this.modalService.open(TripCreateModalComponent, this.viewContainerRef, true, modalInput)
   }
 
+  onNoteChange(changeNote: IClientNoteChange){
+    this.clientNotes$ = this.clientNotes$.pipe(
+      map((notes) => {
+        const updatedNotes = [...notes] 
+        if (!changeNote.newNote && changeNote.index !== undefined)
+          updatedNotes[changeNote.index] = changeNote.clientNote
+        else
+          updatedNotes.unshift({...changeNote.clientNote}) 
+        
+        return updatedNotes
+      })
+    )
+  }
+
+  onNoteDelete(noteIndex: number){
+    this.clientNotes$ = this.clientNotes$.pipe(
+      map((notes) => {
+        const updatedNotes = [...notes]; 
+        updatedNotes.splice(noteIndex, 1) 
+        return updatedNotes; 
+      })
+    )
+  }
+
+  saveNotes(){
+    this.clientNotes$
+    .pipe(
+      first()
+    )
+    .subscribe((notes) => {
+      this.store.dispatch(ClientAction.modifyClientNotes({
+        clientId: this.clientId,
+        clientNotes: notes
+      }))
+    }).unsubscribe()
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHandler(event: any) {
+    this.saveNotes()
+  }
+
   ngOnInit(): void {
     this.store.dispatch(ClientAction.getClientDetails({ clientId: this.clientId }))
     this.store.dispatch(TripAction.getTripType())
@@ -93,7 +139,11 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void { this.clientSub.unsubscribe() }
+  ngOnDestroy(): void { 
+    this.saveNotes()
+    this.tripDetailSub.unsubscribe()
+    this.clientSub.unsubscribe() 
+  }
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute,
     private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private modalService: ModalService){
@@ -107,5 +157,17 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
 
     this.tripDetails$ = this.clientDetails$.pipe(map((client) => client?.tripDetails));
     this.tripType$ = this.store.pipe(select(tripTypeSelector))
+
+    this.tripDetailSub = this.tripDetails$.subscribe((tripDetails) => {
+      const tripIdToNameMap = new Map<number, string>();
+
+      if (tripDetails) {
+        tripDetails.forEach((trip) => {
+          tripIdToNameMap.set(trip.id, trip.tripName);
+        });
+      }
+
+      this.tripMap = tripIdToNameMap;
+    });
   }
 }

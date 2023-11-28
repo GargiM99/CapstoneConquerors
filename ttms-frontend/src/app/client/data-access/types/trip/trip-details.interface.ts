@@ -1,6 +1,6 @@
 export interface ITripDetails{
     id : number;
-	tripName : String; 
+	tripName : string; 
 	tripStartDate : Date;
 	tripEndDate : Date;
 	status : TTripStatus;

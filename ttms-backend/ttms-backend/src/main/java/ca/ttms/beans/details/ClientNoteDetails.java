@@ -12,10 +12,8 @@ import lombok.NoArgsConstructor;
 public class ClientNoteDetails {
 	private Integer id;
 	private String noteTitle;
-	private String noteBody;
-	
+	private String noteBody;	
 	private Integer tripId;
-    private String tripName;
     
     private Integer clientId;
     private String clientFirstName;

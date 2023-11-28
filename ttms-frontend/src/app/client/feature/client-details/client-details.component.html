@@ -67,5 +67,6 @@
 
         <button *ngIf="isEditEnable" type="submit">Save</button>
     </form>
-    <note-list-card [notes$]="clientNotes$"></note-list-card>
+    <note-list-card [notes$]="clientNotes$" [tripMap]="tripMap" [clientId]="clientId"
+    (noteChange)="onNoteChange($event)" (noteDelete)="onNoteDelete($event)"></note-list-card>
 </div>

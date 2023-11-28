@@ -1,5 +1,5 @@
 <div class="details-card">
-    <button (click)="onRemove()">-</button>
+    <button (click)="onRemove()">-</button> 
     <form [formGroup]="tripTypeForm" *ngIf="canEdit">
         <input type="text" formControlName="typeName" (blur)="onChange()"/>
     </form>

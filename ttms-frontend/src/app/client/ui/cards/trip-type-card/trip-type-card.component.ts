@@ -6,11 +6,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 
 @Component({
   selector: 'trip-type-card',
-  standalone: true,
+  standalone: true, 
   imports: [CommonModule, ReactiveFormsModule, FormsModule, EventTypeCardComponent],
   templateUrl: './trip-type-card.component.html',
   styleUrls: ['./trip-type-card.component.scss']
-})
+}) 
 export class TripTypeCardComponent implements OnInit{
   @Input() tripType!: ITripType
   @Input() canEdit: boolean = false
