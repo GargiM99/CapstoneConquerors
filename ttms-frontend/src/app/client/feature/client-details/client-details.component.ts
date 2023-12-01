@@ -16,6 +16,7 @@ import { tripTypeSelector } from '../../data-access/redux/trip/trip-selectors';
 import { ITripType } from '../../data-access/types/trip/trip-type.interface';
 import { ITripCreateModalDetails } from '../../data-access/types/trip/create-trip-details.interface';
 import { IClientNoteChange, IClientNotes } from '../../data-access/types/client/client-note.interface';
+import { TokenDetailsService } from 'src/app/share/data-access/services/auth/token-details.service';
 
 @Component({
   selector: 'client-details',
@@ -25,6 +26,7 @@ import { IClientNoteChange, IClientNotes } from '../../data-access/types/client/
 })
 export class ClientDetailsComponent implements OnInit, OnDestroy{
   isEditEnable: boolean = false
+  role = this.tokenService.getRole()
   MAX_LENGTH = 70;
 
   clientId: number
@@ -33,9 +35,9 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   clientError$: Observable<Error | HttpErrorResponse | null>
   clientIsLoading$: Observable<boolean>
   clientSub!: Subscription
-  tripDetailSub!: Subscription
   clientNotes$: Observable<IClientNotes[]>
 
+  tripDetailSub!: Subscription
   tripType$: Observable<ITripType[]>
   tripMap!: Map<number, string>
 
@@ -62,10 +64,6 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   editDetails(){
     let updatedClient = <IClientDetails>this.clientForm.value
     this.store.dispatch(ClientAction.updateClient({ clientId: this.clientId, clientDetails: updatedClient }))
-  }
-
-  toggleEdit(){
-    this.isEditEnable = !this.isEditEnable
   }
 
   createTripModal(){
@@ -118,6 +116,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.store.dispatch(ClientAction.getClientDetails({ clientId: this.clientId }))
     this.store.dispatch(TripAction.getTripType())
+    this.isEditEnable = (this.role == 'ADMIN' || this.role == 'AGENT')
+    console.log(this.isEditEnable)
 
     this.clientSub = this.clientDetails$.subscribe((data) => {
       if (data) {
@@ -146,7 +146,8 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
   }
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute,
-    private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private modalService: ModalService){
+    private fb: FormBuilder, private viewContainerRef: ViewContainerRef, private modalService: ModalService,
+    private tokenService: TokenDetailsService){
       
     this.clientId = +(this.route.snapshot.paramMap.get('id') ?? 0)
 

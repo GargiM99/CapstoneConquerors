@@ -238,7 +238,7 @@ public class TestTripService {
 		String correctName = "Bob Summer";
 		String correctType = "Disney Cruise";
 		int inputTripId = 2;
-		TripDetails inputTrip = new TripDetails(inputTripId, correctName, inputDate, inputDate.minusDays(60), 
+		TripDetails inputTrip = new TripDetails(inputTripId, correctName, inputDate, inputDate.plusDays(60), 
 												correctType, TripStatus.INPROGRESS, 1);
 		
 		int inputEvnetId = 2;
@@ -343,7 +343,8 @@ public class TestTripService {
 	void Get_TripType_CheckResponseIsNotNull() {
 		//Arrange Mock
 		List<TripTypeDetails> mockTypeDetails = new ArrayList<TripTypeDetails>();
-		when(blobService.downloadJsonBlob(Mockito.anyString(), Mockito.anyString(), Mockito.any(TypeToken.class))).thenReturn(mockTypeDetails);
+		mockTypeDetails.add(new TripTypeDetails());
+		when(blobService.downloadJsonBlob(Mockito.any(), Mockito.any(), Mockito.any())).thenReturn(mockTypeDetails);
 		
 		//Act
 		List<TripTypeDetails> response = (List<TripTypeDetails>) tripService.getTripType();

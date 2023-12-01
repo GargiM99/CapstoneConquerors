@@ -82,7 +82,6 @@ export const agentDetailReducer = createReducer(
     agentId: action.agentId 
   })),
   on(AgentDetailsAction.promoteAgentSuccess, (state, action) => {
-    // Deep copy of agentDetails
     const updatedAgentDetails = JSON.parse(JSON.stringify(state.agentDetails));
   
     if (state.agentId !== null && updatedAgentDetails[state.agentId]) {
@@ -92,7 +91,7 @@ export const agentDetailReducer = createReducer(
     return {
       ...state,
       isLoading: false,
-      agentDetails: updatedAgentDetails,
+      agentDetails: updatedAgentDetails
     };
   }),  
   on(AgentDetailsAction.promoteAgentFailure, (state, action) => ({

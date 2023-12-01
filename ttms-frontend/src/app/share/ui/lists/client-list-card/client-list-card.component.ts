@@ -5,6 +5,7 @@ import { ArrowButtonComponent } from '../../arrow-button/arrow-button.component'
 import { Observable, of } from 'rxjs';
 import { IClientBasics } from 'src/app/client/data-access/types/client/client-basic.inteface';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'client-list-card',
@@ -15,6 +16,8 @@ import { Router } from '@angular/router';
 })
 export class ClientListCardComponent implements OnInit {
   @Input() clients$: Observable<IClientBasics[] | null> = of([])
+  @Input() error$?: Observable<HttpErrorResponse | Error | null> 
+  
   MAX_NUMBER_CARDS = 5
   CARD_SIZE = 300
   numberCards = this.MAX_NUMBER_CARDS
@@ -24,6 +27,7 @@ export class ClientListCardComponent implements OnInit {
   }
 
   viewAll(){ this.router.navigate(['client']) }
+  goCreateClient(){ this.router.navigate(['client/create']) }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void { this.numberCards = this.calculateCardNum() }

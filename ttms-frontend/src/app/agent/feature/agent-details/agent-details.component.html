@@ -1,8 +1,5 @@
 <div class="agent-details-container">
     <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
-        <button type="button" (click)="toggleEdit()">
-            {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
-        </button>
         <h3 class="group-header">User Info</h3>
         <div formGroupName="user" class="form-group-card">
             <div class="input-section">
@@ -12,7 +9,8 @@
             <div class="input-section">
                 <label>Role</label>
                 <input type="text" formControlName="role" [readonly]="true"/>
-                <button (click) = "promoteAgent()">Promote </button>
+                <button *ngIf="agentForm.get('user.role')!.value !== 'ADMIN' && role == 'ADMIN'"
+                (mousedown) = "promoteAgent()">Promote</button>
             </div>
         </div>
         <br>
@@ -69,6 +67,6 @@
         </div>
 
         <button *ngIf="isEditEnable" type="submit">Edit</button>
-        <button type="button" (click)="resetPassword()">Reset Password</button>
+        <button *ngIf="isEditEnable" type="button" (mousedown)="resetPassword()" >Reset Password</button>
     </form>
 </div>

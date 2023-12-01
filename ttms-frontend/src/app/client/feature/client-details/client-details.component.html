@@ -1,11 +1,7 @@
 <div class="agent-details-container">
-    <trip-list-card [trips$]="tripDetails$"></trip-list-card>
-    <button type="button" (click)="createTripModal()">Create Trip</button>
-    <form [formGroup]="clientForm" (submit)="editDetails()" class="flex-column">
-        <button type="button" (click)="toggleEdit()">
-            {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
-        </button>
-        <h3 class="group-header">User Info</h3>
+    <trip-list-card [trips$]="tripDetails$" (createTrip)="createTripModal()"></trip-list-card>
+    <form [formGroup]="clientForm" (submit)="createTripModal()" class="flex-column">
+        <h3 class="group-header">User Info</h3> 
         <div formGroupName="user" class="form-group-card">
             <div class="input-section">
                 <label>Username</label>
@@ -65,8 +61,10 @@
             </div>    
         </div>
 
-        <button *ngIf="isEditEnable" type="submit">Save</button>
+        <button *ngIf="isEditEnable" type="submit" >Save</button>
     </form>
-    <note-list-card [notes$]="clientNotes$" [tripMap]="tripMap" [clientId]="clientId"
-    (noteChange)="onNoteChange($event)" (noteDelete)="onNoteDelete($event)"></note-list-card>
+    <div style="margin-top: 2rem;">
+        <note-list-card [notes$]="clientNotes$" [tripMap]="tripMap" [clientId]="clientId"
+        (noteChange)="onNoteChange($event)" (noteDelete)="onNoteDelete($event)"></note-list-card>
+    </div>
 </div>

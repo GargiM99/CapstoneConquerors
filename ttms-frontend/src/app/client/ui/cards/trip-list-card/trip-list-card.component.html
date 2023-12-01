@@ -1,7 +1,14 @@
-<div class="list-container">
-    <div class="list-cards">
-        <div *ngFor="let trip of (trips$ | async ); let i = index">
+<div *ngIf="trips$ | async as trips; else emptyTrips">
+    <div *ngIf="trips.length > 0" class="list-cards x-scroll"> 
+        <div *ngFor="let trip of trips">
             <trip-card [trip]="trip"></trip-card>
         </div>
     </div>
 </div>
+
+<ng-template #emptyTrips>
+    <div class="empty-list">
+        <h3>No trips created yet.</h3>
+    </div>
+</ng-template>
+<button class="slimAddSymbol" style="margin: -2px 0 0 5px;" (click)="onCreateTrip()">+</button>

@@ -7,7 +7,7 @@
   margin: 0;
 }
 
-body, p, h1, h2, h3, h4, h5, h6, input, option, select, button{
+body, p, h1, h2, h3, h4, h5, h6, input, option, select, button, textarea{
     font-family: $ff-base;
     color: $clr-black;
     font-size: $fs-300;
@@ -111,6 +111,18 @@ form{
     }
 }
 
+.error-text{
+    font-size: $fs-350;
+    font-weight: $fw-bold;
+    color: $clr-alert-500;
+    margin-left: 0.8rem;
+}
+
+.disabled-button {
+    opacity: 0.5;
+    cursor: not-allowed; 
+}
+
 //For cards i.e(Agents, Clients, etc)
 .view-card{
     border: 0.05rem solid $clr-primary;
@@ -149,12 +161,13 @@ form{
 
 //For list of cards i.e(Agents, Clients, etc)
 .list-cards{
+    position: relative;
     display: flex;
     flex-direction: row;
     align-content: flex-start;
+    z-index: 75;
     gap: 1rem;
 
-    width: fit-content;
     padding: 1.5rem;
 
     border: 0.5rem solid $clr-primary;
@@ -173,6 +186,34 @@ form{
     width: fit-content;
     padding: 0.5rem 1rem 0.5rem 0.8rem;
     border-radius: $brd-200 $brd-200 0 0;
+}
+
+.empty-list{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    gap: 1rem;
+
+    width: fit-content;
+    padding: 2rem 1.5rem;
+
+    border: 0.5rem solid $clr-primary;
+    border-radius: $brd-200;
+    border-top-left-radius: 0;
+    box-shadow: 0 0 15px $clr-black-100;
+    background-color: $clr-primary-100;
+
+    h3{
+        font-size: $fs-400;
+        font-weight: $fw-medium;
+    }
+    a{
+        font-size: $fs-400;
+        font-weight: $fw-medium;
+        color: $clr-alert-500;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }
 
 .details-card{
@@ -206,7 +247,6 @@ form{
         background-color: $clr-primary-100;
     }
 }
-
 
 .remove-style{
     background-color: transparent;
@@ -269,6 +309,29 @@ form{
     cursor: pointer;
 }
 
+.slimAddSymbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 50;
+
+    width: 70px; 
+    height: 30px; 
+
+    background-color: $clr-secondary;
+    color: $clr-white; 
+    border: 0.07rem solid $clr-primary;
+    border-radius: $brd-200;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    box-shadow: 0 0 7px $clr-black-100;
+
+    font-size: $fs-600; 
+    font-weight: $fw-bold;
+    cursor: pointer;
+}
+
 .minusSymbol {
     display: flex;
     align-items: center;
@@ -312,12 +375,35 @@ form{
     box-shadow: 0 0 7px $clr-black-100;
 }
 
-.notes-card{
-    display: flex;
-    flex-direction: column;
+//Scroll Bar
+.x-scroll{
+    overflow-x: scroll;
+}
 
-    .notes-header{
-        display: flex;
-        flex-direction: row;
-    }
+.y-scroll{
+    overflow-y: scroll;
+}
+
+.y-scroll, .x-scroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+.y-scroll, .x-scroll::-webkit-scrollbar-thumb {
+    background-color: $clr-secondary; 
+    border-radius: 6px; 
+}
+
+.y-scroll, .x-scroll::-webkit-scrollbar-track {
+    margin: 0.2rem;
+    background-color: $clr-primary-100; 
+    border-radius: $brd-100;
+}
+
+.y-scroll, .x-scroll::-moz-scrollbar-thumb {
+    background-color: $clr-secondary; 
+    border-radius: 6px; 
+}
+    
+.y-scroll, .x-scroll::-moz-scrollbar-track {
+    background-color: $clr-secondary;
 }

@@ -1,9 +1,19 @@
 <div class="list-container">
     <h2 class="list-header">Clients</h2>
-    <div class="list-cards">
-        <div *ngFor="let client of (clients$ | async | slice:0:numberCards); let i = index">
-            <client-card [client]="client"></client-card>
+    <div>
+        <div *ngIf="clients$ | async as clients">
+            <div *ngIf="clients.length > 0" class="list-cards">
+                <div *ngFor="let client of clients | slice:0:numberCards">
+                    <client-card [client]="client"></client-card>
+                </div>
+                <arrow-button (click)="viewAll()"></arrow-button>
+            </div>
+            <div *ngIf="clients.length === 0" class="empty-list">
+                <h3>No client available. <a (click)="goCreateClient()">Add Client</a></h3>
+            </div> 
         </div>
-        <arrow-button (click)="viewAll()"></arrow-button>
-    </div>
+        <div *ngIf="error$ | async as error">
+            <p class="error-text">Unable to load clients!</p>
+        </div>
+    </div> 
 </div>

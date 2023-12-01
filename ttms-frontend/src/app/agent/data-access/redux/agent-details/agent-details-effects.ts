@@ -64,16 +64,16 @@ export class AgentDetailsEffect{
                 this.agentService.promoteAgent(action.agentId).pipe(
                     map((result) => {
                         if (result.isPromoted == false)
-                            return AgentDetailAction.getAgentDetailsFailure({error: new Error("Couldn't promote")})
+                            return AgentDetailAction.promoteAgentFailure({error: new Error("Couldn't promote")})
                         return AgentDetailAction.promoteAgentSuccess({role: "ADMIN"})
                     }),
                     catchError((error) => 
-                        of(AgentDetailAction.resetAgentPasswordFailure({ error: error }))
+                        of(AgentDetailAction.promoteAgentFailure({ error: error }))
                     )
                 )
             ),
             catchError((error) => 
-                of(AgentDetailAction.resetAgentPasswordFailure({ error: error }))
+                of(AgentDetailAction.promoteAgentFailure({ error: error }))
             )
         )
     )

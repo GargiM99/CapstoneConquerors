@@ -1,7 +1,7 @@
-<button (click)="onDelete()" *ngIf="this.note !== undefined">Delete</button>
-<form [formGroup]="noteForm">
+<form [formGroup]="noteForm" class="note-card">
+    <button (click)="onDelete()" *ngIf="this.note !== undefined" class="deleteButton">x</button>
     <input type="hidden" formControlName="clientId">
-    <div class="notes-card">
+    <div class="note-inner">
         <div class="notes-header">
             <input type="text" formControlName="noteTitle" (blur)="onChange()" placeholder="Title"/>
             <select formControlName="tripId" (change)="onChange()">
@@ -9,9 +9,7 @@
                 <option *ngFor="let entry of tripMap.entries();trackBy: trackByFn" [value]="entry[0]">{{ entry[1] }}</option>
             </select>              
         </div>
-        <div class="notes-body">
-            <input type="text" formControlName="noteBody" (blur)="onChange()"/>
-        </div>
+        <textarea type="" formControlName="noteBody" (blur)="onChange()" placeholder="Note Body"></textarea>
     </div>
 </form>
 

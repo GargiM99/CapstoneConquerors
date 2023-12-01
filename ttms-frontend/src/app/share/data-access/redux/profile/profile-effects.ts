@@ -66,6 +66,23 @@ export class ProfileEffect{
         )
     )
 
+    updatePassword$= createEffect(() =>
+        this.actions$.pipe(
+            ofType(ProfileAction.updatePassword),
+            mergeMap((action) =>
+                this.profileService.updatePassword(action.authDetails).pipe(
+                    map((authDetails) => ProfileAction.updatePasswordSuccess({ authDetails })),
+                    catchError((error) =>
+                        of(ProfileAction.updatePasswordFailure({ error: error.message }))
+                    )
+                )
+            ),
+            catchError((error) =>
+                of(ProfileAction.updatePasswordFailure({ error: error.message }))
+            )
+        )
+    )
+
     constructor(
         private actions$: Actions,
         private profileService: ProfileService,

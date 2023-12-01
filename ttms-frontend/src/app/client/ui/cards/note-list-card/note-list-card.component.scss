@@ -1,0 +1,47 @@
+@import '../../../../../variables';
+
+.notes-header{
+    font-size: $fs-400;
+    font-weight: $fw-medium;
+    background-color: $clr-primary-300;
+    color: $clr-white;
+
+    width: fit-content;
+    padding: 0.3rem 0.5rem;
+    border-radius: $brd-200 $brd-200 0 0;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: scroll;
+    max-height: 30rem;
+    width: fit-content;
+    box-shadow: 0 0 15px $clr-black-100;
+  
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: $clr-secondary; 
+      border-radius: 6px; 
+    }
+  
+    &::-webkit-scrollbar-track {
+      margin: 0.2rem;
+      background-color: $clr-primary-100; 
+      border-radius: $brd-100;
+    }
+
+    &::-moz-scrollbar-thumb {
+        background-color: $clr-secondary; 
+        border-radius: 6px; 
+    }
+      
+    &::-moz-scrollbar-track {
+        background-color: $clr-secondary; 
+    }
+  }
+  

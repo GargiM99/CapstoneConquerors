@@ -31,7 +31,7 @@ export class TripCreateModalComponent implements IModal, OnInit{
   tripForm = this.fb.group({
     clientId: [0],
     tripName: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-    tripEndDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator]],  
+    tripEndDate: [new Date(), [Validators.required, minDateValidator]],  
     tripType: ['']      
   })
 
@@ -43,7 +43,6 @@ export class TripCreateModalComponent implements IModal, OnInit{
   onCreate(){
     let newTrip = <ITripCreateDetails>this.tripForm.value
     newTrip.clientId = this.inputValue.clientId 
-    console.log(this.inputValue )
     this.store.dispatch(TripAction.createTrip ({ createDetails: newTrip }))
     this.isSubmitted = true
   }
@@ -58,7 +57,6 @@ export class TripCreateModalComponent implements IModal, OnInit{
 
   ngOnInit(): void {
     this.tripForm.patchValue({clientId: this.inputValue.clientId})
-    console.log(this.inputValue.tripType$)
   }
 
   constructor(private store: Store<IAppState>, private elementRef: ElementRef, 

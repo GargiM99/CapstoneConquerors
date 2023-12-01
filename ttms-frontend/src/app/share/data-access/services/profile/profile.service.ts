@@ -9,6 +9,7 @@ import { detailSelector } from '../../redux/auth/token-selectors';
 import { ITokenDetail } from '../../types/auth/token-details.interface';
 import endPoints from '../../../../../assets/data/endpoints.json'
 import { IClientSchedule } from 'src/app/share/data-access/types/calendar/client-schedule.interface';
+import { IProfileAuthDetails } from '../../types/profile/profile-auth-details.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,34 @@ export class ProfileService {
     return this.http.put<IProfileDetails>(
       endPoints.profile, 
       JSON.stringify(updateDetails), 
+      { headers: headers })
+  }
+
+  updatePassword(updateAuthDetails: IProfileAuthDetails): Observable<IProfileAuthDetails>{
+    return this.tokenDetails$.pipe(
+      mergeMap((tokenDetails) => {
+        if (updateAuthDetails == null){
+          throw new Error("Auth Details Invalid")
+        }
+        if (tokenDetails == null || tokenDetails.token == null){
+          this.router.navigate(['login'])
+          throw new Error("Session Expired")
+        }
+         
+        return this.sendUpdatePassword(updateAuthDetails, tokenDetails!.token)
+      })
+    )
+  }
+
+  sendUpdatePassword(updateAuthDetails: IProfileAuthDetails, token: string){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    })
+
+    return this.http.put<IProfileAuthDetails>(
+      `${endPoints.profile}/password/${updateAuthDetails.id}`, 
+      JSON.stringify(updateAuthDetails), 
       { headers: headers })
   }
 

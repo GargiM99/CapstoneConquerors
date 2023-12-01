@@ -1,13 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { isLoadingSelector } from 'src/app/share/data-access/redux/auth/token-selectors';
 import { detailSelector, errorSelector } from 'src/app/share/data-access/redux/profile/profile-selectors';
 import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/services/validators/dateValidator';
 import { IAppState } from 'src/app/share/data-access/types/app-state.interface';
 import { IProfileDetails } from 'src/app/share/data-access/types/profile/profile-details.interface';
 import * as ProfileAction from '../../../share/data-access/redux/profile/profile-actions'
+import { IProfileAuthDetails } from 'src/app/share/data-access/types/profile/profile-auth-details.interface';
+import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
+import { UpdatePasswordModalComponent } from '../../ui/update-password-modal/update-password-modal.component';
 
 @Component({
   selector: 'app-profile-details',
@@ -22,6 +25,19 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
   profileError$: Observable<string | null>
   profileIsLoading$: Observable<boolean>
   profileSub!: Subscription
+
+  onUpdatePassword(){    
+    this.profileDetails$
+      .pipe(take(1))
+      .subscribe((details) => {
+        const user = details?.user
+        if (user && user.id) {
+          const modalInput: IProfileAuthDetails = { id: user.id, username: user.username, password: "" };
+          this.modalService.open(UpdatePasswordModalComponent, this.viewContainerRef, true, modalInput);
+        }
+      })
+    
+  }
 
   isInvalid(groupName: string, fieldName: string): boolean {
     const control = this.agentForm.get(groupName)?.get(fieldName)
@@ -53,7 +69,8 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
     }) 
   })
   
-  constructor(private store: Store<IAppState>, private fb: FormBuilder){
+  constructor(private store: Store<IAppState>, private fb: FormBuilder,
+      private viewContainerRef: ViewContainerRef, private modalService: ModalService){
     this.profileDetails$ = this.store.pipe(select(detailSelector))
     this.profileIsLoading$ = this.store.pipe(select(isLoadingSelector))
     this.profileError$ = this.store.pipe(select(errorSelector))

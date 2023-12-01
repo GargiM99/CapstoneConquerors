@@ -12,6 +12,8 @@ import { maxDateValidator, minDateValidator } from 'src/app/share/data-access/se
 import { ModalService } from 'src/app/share/data-access/services/modal/modal.service';
 import { ResetPasswordModalComponent } from '../../ui/reset-password-modal/reset-password-modal.component';
 import { IResetPasswordModal } from '../../data-access/types/agent-modal-input.interface';
+import { TokenDetailsService } from 'src/app/share/data-access/services/auth/token-details.service';
+import { TRoles } from 'src/app/share/data-access/types/auth/token-details.interface';
 
 @Component({
   selector: 'agent-details',
@@ -20,6 +22,7 @@ import { IResetPasswordModal } from '../../data-access/types/agent-modal-input.i
 })
 export class AgentDetailsComponent implements OnInit, OnDestroy{
   isEditEnable: boolean = false
+  role: TRoles | null = null
   MAX_LENGTH = 70;
 
   agentId: number
@@ -56,11 +59,8 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
     this.modalService.open(ResetPasswordModalComponent, this.viewContainerRef, true, resetComplete$)
   }
 
-  toggleEdit(){
-    this.isEditEnable = !this.isEditEnable
-  }
-
   editProfile(){
+    console.log("test")
     let updatedAgent = <IAgentDetails>this.agentForm.value
     this.store.dispatch(AgentDetailAction.updateAgentDetails({ agentId: this.agentId, agentDetails: updatedAgent }))
   }
@@ -76,6 +76,9 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.store.dispatch(AgentDetailAction.getAgentDetails({ agentId: this.agentId }))
+    this.role = this.tokenService.getRole()
+    this.isEditEnable = (this.role == 'ADMIN')
+    console.log(this.role)
 
     this.agentSub = this.agentDetails$.subscribe((data) => {
       if (data) {
@@ -104,7 +107,7 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
 
   constructor(private store: Store<IAppState>, private route: ActivatedRoute,
               private fb: FormBuilder, private modalService: ModalService, 
-              private viewContainerRef: ViewContainerRef){
+              private viewContainerRef: ViewContainerRef, private tokenService: TokenDetailsService){
                 
     this.agentId = +(this.route.snapshot.paramMap.get('id') ?? 0)
 

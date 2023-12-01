@@ -4,6 +4,7 @@ import { Observable, catchError, delay, map, of } from 'rxjs';
 import { ITokenDecoded, ITokenDetail } from '../../types/auth/token-details.interface';
 import jwt_decode from 'jwt-decode'
 import { AuthenticateService } from './authenticate.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +55,24 @@ export class TokenDetailsService {
       localStorage.removeItem("jwtoken")
       return null
     }
-
   } 
 
-  constructor(private auth: AuthenticateService) { }
+  getRole(){
+    const jwtoken = localStorage.getItem("jwtoken") ?? null
+
+    if (jwtoken != null){
+      const decodedToken = this.decodeToken(jwtoken)
+
+      if (decodedToken == null){
+        this.route.navigate(["/login"])
+        return null
+      }
+      
+      return decodedToken.role
+    }
+    this.route.navigate(["/login"])
+    return null
+  }
+
+  constructor(private auth: AuthenticateService, private route: Router) { }
 }

@@ -23,6 +23,10 @@ export const idSelector = createSelector(
     selectFeature,
     (state) => state.profileId
 )
+export const authSelector = createSelector(
+    selectFeature,
+    (state) => state.profileAuthDetails
+)
 export const errorSelector = createSelector(
     selectFeature,
     (state) => state.error

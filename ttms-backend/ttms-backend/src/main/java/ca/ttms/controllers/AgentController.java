@@ -39,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * REST controller for the agent 
  * doesam, 5lmjNhGXBw5v
+ * atchar1, Q8ns2eculflF
  * @author Hamza
  * date: 2023/03/07 
  */
@@ -64,7 +65,7 @@ public class AgentController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
-		if (role == null || !role.equals("ADMIN"))
+		if (role == null || !(role.equals("ADMIN") || (role.equals("AGENT"))))
 			return ResponseEntity.status(401).headers(headers).body(null);
 		
 		UserFullDetails details = service.getAgentDetails(id);

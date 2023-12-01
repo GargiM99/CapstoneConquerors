@@ -4,8 +4,8 @@
     </div>
     <div class="modal-body-section">
         <h3>Create a trip and enter details!</h3>
-        <form [formGroup]="tripForm" (ngSubmit)="onCreate()" class="flex-column">
-            <div class="flex-column">
+        <form [formGroup]="tripForm" class="modal-user-detail">
+            <div class="flex-column" style="gap: 0.2rem;">
                 <div style="margin: 0;">
                     <input class="short-text-input" type="text" formControlName="tripName" 
                     [class.invalid]="isInvalid('tripName')" placeholder="Trip name"/>
@@ -20,9 +20,13 @@
                         [value]="tripType.typeName">{{ tripType.typeName }}</option>
                     </select>  
                 </div>
-            </div>
-            <span *ngIf="isInvalid('tripName') || isInvalid('tripEndDate')">Invalid Information</span>
-            <button (click)="onCreate()">Submit</button>
+                <span *ngIf="isInvalid('tripName') || isInvalid('tripEndDate')">Invalid Information</span>
+            </div> 
+            <button (click)="onCreate()"[disabled]="tripForm.invalid || tripForm.pristine"
+            type="button" [ngClass]="{ 'disabled-button': tripForm.invalid || tripForm.pristine }">
+            Submit
+            </button>
+
         </form>
         <div *ngIf="isSubmitted">
             <div *ngIf="tripDetails$ | async as details">
