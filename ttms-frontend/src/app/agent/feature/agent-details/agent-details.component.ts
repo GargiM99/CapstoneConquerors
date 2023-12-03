@@ -78,7 +78,6 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
     this.store.dispatch(AgentDetailAction.getAgentDetails({ agentId: this.agentId }))
     this.role = this.tokenService.getRole()
     this.isEditEnable = (this.role == 'ADMIN')
-    console.log(this.role)
 
     this.agentSub = this.agentDetails$.subscribe((data) => {
       if (data) {

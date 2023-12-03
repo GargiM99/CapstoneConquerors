@@ -22,7 +22,7 @@
                 </div>
                 <span *ngIf="isInvalid('tripName') || isInvalid('tripEndDate')">Invalid Information</span>
             </div> 
-            <button (click)="onCreate()"[disabled]="tripForm.invalid || tripForm.pristine"
+            <button (click)="onCreate()" [disabled]="tripForm.invalid || tripForm.pristine"
             type="button" [ngClass]="{ 'disabled-button': tripForm.invalid || tripForm.pristine }">
             Submit
             </button>

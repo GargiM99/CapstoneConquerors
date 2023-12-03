@@ -1,6 +1,6 @@
 <div class="agent-details-container">
     <trip-list-card [trips$]="tripDetails$" (createTrip)="createTripModal()"></trip-list-card>
-    <form [formGroup]="clientForm" (submit)="createTripModal()" class="flex-column">
+    <form [formGroup]="clientForm" (submit)="editDetails()" class="flex-column">
         <h3 class="group-header">User Info</h3> 
         <div formGroupName="user" class="form-group-card">
             <div class="input-section">
@@ -61,7 +61,9 @@
             </div>    
         </div>
 
-        <button *ngIf="isEditEnable" type="submit" >Save</button>
+        
+        <button *ngIf="isEditEnable && !clientForm.pristine" type="submit" [disabled]="clientForm.invalid || clientForm.pristine"
+        type="submit" [ngClass]="{ 'disabled-button': clientForm.invalid }">Save</button>
     </form>
     <div style="margin-top: 2rem;">
         <note-list-card [notes$]="clientNotes$" [tripMap]="tripMap" [clientId]="clientId"

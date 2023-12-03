@@ -19,7 +19,6 @@ import { ITripDetails } from '../../data-access/types/trip/trip-details.interfac
   styleUrls: ['./trip-details.component.scss']
 })
 export class TripDetailsComponent implements OnInit, OnDestroy{
-  isEditEnable: boolean = false
   MAX_LENGTH = 70;
 
   tripId: number
@@ -34,15 +33,11 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
     clientId: [1],
     id: [0],
     tripName: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-    tripStartDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator]],
-    tripEndDate: [new Date(), [Validators.required, minDateValidator, maxDateValidator]],
-    tripType: ['', [Validators.required]],
-    status: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]]        
+    tripStartDate: [new Date(), [Validators.required]],
+    tripEndDate: [new Date(), [Validators.required]],
+    tripType: [''],
+    status: ['', [Validators.required]]        
   })
-
-  toggleEdit(){
-    this.isEditEnable = !this.isEditEnable
-  }
 
   isInvalid(groupName: string, fieldName: string): boolean {
     const control = this.tripForm.get(groupName)?.get(fieldName)
@@ -77,7 +72,6 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
         eventDetails: eventDetails ?? []
       }
       this.store.dispatch(TripAction.updateTrip({ tripDetails: updatedTrip }));
-      this.isEditEnable = false
     });
   }
 

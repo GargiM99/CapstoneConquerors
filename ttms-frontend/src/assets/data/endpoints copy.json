@@ -1,8 +1,0 @@
-{
-    "server": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api",
-    "authenticate": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api/auth/authenticate",
-    "profile": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile",
-    "agent": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api/agent",
-    "client": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api/client",
-    "trip": "https://ttms-backend-s5.icysand-a5394cb1.eastus.azurecontainerapps.io/api/trip"
-} 

@@ -1,7 +1,4 @@
 <div class="agent-details-container">
-    <button type="button" (click)="toggleEdit()">
-        {{ isEditEnable ? 'Disable Edit' : 'Enable Edit' }}
-    </button>
     <button type="button" (click)="printSchedule()">Print Schedule</button>
     <event-list-card [events$]="eventDetails$"></event-list-card>
     <form [formGroup]="tripForm" class="flex-column" (submit)="updateTrip()">
@@ -9,22 +6,27 @@
         <div class="form-group-card">
             <div class="input-section">
                 <label>Trip Name</label>
-                <input type="text" formControlName="tripName" [readonly]="!isEditEnable"/>
+                <input type="text" formControlName="tripName"/>
             </div>
             <div class="input-section">
                 <label>Trip Start Date</label>
-                <input type="date" formControlName="tripStartDate" [readonly]="!isEditEnable"/>
+                <input type="date" formControlName="tripStartDate"/>
             </div>
             <div class="input-section">
                 <label>Trip End Date</label>
-                <input type="date" formControlName="tripEndDate" [readonly]="!isEditEnable"/>
+                <input type="date" formControlName="tripEndDate"/>
             </div>
             <div class="input-section">
                 <label>Status</label>
-                <input type="text" [value]="tripForm.get('status')?.value" 
-                formControlName="Status" [readonly]="!isEditEnable"/>
+                <select type="text" [value]="tripForm.get('status')?.value" formControlName="status">
+                    <option value="INPROGRESS">In progress</option>
+                    <option value="COMPLETE">Complete</option>
+                    <option value="INCOMPLETE">In complete</option>
+                </select>
             </div>
         </div>
-        <button *ngIf="isEditEnable" type="submit">Save</button>
+        <button *ngIf="!tripForm.pristine" type="submit"
+        [disabled]="tripForm.invalid || tripForm.pristine" 
+        [ngClass]="{ 'disabled-button': tripForm.invalid }">Save</button>
     </form>
 </div>

@@ -1,9 +1,9 @@
 {
-    "server": "http://localhost:8080/api",
-    "authenticate": "http://localhost:8080/api/auth/authenticate",
-    "profile": "http://localhost:8080/api/profile",
-    "agent": "http://localhost:8080/api/agent",
-    "client": "http://localhost:8080/api/client",
-    "trip": "http://localhost:8080/api/trip",
-    "meal": "http://localhost:8080/api/meals"
+    "server": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api",
+    "authenticate": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/auth/authenticate",
+    "profile": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile",
+    "agent": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/agent",
+    "client": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/client",
+    "trip": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/trip",
+    "meal": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/meals"
 } 

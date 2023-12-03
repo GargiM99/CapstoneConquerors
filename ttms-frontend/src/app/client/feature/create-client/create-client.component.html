@@ -47,6 +47,7 @@
             </div>    
         </div>
 
-        <button type="submit">Add</button>
+        <button [disabled]="clientForm.invalid || clientForm.pristine"
+        type="submit" [ngClass]="{ 'disabled-button': clientForm.invalid }">Add</button>
     </form>
 </div>
