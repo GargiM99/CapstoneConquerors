@@ -54,7 +54,7 @@ export class ProfileEffect{
             ofType(ProfileAction.updateProfileDetails),
             mergeMap((action) =>
                 this.profileService.updateProfile(action.profileDetails).pipe(
-                    map((profileDetails) => ProfileAction.updateProfileDetailsSuccess({ profileDetails })),
+                    map(() => ProfileAction.updateProfileDetailsSuccess()),
                     catchError((error) =>
                         of(ProfileAction.getProfileDetailsFailure({ error: error.message }))
                     )

@@ -1,6 +1,5 @@
 <div class="agent-details-container">
     <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
-        <button type="button" (click)="enableEdit()">Enable Edit</button>
         <h3 class="group-header">User Info</h3>
         <div formGroupName="user" class="form-group-card">
             <div class="input-section">
@@ -21,13 +20,11 @@
                 <div class="flex-row">
                     <div style="margin: 0;">
                         <input class="short-text-input" type="text" formControlName="firstname" 
-                        [class.invalid]="isInvalid('person','firstname')" placeholder="First name"
-                        [readonly]="!isEditEnable"/>
+                        [class.invalid]="isInvalid('person','firstname')" placeholder="First name"/>
                     </div>
                     <div style="margin: 0;">
                         <input class="short-text-input" type="text" formControlName="lastname" 
-                        [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"
-                        [readonly]="!isEditEnable"/>
+                        [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"/>
                     </div>
                 </div>
                 <span *ngIf="isInvalid('person','lastname') || isInvalid('person','firstname')">Invalid Name</span>
@@ -40,8 +37,7 @@
             <div class="input-section">
                 <label>Email</label>
                 <input type="email" formControlName="email" 
-                [class.invalid]="isInvalid('contact','email')" placeholder="Email"
-                [readonly]="!isEditEnable"/>
+                [class.invalid]="isInvalid('contact','email')" placeholder="Email"/>
                 <span *ngIf="isInvalid('contact','email')">Invalid Email</span>
             </div>
 
@@ -50,22 +46,23 @@
                 <div class="flex-row"> 
                     <div style="margin: 0;">
                         <input class="short-text-input" type="text" formControlName="primaryPhoneNumber" 
-                        [class.invalid]="isInvalid('contact','primaryPhoneNumber')" placeholder="Primary"
-                        [readonly]="!isEditEnable"/>
+                        [class.invalid]="isInvalid('contact','primaryPhoneNumber')" placeholder="Primary"/>
                         <span *ngIf="isInvalid('contact','primaryPhoneNumber')">Invalid Phone</span>
                     </div>
 
                     <div style="margin: 0;">
                         <input class="short-text-input" type="text" formControlName="secondaryPhoneNumber" 
-                        [class.invalid]="isInvalid('contact','secondaryPhoneNumber')" placeholder="Secondary"
-                        [readonly]="!isEditEnable"/>
+                        [class.invalid]="isInvalid('contact','secondaryPhoneNumber')" placeholder="Secondary"/>
                         <span *ngIf="isInvalid('contact','secondaryPhoneNumber')">Invalid Phone</span>
                     </div>
                 </div>
             </div>    
         </div>
-
-        <button *ngIf="isEditEnable" type="submit">Edit</button>
+        <div class="flex-row" style="gap: 0.4rem; margin-top: 0.5rem;">
+            <button type="submit" *ngIf="!agentForm.pristine"
+            [disabled]="agentForm.invalid || agentForm.pristine" 
+            [ngClass]="{ 'disabled-button': agentForm.invalid }">Save</button>
+            <button (mousedown)="onUpdatePassword()">Update Password</button>
+        </div>
     </form>
-    <button (click)="onUpdatePassword()">Update Password</button>
 </div>

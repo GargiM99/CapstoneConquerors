@@ -49,8 +49,10 @@ export class TripDetailsComponent implements OnInit, OnDestroy{
 
     this.tripSub = this.tripDetails$.subscribe((data) => {
       if (data) {
+        this.tripForm.reset()
         this.tripForm.patchValue({
           id: this.tripId,
+          clientId: data.tripDetails.clientId,
           tripName: data.tripDetails.tripName.toString(),
           tripStartDate: data.tripDetails.tripStartDate,
           tripEndDate: data.tripDetails.tripEndDate,

@@ -1,6 +1,5 @@
 <div class="agent-details-container">
-    <button type="button" (click)="printSchedule()">Print Schedule</button>
-    <event-list-card [events$]="eventDetails$"></event-list-card>
+    <event-list-card [events$]="eventDetails$" (printTrip)="printSchedule()"></event-list-card>
     <form [formGroup]="tripForm" class="flex-column" (submit)="updateTrip()">
         <h3 class="group-header">Trip Details</h3>
         <div class="form-group-card">

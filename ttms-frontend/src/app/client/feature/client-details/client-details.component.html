@@ -60,9 +60,9 @@
                 </div>
             </div>    
         </div>
-
-        
-        <button *ngIf="isEditEnable && !clientForm.pristine" type="submit" [disabled]="clientForm.invalid || clientForm.pristine"
+ 
+        <button *ngIf="isEditEnable && !clientForm.pristine" type="submit" 
+        [disabled]="clientForm.invalid || clientForm.pristine"
         type="submit" [ngClass]="{ 'disabled-button': clientForm.invalid }">Save</button>
     </form>
     <div style="margin-top: 2rem;">

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { IEventDetails } from '../../../data-access/types/trip/event-details.interface';
@@ -13,4 +13,7 @@ import { EventCardComponent } from 'src/app/share/ui/cards/event-card/event-card
 })
 export class EventListCardComponent {
   @Input() events$: Observable<IEventDetails[] | undefined> = of([])
+  @Output() printTrip = new EventEmitter<void>()
+
+  onPrintTrip(){ this.printTrip.emit() }
 }

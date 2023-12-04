@@ -37,8 +37,7 @@ export const profileReducers = createReducer(
     })),
     on(ProfileAction.updateProfileDetailsSuccess, (state, action) => ({
         ...state,
-        isLoading: false,
-        profileDetail: action.profileDetails
+        isLoading: false
     })),
     on(ProfileAction.updateProfileDetailsFailure, (state, action) => ({
         ...state,

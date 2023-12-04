@@ -60,7 +60,6 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
   }
 
   editProfile(){
-    console.log("test")
     let updatedAgent = <IAgentDetails>this.agentForm.value
     this.store.dispatch(AgentDetailAction.updateAgentDetails({ agentId: this.agentId, agentDetails: updatedAgent }))
   }
@@ -81,6 +80,7 @@ export class AgentDetailsComponent implements OnInit, OnDestroy{
 
     this.agentSub = this.agentDetails$.subscribe((data) => {
       if (data) {
+        this.agentForm.reset()
         this.agentForm.patchValue({
           user:{
             username: data.user.username,

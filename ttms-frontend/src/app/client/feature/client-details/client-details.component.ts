@@ -121,6 +121,7 @@ export class ClientDetailsComponent implements OnInit, OnDestroy{
 
     this.clientSub = this.clientDetails$.subscribe((data) => {
       if (data) {
+        this.clientForm.reset()
         this.clientForm.patchValue({
           user:{
             username: data.user.username,
