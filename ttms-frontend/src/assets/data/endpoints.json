@@ -1,9 +1,9 @@
 {
-    "server": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api",
-    "authenticate": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/auth/authenticate",
-    "profile": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile",
-    "agent": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/agent",
-    "client": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/client",
-    "trip": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/trip",
-    "meal": "https://ttms-final.icysand-a5394cb1.eastus.azurecontainerapps.io/meals"
+    "server": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api",
+    "authenticate": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/auth/authenticate",
+    "profile": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/profile",
+    "agent": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/agent",
+    "client": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/client",
+    "trip": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/trip",
+    "meal": "https://ttms-backend-final.icysand-a5394cb1.eastus.azurecontainerapps.io/api/meals"
 } 

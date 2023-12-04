@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TAgentSearch } from '../../data-access/types/agent-search.type';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./agent-utility-bar.component.scss']
 })
 export class AgentUtilityBarComponent {
+  @Input() canAdd: boolean = false
+
   @Output() searchValueChange = new EventEmitter<string>()
   @Output() fieldChoiceChange = new EventEmitter<TAgentSearch>()
   searchValue = ''

@@ -1,7 +1,7 @@
 <div class="agent-view-container">
     <div class="agent-view-header">
         <h2 class="list-header">Agents</h2>
-        <agent-utility-bar 
+        <agent-utility-bar [canAdd]="canAdd"
             (searchValueChange)="handleSearch($event)" 
             (fieldChoiceChange)="handleFieldChange($event)">
         </agent-utility-bar>

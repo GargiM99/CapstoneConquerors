@@ -74,5 +74,9 @@ export class TokenDetailsService {
     return null
   }
 
+  removeToken(){
+    localStorage.removeItem("jwtoken")
+  }
+
   constructor(private auth: AuthenticateService, private route: Router) { }
 }

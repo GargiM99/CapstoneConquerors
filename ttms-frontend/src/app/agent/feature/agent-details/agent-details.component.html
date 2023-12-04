@@ -8,9 +8,11 @@
             </div>
             <div class="input-section">
                 <label>Role</label>
-                <input type="text" formControlName="role" [readonly]="true"/>
-                <button *ngIf="agentForm.get('user.role')!.value !== 'ADMIN' && role == 'ADMIN'"
-                (mousedown) = "promoteAgent()">Promote</button>
+                <div>
+                    <input type="text" formControlName="role" [readonly]="true"/>
+                    <button *ngIf="agentForm.get('user.role')!.value !== 'ADMIN' && role == 'ADMIN'"
+                    (mousedown) = "promoteAgent()" style="margin-left: 0.2rem;">Promote</button>
+                </div>
             </div>
         </div>
         <br>

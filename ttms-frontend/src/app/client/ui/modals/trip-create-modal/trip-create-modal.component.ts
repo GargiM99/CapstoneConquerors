@@ -31,7 +31,7 @@ export class TripCreateModalComponent implements IModal, OnInit{
   tripForm = this.fb.group({
     clientId: [0],
     tripName: ['', [Validators.required, Validators.maxLength(this.MAX_LENGTH)]],
-    tripEndDate: [new Date(), [Validators.required, minDateValidator]],  
+    tripEndDate: [new Date(), [Validators.required]],  
     tripType: ['']      
   })
 

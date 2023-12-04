@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ICalendarEvent } from 'src/app/share/data-access/types/calendar/calender-event.interface';
 import { IClientSchedule, IEventSchedule, ITripSchedule } from 'src/app/share/data-access/types/calendar/client-schedule.interface';
 import { EventTooltipComponent } from '../event-tooltip/event-tooltip.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'agent-schedule',
@@ -25,31 +26,9 @@ export class AgentScheduleComponent implements OnInit, OnDestroy{
     eventMinHeight: 5
   };
 
-  handleEventClick(info: any): void {
-    if (info.el.parentElement && info.el.parentElement.querySelector('#toolTipContainer')) 
-      return
-
+  private handleEventClick(info: any): void {
     const eventDetail = <ICalendarEvent>info.event.extendedProps;
-    const container = document.createElement('div');
-
-    const tooltipComponent = this.viewContainerRef.createComponent(EventTooltipComponent)
-    tooltipComponent.instance.event = eventDetail;
-
-    container.appendChild(tooltipComponent.location.nativeElement)
-    container.id = "toolTipContainer"
-    document.body.appendChild(container);
-    info.el.parentElement.append(container);
-
-    const closeSubscription = tooltipComponent.instance.closeClick.subscribe(() => {
-      this.destroyToolTrip(container, closeSubscription, tooltipComponent);
-    });
-  }
-
-  private destroyToolTrip(container: HTMLElement, subscription: Subscription, 
-                          tooltipComponent: ComponentRef<EventTooltipComponent>): void {
-    subscription.unsubscribe();
-    tooltipComponent.destroy()
-    container.remove()
+    this.route.navigate([`trip/details/${eventDetail.tripId}`])
   }
 
   private getEventContent(info: any): any {
@@ -76,8 +55,7 @@ export class AgentScheduleComponent implements OnInit, OnDestroy{
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
 
-  constructor(  
-    private viewContainerRef: ViewContainerRef){}
+  constructor(private route: Router){}
 
   ngOnInit(): void {
     this.profileScheduleSub =  this.profileSchedule$.subscribe((clientSchedules) => {

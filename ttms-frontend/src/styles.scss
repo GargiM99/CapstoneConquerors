@@ -124,7 +124,7 @@ form{
 }
 
 //For cards i.e(Agents, Clients, etc)
-.view-card{
+.view-card, .view-column-card{
     border: 0.05rem solid $clr-primary;
     background-color: $clr-primary-300;
     border-radius: $brd-200;
@@ -157,6 +157,12 @@ form{
         width: 3rem;
         border-radius: 50%;
     }
+}
+
+.view-column-card{
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
 }
 
 //For list of cards i.e(Agents, Clients, etc)
