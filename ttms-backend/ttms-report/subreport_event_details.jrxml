@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreport_event_details" pageWidth="450" pageHeight="450" orientation="Landscape" columnWidth="450" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5" uuid="1928424f-515a-4597-a11e-f2ef82b4b552">
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreport_event_details" pageWidth="595" pageHeight="450" orientation="Landscape" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5" uuid="1928424f-515a-4597-a11e-f2ef82b4b552">
 	<parameter name="eventDetails" class="ca.ttms.beans.details.EventDetails"/>
 	<queryString>
 		<![CDATA[]]>
@@ -21,29 +12,22 @@
 		<band splitType="Stretch"/>
 	</background>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="128" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="450" height="125" backcolor="#8F8F8F" uuid="29c05a59-086b-430b-9e6b-e2be42277d1c"/>
+				<reportElement x="0" y="0" width="595" height="125" backcolor="#1D6D98" uuid="29c05a59-086b-430b-9e6b-e2be42277d1c"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
 			</rectangle>
 			<textField>
-				<reportElement x="10" y="8" width="190" height="30" uuid="7c310421-8c6d-4b44-8c08-2acca7327b10"/>
+				<reportElement x="120" y="10" width="460" height="30" forecolor="#FFFFFF" uuid="7c310421-8c6d-4b44-8c08-2acca7327b10"/>
 				<textElement>
 					<font size="21" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{eventName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{eventName} + ": " + $F{eventDate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="250" y="11" width="190" height="25" uuid="7dc5532e-94a0-4a8a-87b8-83060d06dad3">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="18"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{eventDate}.toString()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="20" y="50" width="410" height="60" uuid="a2566927-9ab6-45d0-af5e-226738e2ee97">
+				<reportElement x="152" y="50" width="430" height="60" forecolor="#FFFFFF" uuid="a2566927-9ab6-45d0-af5e-226738e2ee97">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 				</reportElement>
@@ -52,6 +36,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{eventDescription}]]></textFieldExpression>
 			</textField>
+			<ellipse>
+				<reportElement x="10" y="13" width="100" height="99" forecolor="#ED983C" backcolor="#ED983C" uuid="bb239ace-cb19-4d18-9466-06a845c2e844"/>
+			</ellipse>
 		</band>
 	</detail>
 </jasperReport>
