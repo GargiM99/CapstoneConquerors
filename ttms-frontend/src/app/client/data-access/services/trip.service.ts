@@ -76,7 +76,9 @@ export class TripService {
           throw new Error("Session Expired")
         }
 
-        return this.sendUpdateTripEvent(tokenDetails.token, tripDetails)
+        const response = this.sendUpdateTripEvent(tokenDetails.token, tripDetails)
+        console.log(response)
+        return response
       })
     )
   }

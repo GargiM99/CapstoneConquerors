@@ -21,8 +21,7 @@ export const updateProfileDetails = createAction(
    props<{ profileDetails: IProfileDetails }>()
 )
 export const updateProfileDetailsSuccess = createAction(
-   '[ProfileDetail] Update Profile Details Success',
-   props<{ profileDetails: IProfileDetails }>()
+   '[ProfileDetail] Update Profile Details Success'
 )
 export const updateProfileDetailsFailure = createAction(
   '[ProfileDetail] Update Profile Details Failure',

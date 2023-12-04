@@ -68,9 +68,11 @@
             </div>    
         </div>
 
-        <button *ngIf="!agentForm.pristine" type="submit"
-        [disabled]="agentForm.invalid || agentForm.pristine" 
-        [ngClass]="{ 'disabled-button': agentForm.invalid }">Save</button>
-        <button *ngIf="isEditEnable" type="button" (mousedown)="resetPassword()" >Reset Password</button>
+        <div class="flex-row" style="gap: 0.4rem; margin-top: 0.5rem;">
+            <button *ngIf="!agentForm.pristine" type="submit"
+            [disabled]="agentForm.invalid || agentForm.pristine" 
+            [ngClass]="{ 'disabled-button': agentForm.invalid }">Save</button>
+            <button *ngIf="isEditEnable" type="button" (mousedown)="resetPassword()" >Reset Password</button>
+        </div>
     </form>
 </div>

@@ -18,7 +18,6 @@ import { UpdatePasswordModalComponent } from '../../ui/update-password-modal/upd
   styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit, OnDestroy{
-  isEditEnable: boolean = false
   MAX_LENGTH = 70;
 
   profileDetails$: Observable<IProfileDetails | null>
@@ -44,12 +43,9 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
     return control ? control.invalid && (control.dirty || control.touched) : true
   }
 
-  enableEdit(){
-    this.isEditEnable = true
-  }
-
   editProfile(){
     let updatedProfile = <IProfileDetails>this.agentForm.value
+    this.agentForm.reset()
     this.store.dispatch(ProfileAction.updateProfileDetails({ profileDetails: updatedProfile }))
   }
 
@@ -82,6 +78,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.profileSub = this.profileDetails$.subscribe((data) => {
       if (data) {
+        console.log(data)
         this.agentForm.patchValue({
           user:{
             username: data.user ? data.user.username : null,
