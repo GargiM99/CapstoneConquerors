@@ -6,10 +6,11 @@
     border-left: 0;
     border-right: 0;
     padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
 
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: clamp(1rem, 20vw, 20rem) 1fr 1fr 5fr;
+    justify-content: space-between;
 
     .nav-item{
         border-radius: $brd-100;
@@ -21,11 +22,34 @@
 
         display: flex;
         align-items: center;
+        flex-direction: row;
         gap: 0.3rem;
 
         h3{
             font-size: $fs-400;
             color: $clr-white;
+        }
+    }
+
+    .nav-options{
+        position: absolute;
+        z-index: 50;
+        border-radius: $brd-100;
+        box-shadow: 0 0 3px $clr-black-100;
+        width: fit-content;
+        border: 0.2rem solid $clr-primary-300;
+        background-color: $clr-tertiary;
+
+        .nav-option-card{
+            padding: 0.4rem;
+            border: 0.2rem solid $clr-primary-300;
+            background-color: $clr-white-100;
+            margin: 0;
+
+            h3{
+                font-size: $fs-350;
+                color: $clr-white;
+            }
         }
     }
 

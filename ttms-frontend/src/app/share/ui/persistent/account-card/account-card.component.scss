@@ -26,3 +26,25 @@
         color: $clr-white;
     }
 }
+
+.nav-options{
+    position: absolute;
+    z-index: 50;
+    border-radius: $brd-100;
+    box-shadow: 0 0 3px $clr-black-100;
+    width: fit-content;
+    border: 0.2rem solid $clr-primary-300;
+    background-color: $clr-tertiary;
+
+    .nav-option-card{
+        padding: 0.4rem;
+        border: 0.2rem solid $clr-primary-300;
+        background-color: $clr-white-100;
+        margin: 0;
+
+        h3{
+            font-size: $fs-350;
+            color: $clr-white;
+        }
+    }
+}

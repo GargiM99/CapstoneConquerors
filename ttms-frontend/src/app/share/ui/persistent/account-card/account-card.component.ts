@@ -9,6 +9,17 @@ import { TokenDetailsService } from 'src/app/share/data-access/services/auth/tok
 })
 export class AccountCardComponent {
   @Input() username: string | null = 'username'
+  clickedAccount = false
+  accountOptions = ["View Profile", "Logout"]
+
+  handleAccountDropdownChange(selectedPage: string){
+    if (selectedPage == 'Logout'){
+      this.onLogOff()
+    } else if (selectedPage == 'View Profile'){
+      this.router.navigate(['/profile']);
+    }
+    this.clickedAccount = false
+  }
 
   onLogOff(){
     this.tokenService.removeToken()

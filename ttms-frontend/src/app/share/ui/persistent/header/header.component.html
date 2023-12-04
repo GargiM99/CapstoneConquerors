@@ -1,18 +1,26 @@
 <div class="header-container">
     <img src="../../../../../assets/icons/logo.png" (click)="redirectToHome()" alt="logo">
-    <div class="nav-item">
-        <h3>Admin</h3>
-        <span class="arrow">
-            <select (change)="handleAdminDropdownChange($event)">
-                <option value="trip-type">Trip Type</option>
-                <option value="meal-price">Meal Price</option>
-            </select>
-        </span>
-
+    <div *ngIf="profile?.user?.role === 'ADMIN'">
+        <div class="nav-item" (click)="clickedAdmin = !clickedAdmin">
+            <h3>Admin</h3>
+            <span class="arrow"></span>
+        </div>
+        <div *ngIf="clickedAdmin" class="nav-options">
+            <div class="nav-option-card" *ngFor="let adminOption of adminOptions">
+                <h3 (click)="handleAdminDropdownChange(adminOption)">{{adminOption}}</h3>
+            </div>
+        </div>
     </div>
-    <div class="nav-item">
-        <h3>Clients</h3>
-        <span class="arrow"></span>
+    <div>
+        <div class="nav-item" (click)="clickedClient = !clickedClient">
+            <h3>Clients</h3>
+            <span class="arrow"></span>
+        </div>
+        <div *ngIf="clickedClient" class="nav-options">
+            <div class="nav-option-card" *ngFor="let clientOption of clientOptions">
+                <h3 (click)="handleClientDropdownChange(clientOption)">{{clientOption}}</h3>
+            </div>
+        </div>
     </div>
     <account-card [username]="(profile != null && profile.user != null) ? profile.user.username : 'name'">
     </account-card>

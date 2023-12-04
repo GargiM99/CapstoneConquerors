@@ -1,6 +1,14 @@
-<div class="account-card" [routerLink]="['/profile']">
-    <img src="https://fakeimg.pl/50/" />
-    <h3>{{username}}</h3>
-    <span class="arrow" style="margin-left: -3px;"></span>
+<div class="flex-column">
+    <div class="account-card" (click)="clickedAccount = !clickedAccount">
+        <img src="https://fakeimg.pl/50/" />
+        <h3>{{username}}</h3>
+        <span class="arrow" style="margin-left: -3px;"></span>
+    </div>
+    <div>
+        <div *ngIf="clickedAccount" class="nav-options">
+            <div class="nav-option-card" *ngFor="let accountOption of accountOptions">
+                <h3 (click)="handleAccountDropdownChange(accountOption)">{{accountOption}}</h3>
+            </div>
+        </div>
+    </div>
 </div>
-<button (click)="onLogOff()">Log Off</button>
