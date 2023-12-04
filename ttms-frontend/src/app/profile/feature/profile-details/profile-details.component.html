@@ -1,71 +1,84 @@
-<div class="agent-details-container">
-    <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
-        <button type="button" (click)="enableEdit()">Enable Edit</button>
-        <h3 class="group-header">User Info</h3>
-        <div formGroupName="user" class="form-group-card">
-            <div class="input-section">
-                <label>Username</label>
-                <input type="text" formControlName="username" [readonly]="true"/>
-            </div>
-            <div class="input-section">
-                <label>Role</label>
-                <input type="text" formControlName="role" [readonly]="true"/>
-            </div>
-        </div>
-        <br>
+<div class="profile-page">
+    <h1 class="page-header">User Profile</h1>
 
-        <h3 class="group-header">Personal Info</h3>
-        <div formGroupName="person" class="form-group-card">
-            <div class="input-section">
-                <label>Full Name</label>
-                <div class="flex-row">
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="firstname" 
-                        [class.invalid]="isInvalid('person','firstname')" placeholder="First name"
-                        [readonly]="!isEditEnable"/>
+    <div class="centered-container">
+        <div class="agent-details-container">
+            <form [formGroup]="agentForm" (submit)="editProfile()" class="flex-column">
+                <button type="button" (click)="enableEdit()" class="enable-edit-button">Enable Edit</button>
+
+                <!-- Add margin or padding here -->
+                <div class="spacer"></div>
+
+                <h3 class="group-header">User Info</h3>
+                <div formGroupName="user" class="form-group-card">
+                    <div class="input-section">
+                        <label>Username</label>
+                        <input type="text" formControlName="username" [readonly]="true" />
                     </div>
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="lastname" 
-                        [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"
-                        [readonly]="!isEditEnable"/>
+                    <div class="input-section">
+                        <label>Role</label>
+                        <input type="text" formControlName="role" [readonly]="true" />
                     </div>
                 </div>
-                <span *ngIf="isInvalid('person','lastname') || isInvalid('person','firstname')">Invalid Name</span>
-            </div>
-        </div>
-        <br>
-        
-        <h3 class="group-header">Contact Info</h3>
-        <div formGroupName="contact" class="form-group-card">
-            <div class="input-section">
-                <label>Email</label>
-                <input type="email" formControlName="email" 
-                [class.invalid]="isInvalid('contact','email')" placeholder="Email"
-                [readonly]="!isEditEnable"/>
-                <span *ngIf="isInvalid('contact','email')">Invalid Email</span>
-            </div>
+                <br>
 
-            <div class="input-section">
-                <label>Primary & Secondary Phone</label>
-                <div class="flex-row"> 
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="primaryPhoneNumber" 
-                        [class.invalid]="isInvalid('contact','primaryPhoneNumber')" placeholder="Primary"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('contact','primaryPhoneNumber')">Invalid Phone</span>
-                    </div>
-
-                    <div style="margin: 0;">
-                        <input class="short-text-input" type="text" formControlName="secondaryPhoneNumber" 
-                        [class.invalid]="isInvalid('contact','secondaryPhoneNumber')" placeholder="Secondary"
-                        [readonly]="!isEditEnable"/>
-                        <span *ngIf="isInvalid('contact','secondaryPhoneNumber')">Invalid Phone</span>
+                <h3 class="group-header">Personal Info</h3>
+                <div formGroupName="person" class="form-group-card">
+                    <div class="input-section">
+                        <label>Full Name</label>
+                        <div class="flex-row">
+                            <div style="margin: 0;">
+                                <input class="short-text-input" type="text" formControlName="firstname"
+                                    [class.invalid]="isInvalid('person','firstname')" placeholder="First name"
+                                    [readonly]="!isEditEnable" />
+                            </div>
+                            <div style="margin: 0;">
+                                <input class="short-text-input" type="text" formControlName="lastname"
+                                    [class.invalid]="isInvalid('person','lastname')" placeholder="Last name"
+                                    [readonly]="!isEditEnable" />
+                            </div>
+                        </div>
+                        <span *ngIf="isInvalid('person','lastname') || isInvalid('person','firstname')">Invalid
+                            Name</span>
                     </div>
                 </div>
-            </div>    
-        </div>
+                <br>
 
-        <button *ngIf="isEditEnable" type="submit">Edit</button>
-    </form>
-    <button (click)="onUpdatePassword()">Update Password</button>
+                <h3 class="group-header">Contact Info</h3>
+                <div formGroupName="contact" class="form-group-card">
+                    <div class="input-section">
+                        <label>Email</label>
+                        <input type="email" formControlName="email" [class.invalid]="isInvalid('contact','email')"
+                            placeholder="Email" [readonly]="!isEditEnable" />
+                        <span *ngIf="isInvalid('contact','email')">Invalid Email</span>
+                    </div>
+
+                    <div class="input-section">
+                        <label>Primary & Secondary Phone</label>
+                        <div class="flex-row">
+                            <div style="margin: 0;">
+                                <input class="short-text-input" type="text" formControlName="primaryPhoneNumber"
+                                    [class.invalid]="isInvalid('contact','primaryPhoneNumber')" placeholder="Primary"
+                                    [readonly]="!isEditEnable" />
+                                <span *ngIf="isInvalid('contact','primaryPhoneNumber')">Invalid Phone</span>
+                            </div>
+
+                            <div style="margin: 0;">
+                                <input class="short-text-input" type="text" formControlName="secondaryPhoneNumber"
+                                    [class.invalid]="isInvalid('contact','secondaryPhoneNumber')"
+                                    placeholder="Secondary" [readonly]="!isEditEnable" />
+                                <span *ngIf="isInvalid('contact','secondaryPhoneNumber')">Invalid Phone</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button *ngIf="isEditEnable" type="submit">Edit</button>
+            </form>
+
+            <div class="spacer"></div>
+
+            <button (click)="onUpdatePassword()" class="update-password-button">Update Password</button>
+        </div>
+    </div>
 </div>

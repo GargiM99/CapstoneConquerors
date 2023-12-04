@@ -1,14 +1,19 @@
 <div class="header-container">
     <img src="../../../../../assets/icons/logo.png" (click)="redirectToHome()" alt="logo">
     <div class="nav-item">
-        <h3>Agents</h3> 
-        <span class="arrow"></span>
+        <h3>Admin</h3>
+        <span class="arrow">
+            <select (change)="handleAdminDropdownChange($event)">
+                <option value="trip-type">Trip Type</option>
+                <option value="meal-price">Meal Price</option>
+            </select>
+        </span>
+
     </div>
     <div class="nav-item">
         <h3>Clients</h3>
         <span class="arrow"></span>
     </div>
-    <account-card 
-        [username]="(profile != null && profile.user != null) ? profile.user.username : 'name'">
+    <account-card [username]="(profile != null && profile.user != null) ? profile.user.username : 'name'">
     </account-card>
 </div>

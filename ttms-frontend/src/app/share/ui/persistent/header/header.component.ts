@@ -16,4 +16,19 @@ export class HeaderComponent {
   redirectToHome(){
     this.router.navigate([""])
   } 
+
+  handleAdminDropdownChange(event: any) {
+    const selectedPage = event.target.value;
+
+    // Implement logic to navigate to the selected page or perform other actions
+    console.log('Selected Page:', selectedPage);
+
+    // Example navigation based on the selected page
+    if (selectedPage === 'trip-type') {
+      this.router.navigate(['/trip/type']);
+    } else if (selectedPage === 'meal-price') {
+      this.router.navigate(['/meal']);
+    }
+  }
 }
+

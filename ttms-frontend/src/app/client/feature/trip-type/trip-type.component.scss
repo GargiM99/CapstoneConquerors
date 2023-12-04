@@ -1,0 +1,50 @@
+/* trip-type.component.scss */
+.centered-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    margin-top: 40px;
+}
+
+.trip-type-card {
+    margin-bottom: 20px;
+    /* Adjust the margin as needed between trip-type cards */
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-evenly;
+    /* Distribute space evenly between buttons */
+    //width: 100%;
+    /* Ensure the buttons take up the full width of the container */
+    margin-top: 20px;
+    /* Adjust the margin as needed between buttons and cards */
+}
+
+button {
+    margin-bottom: 10px;
+    /* Adjust the margin as needed between buttons */
+}
+
+.Save-all:hover,
+.Add-trip:hover {
+    background-color: #ed983c;
+}
+
+.page-header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    /* Text color */
+    text-transform: uppercase;
+    /* Uppercase the text */
+}
+
+.trip-type {
+    background-color: #f0f0f0;
+    /* Background color for the profile page */
+    padding: 20px;
+    /* Add some padding to the profile page container */
+}

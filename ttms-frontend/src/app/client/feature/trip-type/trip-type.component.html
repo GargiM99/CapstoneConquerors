@@ -1,7 +1,22 @@
-<div>
-    <trip-type-card *ngFor="let tripType of (tripType$ | async ); let i = index"
-    [tripType]="tripType" [canEdit]="canEdit" [tripIndex] = "i"
-    (removeTrip)="onRemoveTripType($event)" (tripTypeChange)="changeTripType($event)"></trip-type-card>
-    <button (click)="onAdd()" class="">Add Trip</button>
-    <button (click)="onSaveAll()">Save All</button>
+<div class="trip-type">
+    <h1 class="page-header">Trip Type</h1>
+
+    <div class="centered-container">
+        <div class="trip-type-container">
+
+            <div *ngFor="let tripType of (tripType$ | async); let i = index" class="trip-type-card">
+                <trip-type-card [tripType]="tripType" [canEdit]="canEdit" [tripIndex]="i"
+                    (removeTrip)="onRemoveTripType($event)" (tripTypeChange)="changeTripType($event)"></trip-type-card>
+            </div>
+
+            <!-- <trip-type-card *ngFor="let tripType of (tripType$ | async ); let i = index" [tripType]="tripType"
+        [canEdit]="canEdit" [tripIndex]="i" (removeTrip)="onRemoveTripType($event)"
+        //(tripTypeChange)="changeTripType($event)"></trip-type-card> -->
+
+            <div class="buttons-container">
+                <button (click)="onAdd()" class="Add-trip">Add Trip</button>
+                <button (click)="onSaveAll()" class="Save-all">Save All</button>
+            </div>
+        </div>
+    </div>
 </div>
